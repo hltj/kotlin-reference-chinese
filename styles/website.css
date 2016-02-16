@@ -1,0 +1,4 @@
+/* CSS for website */
+#section- hr:nth-child(1) {display: none}
+#section- p:nth-child(2)  {display: none}
+#section- h2:nth-child(3) {display: none}
