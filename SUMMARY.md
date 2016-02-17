@@ -53,3 +53,7 @@
    * [使用 Griffon](ref/using-griffon.md)
    * [使用 Gradle](ref/using-gradle.md)
    * [Kotlin 和 OSGi](ref/kotlin-osgi.md)
+* [常见问题](ref/faq0.md)
+   * [常见问题](ref/faq.md)
+   * [与Java比较](ref/comparison-to-java.md)
+   * [与Scala比较](ref/comparison-to-scala.md)
