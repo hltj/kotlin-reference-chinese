@@ -24,3 +24,7 @@
    * [对象](ref/object-declarations.md)
    * [委托](ref/delegation.md)
    * [委托属性](ref/delegated-properties.md)
+* [函数和Lambdas表达式](ref/functions-and-lambdas.md)
+   * [函数](ref/functions.md)
+   * [Lambdas表达式](ref/lambdas.md)
+   * [内联函数](ref/inline-functions.md)
