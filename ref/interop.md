@@ -1,3 +1,4 @@
 # 互操作
 
-- [Java互操作](java-interop.md)
+- [Kotlin 调用 Java](java-interop.md)
+- [Java 调用 Kotlin](java-to-kotlin-interop.md)

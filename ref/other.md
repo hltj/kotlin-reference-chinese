@@ -1,6 +1,7 @@
 # 其他
 
-- [多重声明](multi-declarations.md)
+- [解构声明](multi-declarations.md)
+- [集合](collections.md)
 - [范围](ranges.md)
 - [类型检查与转换](typecasts.md)
 - [This表达式](this-expressions.md)
