@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/using-gradle.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/using-gradle.md#translations" %}

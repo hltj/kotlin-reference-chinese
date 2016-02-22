@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/using-ant.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/using-ant.md#translations" %}

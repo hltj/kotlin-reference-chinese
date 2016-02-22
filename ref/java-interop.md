@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/java-interop.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/java-interop.md#translations" %}

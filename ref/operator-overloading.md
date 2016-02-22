@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/operator-overloading.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/operator-overloading.md#translations" %}

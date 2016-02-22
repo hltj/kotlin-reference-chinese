@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/comparison-to-scala.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/comparison-to-scala.md#translations" %}

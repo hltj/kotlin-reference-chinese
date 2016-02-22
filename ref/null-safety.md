@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/null-safety.md" %}
+{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/docs/reference/null-safety.md#translations" %}
