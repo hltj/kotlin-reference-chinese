@@ -1,0 +1,2191 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Grammar</title>
+<style type="text/css">
+
+.section-title, .page-title, .page-content h1 {
+	margin-top: 30px;
+	margin-bottom: 15px;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	line-height: 33px;
+}
+.toc {
+	margin-bottom: 30px !important;
+}
+
+ul,
+ol,
+li,
+dl,
+dd,
+menu {
+	margin: 0;
+	padding: 0;
+}
+
+.toc-item_level_1 > a {
+	font-weight: bold;
+}
+
+.toc-item_level_1, .toc-item_level_2, .toc-item_level_3 { margin-left: 2em; }
+
+a {
+	color: #497bb7;
+	text-decoration: underline;
+}
+
+.toc ul {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.toc ul > li { margin-bottom: 0; }
+
+.grammar-items-set { margin-bottom: 40px; }
+
+.grammar h1 {
+	border-bottom: 1px solid #dcdcdc;
+	padding-bottom: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin: 0;
+}
+
+p { margin: 0; }
+
+b,
+strong { font-weight: bold; }
+
+pre,
+code,
+var,
+kbd,
+samp { font-family: "Liberation Mono", Consolas, Menlo, Courier, monospace; }
+
+pre,
+code,
+var,
+kbd,
+samp {
+	font-family: monospace, serif;
+	_font-family: 'courier new', monospace;
+	font-size: 1em;
+}
+
+.grammar-item {
+	margin-bottom: 20px;
+	font-family: "Liberation Mono", Consolas, Menlo, Courier, monospace;
+}
+
+.grammar-declaration-name {
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.grammar-description { font-family: "Liberation Mono", Consolas, Menlo, Courier, monospace; }
+
+.grammar-declaration-usedby {
+	display: inline-block;
+	color: #999;
+}
+
+.grammar-string { color: #009C00; }
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+th,
+td { padding: 0; }
+</style>
+</head>
+
+<body>
+
+<article class="page-content g-9" role="main">
+	<div class="grammar">
+		<div class="grammar-items-set" data-file-name="notation.grm">
+			<div class="grammar-comment">
+				<h1 id="notation">Notation<a class="anchor" href="#notation"></a></h1>
+				<p>This section informally 
+				explains the grammar notation 
+				used below.</p>
+				<h2 id="symbols-and-naming">
+					Symbols and naming<a class="anchor" href="#symbols-and-naming"></a></h2>
+				<p><em>Terminal symbol</em> 
+				names start with an uppercase 
+				letter, e.g. <strong>SimpleName</strong>.<br />
+				<em>Nonterminal symbol</em> 
+				names start with lowercase 
+				letter, e.g. <strong>kotlinFile</strong>.<br />
+				Each <em>production</em> starts 
+				with a colon (<strong>:</strong>).<br />
+				<em>Symbol definitions</em> may 
+				have many productions and are 
+				terminated by a semicolon (<strong>;</strong>).<br />
+				Symbol definitions may be 
+				prepended with <em>attributes</em>, 
+				e.g. <code>start</code> 
+				attribute denotes a start 
+				symbol.</p>
+				<h2 id="ebnf-expressions">EBNF 
+					expressions<a class="anchor" href="#ebnf-expressions"></a></h2>
+				<p>Operator <code>|</code> 
+				denotes <em>alternative</em>.<br />
+				Operator <code>*</code> denotes
+				<em>iteration</em> (zero or 
+				more).<br />
+				Operator <code>+</code> denotes
+				<em>iteration</em> (one or 
+				more).<br />
+				Operator <code>?</code> denotes
+				<em>option</em> (zero or one).<br />
+				alpha<code>{</code>beta<code>}</code> 
+				denotes a nonempty <em>beta</em>-separated 
+				list of <em>alpha</em>’s. <br />
+				Operator ``++’’ means that no 
+				space or comment allowed between 
+				operands.</p>
+				<h1 id="semicolons">Semicolons<a class="anchor" href="#semicolons"></a></h1>
+				<p>Kotlin provides “semicolon 
+				inference”: syntactically, 
+				subsentences (e.g., statements, 
+				declarations etc) are separated 
+				by the pseudo-token
+				<a href="#SEMI">
+					SEMI</a>, which stands for 
+				“semicolon or newline”. In most 
+				cases, there’s no need for 
+				semicolons in Kotlin code.</p>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="toplevel.grm">
+			<div class="grammar-comment">
+				<h1 id="syntax">Syntax<a class="anchor" href="#syntax"></a></h1>
+				<p>Relevant pages:
+				<a href="packages.html">
+					Packages</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-annotation">
+					start</div>
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="kotlinFile">
+						kotlinFile</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#preamble">preamble</a>&nbsp;<a class="grammar-identifier-name" href="#toplevelObject">toplevelObject</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-annotation">
+					start</div>
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="script">
+						script</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#preamble">preamble</a>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="preamble">
+						preamble</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#script">script</a>, <a href="#kotlinFile">kotlinFile</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#fileAnnotations">fileAnnotations</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#packageHeader">packageHeader</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#import">import</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="fileAnnotations">
+						fileAnnotations</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#preamble">preamble</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#fileAnnotation">fileAnnotation</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="fileAnnotation">
+						fileAnnotation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#fileAnnotations">fileAnnotations</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span>&nbsp;<span class="grammar-string">&quot;file&quot;</span>&nbsp;<span class="grammar-string">&quot;:&quot;</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;[&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#annotationEntry">annotationEntry</a><span class="grammar-symbol">+</span>&nbsp;<span class="grammar-string">&quot;]&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#annotationEntry">annotationEntry</a><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="packageHeader">
+						packageHeader</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#preamble">preamble</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;package&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">}</span>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="import">
+						import</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#preamble">preamble</a>, <a href="#package">package</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;import&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;.&quot;</span>&nbsp;<span class="grammar-string">&quot;*&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;as&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="packages.html#imports">
+					Imports</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="toplevelObject">
+						toplevelObject</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#package">package</a>, <a href="#kotlinFile">kotlinFile</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#package">package</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#class">class</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#object">object</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#function">function</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#property">property</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="package">
+						package</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#toplevelObject">toplevelObject</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;package&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#import">import</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#toplevelObject">toplevelObject</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="packages.html">
+					Packages</a></p>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="class.grm">
+			<div class="grammar-comment">
+				<h2 id="classes">Classes<a class="anchor" href="#classes"></a></h2>
+				<p>See
+				<a href="classes.html">
+					Classes and Inheritance</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="class">
+						class</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>, <a href="#declaration">declaration</a>, <a href="#toplevelObject">toplevelObject</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;class&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;interface&quot;</span><span class="grammar-symbol">)</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeParameters">typeParameters</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#primaryConstructor">primaryConstructor</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<a class="grammar-identifier-name" href="#delegationSpecifier">delegationSpecifier</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">})?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeConstraints">typeConstraints</a><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#classBody">classBody</a><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#enumClassBody">enumClassBody</a><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="primaryConstructor">
+						primaryConstructor</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#class">class</a>, <a href="#object">object</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;constructor&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#functionParameter">functionParameter</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="classBody">
+						classBody</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#objectLiteral">objectLiteral</a>, <a href="#enumEntry">enumEntry</a>, <a href="#class">class</a>, <a href="#object">object</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;{&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#members">members</a>&nbsp;<span class="grammar-string">&quot;}&quot;</span><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="members">
+						members</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#enumClassBody">enumClassBody</a>, <a href="#classBody">classBody</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#memberDeclaration">memberDeclaration</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="delegationSpecifier">
+						delegationSpecifier</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#objectLiteral">objectLiteral</a>, <a href="#class">class</a>, <a href="#object">object</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#constructorInvocation">constructorInvocation</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#explicitDelegation">explicitDelegation</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="explicitDelegation">
+						explicitDelegation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#delegationSpecifier">delegationSpecifier</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a>&nbsp;<span class="grammar-string">&quot;by&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeParameters">
+						typeParameters</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#class">class</a>, <a href="#property">property</a>, <a href="#function">function</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&lt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#typeParameter">typeParameter</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;&gt;&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeParameter">
+						typeParameter</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeParameters">typeParameters</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="generics.html">
+					Generic classes</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeConstraints">
+						typeConstraints</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#class">class</a>, <a href="#property">property</a>, <a href="#function">function</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;where&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#typeConstraint">typeConstraint</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">})?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeConstraint">
+						typeConstraint</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeConstraints">typeConstraints</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="generics.html#generic-constraints">
+					Generic constraints</a></p>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="class_members.grm">
+			<div class="grammar-comment">
+				<h3 id="class-members">Class 
+					members<a class="anchor" href="#class-members"></a></h3>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="memberDeclaration">
+						memberDeclaration</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#members">members</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#companionObject">companionObject</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#object">object</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#function">function</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#property">property</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#class">class</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#typeAlias">typeAlias</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#anonymousInitializer">anonymousInitializer</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#secondaryConstructor">secondaryConstructor</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="anonymousInitializer">
+						anonymousInitializer</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;init&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="companionObject">
+						companionObject</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;companion&quot;</span>&nbsp;<span class="grammar-string">&quot;object&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="valueParameters">
+						valueParameters</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#secondaryConstructor">secondaryConstructor</a>, <a href="#function">function</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#functionParameter">functionParameter</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}?</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="functionParameter">
+						functionParameter</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#valueParameters">valueParameters</a>, <a href="#primaryConstructor">primaryConstructor</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;val&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;var&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#parameter">parameter</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;=&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="initializer">
+						initializer</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#enumEntry">enumEntry</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<a class="grammar-identifier-name" href="#constructorInvocation">constructorInvocation</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="block">
+						block</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#catchBlock">catchBlock</a>, <a href="#anonymousInitializer">anonymousInitializer</a>, <a href="#secondaryConstructor">secondaryConstructor</a>, <a href="#functionBody">functionBody</a>, <a href="#try">try</a>, <a href="#finallyBlock">finallyBlock</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#statements">statements</a>&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="function">
+						function</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>, <a href="#declaration">declaration</a>, <a href="#toplevelObject">toplevelObject</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;fun&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#typeParameters">typeParameters</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#type">type</a>&nbsp;<span class="grammar-string">&quot;.&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeParameters">typeParameters</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#valueParameters">valueParameters</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeConstraints">typeConstraints</a><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#functionBody">functionBody</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="functionBody">
+						functionBody</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#getter">getter</a>, <a href="#setter">setter</a>, <a href="#function">function</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;=&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="variableDeclarationEntry">
+						variableDeclarationEntry</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#for">for</a>, <a href="#property">property</a>, <a href="#multipleVariableDeclarations">multipleVariableDeclarations</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="multipleVariableDeclarations">
+						multipleVariableDeclarations</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#for">for</a>, <a href="#property">property</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#variableDeclarationEntry">variableDeclarationEntry</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="property">
+						property</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>, <a href="#declaration">declaration</a>, <a href="#toplevelObject">toplevelObject</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;val&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;var&quot;</span><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeParameters">typeParameters</a><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#type">type</a>&nbsp;<span class="grammar-string">&quot;.&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#multipleVariableDeclarations">multipleVariableDeclarations</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#variableDeclarationEntry">variableDeclarationEntry</a><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#typeConstraints">typeConstraints</a><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;by&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;=&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">?)?</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#getter">getter</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#setter">setter</a><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#setter">setter</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#getter">getter</a><span class="grammar-symbol">?)</span>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="properties.html">
+					Properties and Fields</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="getter">
+						getter</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#property">property</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;get&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;get&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#functionBody">functionBody</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="setter">
+						setter</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#property">property</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;set&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;set&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#parameter">parameter</a><span class="grammar-symbol">)</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#functionBody">functionBody</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="parameter">
+						parameter</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#functionType">functionType</a>, <a href="#setter">setter</a>, <a href="#functionParameter">functionParameter</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="object">
+						object</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>, <a href="#declaration">declaration</a>, <a href="#toplevelObject">toplevelObject</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;object&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<a class="grammar-identifier-name" href="#primaryConstructor">primaryConstructor</a><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#delegationSpecifier">delegationSpecifier</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">})?</span>&nbsp;<a class="grammar-identifier-name" href="#classBody">classBody</a><span class="grammar-symbol">?</span>&nbsp;<br />
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="secondaryConstructor">
+						secondaryConstructor</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#memberDeclaration">memberDeclaration</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<span class="grammar-string">&quot;constructor&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#valueParameters">valueParameters</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#constructorDelegationCall">constructorDelegationCall</a><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="constructorDelegationCall">
+						constructorDelegationCall</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#secondaryConstructor">secondaryConstructor</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;this&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#valueArguments">valueArguments</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;super&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#valueArguments">valueArguments</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="object-declarations.html">
+					Object expressions and 
+					Declarations</a></p>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="enum.grm">
+			<div class="grammar-comment">
+				<h3 id="enum-classes">Enum 
+					classes<a class="anchor" href="#enum-classes"></a></h3>
+				<p>See
+				<a href="enum-classes.html">
+					Enum classes</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="enumClassBody">
+						enumClassBody</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#class">class</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#enumEntries">enumEntries</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#members">members</a><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="enumEntries">
+						enumEntries</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#enumClassBody">enumClassBody</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#enumEntry">enumEntry</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="enumEntries0">
+						enumEntries</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#enumClassBody">enumClassBody</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#enumEntry">enumEntry</a>&nbsp;<span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="enumEntry">
+						enumEntry</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#enumEntries">enumEntries</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">((</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#initializer">initializer</a><span class="grammar-symbol">)</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#arguments">arguments</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span><span class="grammar-symbol">))?</span>&nbsp;<a class="grammar-identifier-name" href="#classBody">classBody</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="types.grm">
+			<div class="grammar-comment">
+				<h2 id="types">Types<a class="anchor" href="#types"></a></h2>
+				<p>See
+				<a href="basic-types.html">
+					Types</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="type">
+						type</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#isRHS">isRHS</a>, <a href="#simpleUserType">simpleUserType</a>, <a href="#parameter">parameter</a>, <a href="#functionType">functionType</a>, <a href="#atomicExpression">atomicExpression</a>, <a href="#getter">getter</a>, <a href="#variableDeclarationEntry">variableDeclarationEntry</a>, <a href="#property">property</a>, <a href="#typeArguments">typeArguments</a>, <a href="#typeConstraint">typeConstraint</a>, <a href="#function">function</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<a class="grammar-identifier-name" href="#typeDescriptor">typeDescriptor</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeDescriptor">
+						typeDescriptor</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#nullableType">nullableType</a>, <a href="#typeDescriptor">typeDescriptor</a>, <a href="#type">type</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#typeDescriptor">typeDescriptor</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#functionType">functionType</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#nullableType">nullableType</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;dynamic&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="nullableType">
+						nullableType</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeDescriptor">typeDescriptor</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#typeDescriptor">typeDescriptor</a>&nbsp;<span class="grammar-string">&quot;?&quot;</span><br />
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="userType">
+						userType</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeParameter">typeParameter</a>, <a href="#catchBlock">catchBlock</a>, <a href="#callableReference">callableReference</a>, <a href="#typeDescriptor">typeDescriptor</a>, <a href="#delegationSpecifier">delegationSpecifier</a>, <a href="#constructorInvocation">constructorInvocation</a>, <a href="#explicitDelegation">explicitDelegation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;package&quot;</span>&nbsp;<span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#simpleUserType">simpleUserType</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">}</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="simpleUserType">
+						simpleUserType</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#userType">userType</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;&lt;&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#optionalProjection">optionalProjection</a>&nbsp;<a class="grammar-identifier-name" href="#type">type</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;*&quot;</span><span class="grammar-symbol">){</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;&gt;&quot;</span><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="optionalProjection">
+						optionalProjection</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#simpleUserType">simpleUserType</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#varianceAnnotation">varianceAnnotation</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="functionType">
+						functionType</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeDescriptor">typeDescriptor</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#type">type</a>&nbsp;<span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#parameter">parameter</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">){</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<span class="grammar-string">&quot;-&gt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="control.grm">
+			<div class="grammar-comment">
+				<h2 id="control-structures">
+					Control structures<a class="anchor" href="#control-structures"></a></h2>
+				<p>See
+				<a href="control-flow.html">
+					Control structures</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="if">
+						if</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;if&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">?</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;else&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="try">
+						try</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;try&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a>&nbsp;<a class="grammar-identifier-name" href="#catchBlock">catchBlock</a><span class="grammar-symbol">*</span>&nbsp;<a class="grammar-identifier-name" href="#finallyBlock">finallyBlock</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="catchBlock">
+						catchBlock</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#try">try</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;catch&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="finallyBlock">
+						finallyBlock</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#try">try</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;finally&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#block">block</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="loop">
+						loop</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#for">for</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#while">while</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#doWhile">doWhile</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="for">
+						for</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#loop">loop</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;for&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#multipleVariableDeclarations">multipleVariableDeclarations</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#variableDeclarationEntry">variableDeclarationEntry</a><span class="grammar-symbol">)</span>&nbsp;<span class="grammar-string">&quot;in&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="while">
+						while</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#loop">loop</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;while&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="doWhile">
+						doWhile</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#loop">loop</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;do&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;while&quot;</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="expressions.grm">
+			<div class="grammar-comment">
+				<h2 id="expressions">Expressions<a class="anchor" href="#expressions"></a></h2>
+				<!--See [Expressions](expressions.html)--> 
+				<h3 id="precedence">Precedence<a class="anchor" href="#precedence"></a></h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Precedence</th>
+							<th>Title</th>
+							<th>Symbols</th>
+						</tr>
+					</thead>
+					<tr>
+						<td>Highest</td>
+						<td>Postfix</td>
+						<td><code>++</code>, <code>--</code>, <code>.</code>, <code>?.</code>, <code>?</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Prefix</td>
+						<td><code>-</code>, <code>+</code>, <code>++</code>, <code>--</code>, <code>!</code>, <a href="#IDENTIFIER"><code>labelDefinition@</code></a><code>@</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Type RHS</td>
+						<td><code>:</code>, <code>as</code>, <code>as?</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Multiplicative</td>
+						<td><code>*</code>, <code>/</code>, <code>%</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Additive</td>
+						<td><code>+</code>, <code>-</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Range</td>
+						<td><code>..</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Infix function</td>
+						<td><a href="#SimpleName"><code>SimpleName</code></a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Elvis</td>
+						<td><code>?:</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Named checks</td>
+						<td><code>in</code>, <code>!in</code>, <code>is</code>, <code>!is</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Comparison</td>
+						<td><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Equality</td>
+						<td><code>==</code>, <code>\!==</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Conjunction</td>
+						<td><code>&amp;&amp;</code></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Disjunction</td>
+						<td><code>||</code></td>
+					</tr>
+					<tr>
+						<td>Lowest</td>
+						<td>Assignment</td>
+						<td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td>
+					</tr>
+				</table>
+				<h3 id="rules">Rules<a class="anchor" href="#rules"></a></h3>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="expression">
+						expression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#for">for</a>, <a href="#atomicExpression">atomicExpression</a>, <a href="#longTemplate">longTemplate</a>, <a href="#whenCondition">whenCondition</a>, <a href="#functionBody">functionBody</a>, <a href="#doWhile">doWhile</a>, <a href="#property">property</a>, <a href="#script">script</a>, <a href="#explicitDelegation">explicitDelegation</a>, <a href="#jump">jump</a>, <a href="#while">while</a>, <a href="#whenEntry">whenEntry</a>, <a href="#arrayAccess">arrayAccess</a>, <a href="#statement">statement</a>, <a href="#if">if</a>, <a href="#when">when</a>, <a href="#valueArguments">valueArguments</a>, <a href="#functionParameter">functionParameter</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#disjunction">disjunction</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#assignmentOperator">assignmentOperator</a>&nbsp;<a class="grammar-identifier-name" href="#disjunction">disjunction</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="disjunction">
+						disjunction</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#expression">expression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#conjunction">conjunction</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;||&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#conjunction">conjunction</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="conjunction">
+						conjunction</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#disjunction">disjunction</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#equalityComparison">equalityComparison</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;&amp;&amp;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#equalityComparison">equalityComparison</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="equalityComparison">
+						equalityComparison</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#conjunction">conjunction</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#comparison">comparison</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#equalityOperation">equalityOperation</a>&nbsp;<a class="grammar-identifier-name" href="#comparison">comparison</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="comparison">
+						comparison</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#equalityComparison">equalityComparison</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#namedInfix">namedInfix</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#comparisonOperation">comparisonOperation</a>&nbsp;<a class="grammar-identifier-name" href="#namedInfix">namedInfix</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="namedInfix">
+						namedInfix</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#comparison">comparison</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#elvisExpression">elvisExpression</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#inOperation">inOperation</a>&nbsp;<a class="grammar-identifier-name" href="#elvisExpression">elvisExpression</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#elvisExpression">elvisExpression</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#isOperation">isOperation</a>&nbsp;<a class="grammar-identifier-name" href="#isRHS">isRHS</a><span class="grammar-symbol">)?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="elvisExpression">
+						elvisExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#namedInfix">namedInfix</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#infixFunctionCall">infixFunctionCall</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;?:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#infixFunctionCall">infixFunctionCall</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="infixFunctionCall">
+						infixFunctionCall</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#elvisExpression">elvisExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#rangeExpression">rangeExpression</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<a class="grammar-identifier-name" href="#rangeExpression">rangeExpression</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="rangeExpression">
+						rangeExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#infixFunctionCall">infixFunctionCall</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#additiveExpression">additiveExpression</a>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;..&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#additiveExpression">additiveExpression</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="additiveExpression">
+						additiveExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#rangeExpression">rangeExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#multiplicativeExpression">multiplicativeExpression</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#additiveOperation">additiveOperation</a>&nbsp;<a class="grammar-identifier-name" href="#multiplicativeExpression">multiplicativeExpression</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="multiplicativeExpression">
+						multiplicativeExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#additiveExpression">additiveExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#typeRHS">typeRHS</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#multiplicativeOperation">multiplicativeOperation</a>&nbsp;<a class="grammar-identifier-name" href="#typeRHS">typeRHS</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeRHS">
+						typeRHS</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#multiplicativeExpression">multiplicativeExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#prefixUnaryExpression">prefixUnaryExpression</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#typeOperation">typeOperation</a>&nbsp;<a class="grammar-identifier-name" href="#prefixUnaryExpression">prefixUnaryExpression</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="prefixUnaryExpression">
+						prefixUnaryExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeRHS">typeRHS</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#prefixUnaryOperation">prefixUnaryOperation</a><span class="grammar-symbol">*</span>&nbsp;<a class="grammar-identifier-name" href="#postfixUnaryExpression">postfixUnaryExpression</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="postfixUnaryExpression">
+						postfixUnaryExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#prefixUnaryExpression">prefixUnaryExpression</a>, <a href="#postfixUnaryOperation">postfixUnaryOperation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#atomicExpression">atomicExpression</a>&nbsp;<a class="grammar-identifier-name" href="#postfixUnaryOperation">postfixUnaryOperation</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#callableReference">callableReference</a>&nbsp;<a class="grammar-identifier-name" href="#postfixUnaryOperation">postfixUnaryOperation</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="callableReference">
+						callableReference</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#postfixUnaryExpression">postfixUnaryExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#userType">userType</a>&nbsp;<span class="grammar-string">&quot;?&quot;</span><span class="grammar-symbol">*)?</span>&nbsp;<span class="grammar-string">&quot;::&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<a class="grammar-identifier-name" href="#typeArguments">typeArguments</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="atomicExpression">
+						atomicExpression</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#postfixUnaryExpression">postfixUnaryExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#literalConstant">literalConstant</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#functionLiteral">functionLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;this&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#labelReference">labelReference</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;super&quot;</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;&lt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a>&nbsp;<span class="grammar-string">&quot;&gt;&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#labelReference">labelReference</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#if">if</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#when">when</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#try">try</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#objectLiteral">objectLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#jump">jump</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#loop">loop</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#FieldName">FieldName</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;package&quot;</span>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="labelReference">
+						labelReference</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>, <a href="#jump">jump</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span>&nbsp;<span class="grammar-symbol">++</span>&nbsp;<a class="grammar-identifier-name" href="#LabelName">LabelName</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="labelDefinition">
+						labelDefinition</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#prefixUnaryOperation">prefixUnaryOperation</a>, <a href="#annotatedLambda">annotatedLambda</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#LabelName">LabelName</a>&nbsp;<span class="grammar-symbol">++</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="literalConstant">
+						literalConstant</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;true&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;false&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#stringTemplate">stringTemplate</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#NoEscapeString">NoEscapeString</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#IntegerLiteral">IntegerLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#HexadecimalLiteral">HexadecimalLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#CharacterLiteral">CharacterLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#FloatLiteral">FloatLiteral</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;null&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="stringTemplate">
+						stringTemplate</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;\&quot;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#stringTemplateElement">stringTemplateElement</a><span class="grammar-symbol">*</span>&nbsp;<span class="grammar-string">&quot;\&quot;&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="stringTemplateElement">
+						stringTemplateElement</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#stringTemplate">stringTemplate</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#RegularStringPart">RegularStringPart</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#ShortTemplateEntryStart">ShortTemplateEntryStart</a>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;this&quot;</span><span class="grammar-symbol">)</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#EscapeSequence">EscapeSequence</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#longTemplate">longTemplate</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="longTemplate">
+						longTemplate</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#stringTemplateElement">stringTemplateElement</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;${&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="isRHS">
+						isRHS</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#namedInfix">namedInfix</a>, <a href="#whenCondition">whenCondition</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="declaration">
+						declaration</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#statement">statement</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#function">function</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#property">property</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#class">class</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#object">object</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="statement">
+						statement</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#statements">statements</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#declaration">declaration</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="multiplicativeOperation">
+						multiplicativeOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#multiplicativeExpression">multiplicativeExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;*&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;/&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;%&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="additiveOperation">
+						additiveOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#additiveExpression">additiveExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;+&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;-&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="inOperation">
+						inOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#namedInfix">namedInfix</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;in&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;!in&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeOperation">
+						typeOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeRHS">typeRHS</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;as&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;as?&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;:&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="isOperation">
+						isOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#namedInfix">namedInfix</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;is&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;!is&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="comparisonOperation">
+						comparisonOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#comparison">comparison</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&lt;&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&gt;&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&gt;=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&lt;=&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="equalityOperation">
+						equalityOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#equalityComparison">equalityComparison</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;!=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;==&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="assignmentOperator">
+						assignmentOperator</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#expression">expression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;=&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;+=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;-=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;*=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;/=&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;%=&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="prefixUnaryOperation">
+						prefixUnaryOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#prefixUnaryExpression">prefixUnaryExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;-&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;+&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;++&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;--&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;!&quot;</span>&nbsp;&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#labelDefinition">labelDefinition</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="postfixUnaryOperation">
+						postfixUnaryOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#postfixUnaryExpression">postfixUnaryExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;++&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;--&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;!!&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#callSuffix">callSuffix</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#arrayAccess">arrayAccess</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#memberAccessOperation">memberAccessOperation</a>&nbsp;<a class="grammar-identifier-name" href="#postfixUnaryExpression">postfixUnaryExpression</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="callSuffix">
+						callSuffix</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#constructorInvocation">constructorInvocation</a>, <a href="#postfixUnaryOperation">postfixUnaryOperation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#typeArguments">typeArguments</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#valueArguments">valueArguments</a>&nbsp;<a class="grammar-identifier-name" href="#annotatedLambda">annotatedLambda</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#typeArguments">typeArguments</a>&nbsp;<a class="grammar-identifier-name" href="#annotatedLambda">annotatedLambda</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="annotatedLambda">
+						annotatedLambda</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#callSuffix">callSuffix</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;@&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#annotationEntry">annotationEntry</a><span class="grammar-symbol">)*</span>&nbsp;<a class="grammar-identifier-name" href="#labelDefinition">labelDefinition</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#functionLiteral">functionLiteral</a><br />
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="memberAccessOperation">
+						memberAccessOperation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#postfixUnaryOperation">postfixUnaryOperation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;.&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;?.&quot;</span>&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;?&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="typeArguments">
+						typeArguments</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#callSuffix">callSuffix</a>, <a href="#callableReference">callableReference</a>, <a href="#unescapedAnnotation">unescapedAnnotation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;&lt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#type">type</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;&gt;&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="valueArguments">
+						valueArguments</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#callSuffix">callSuffix</a>, <a href="#constructorDelegationCall">constructorDelegationCall</a>, <a href="#unescapedAnnotation">unescapedAnnotation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;(&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#SimpleName">SimpleName</a>&nbsp;<span class="grammar-string">&quot;=&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-string">&quot;*&quot;</span><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;)&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="jump">
+						jump</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;throw&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;return&quot;</span>&nbsp;<span class="grammar-symbol">++</span>&nbsp;<a class="grammar-identifier-name" href="#labelReference">labelReference</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;continue&quot;</span>&nbsp;<span class="grammar-symbol">++</span>&nbsp;<a class="grammar-identifier-name" href="#labelReference">labelReference</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;break&quot;</span>&nbsp;<span class="grammar-symbol">++</span>&nbsp;<a class="grammar-identifier-name" href="#labelReference">labelReference</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="functionLiteral">
+						functionLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>, <a href="#annotatedLambda">annotatedLambda</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#statements">statements</a>&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#modifiers">modifiers</a>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">){</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;-&gt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#statements">statements</a>&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="statements">
+						statements</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#block">block</a>, <a href="#functionLiteral">functionLiteral</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">*</span>&nbsp;<a class="grammar-identifier-name" href="#statement">statement</a><span class="grammar-symbol">{</span><a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">+}</span>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="constructorInvocation">
+						constructorInvocation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#delegationSpecifier">delegationSpecifier</a>, <a href="#initializer">initializer</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#userType">userType</a>&nbsp;<a class="grammar-identifier-name" href="#callSuffix">callSuffix</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="arrayAccess">
+						arrayAccess</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#postfixUnaryOperation">postfixUnaryOperation</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;[&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;]&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="objectLiteral">
+						objectLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;object&quot;</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;:&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#delegationSpecifier">delegationSpecifier</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">})?</span>&nbsp;<a class="grammar-identifier-name" href="#classBody">classBody</a>&nbsp;<br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="when.grm">
+			<div class="grammar-comment">
+				<h4 id="pattern-matching">
+					Pattern matching</h4>
+				<p>See
+				<a href="control-flow.html#when-expression">
+					When-expression</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="when">
+						when</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;when&quot;</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;(&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<span class="grammar-string">&quot;)&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-string">&quot;{&quot;</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="grammar-identifier-name" href="#whenEntry">whenEntry</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;&nbsp;&nbsp;<span class="grammar-string">&quot;}&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="whenEntry">
+						whenEntry</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#when">when</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#whenCondition">whenCondition</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;,&quot;</span><span class="grammar-symbol">}</span>&nbsp;<span class="grammar-string">&quot;-&gt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;else&quot;</span>&nbsp;<span class="grammar-string">&quot;-&gt;&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a>&nbsp;<a class="grammar-identifier-name" href="#SEMI">SEMI</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="whenCondition">
+						whenCondition</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#whenEntry">whenEntry</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;in&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;!in&quot;</span><span class="grammar-symbol">)</span>&nbsp;<a class="grammar-identifier-name" href="#expression">expression</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><span class="grammar-string">&quot;is&quot;</span>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-string">&quot;!is&quot;</span><span class="grammar-symbol">)</span>&nbsp;<a class="grammar-identifier-name" href="#isRHS">isRHS</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="modifiers.grm">
+			<div class="grammar-comment">
+				<h2 id="modifiers">Modifiers<a class="anchor" href="#modifiers"></a></h2>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="modifiers0">
+						modifiers</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeParameter">typeParameter</a>, <a href="#getter">getter</a>, <a href="#packageHeader">packageHeader</a>, <a href="#class">class</a>, <a href="#property">property</a>, <a href="#functionLiteral">functionLiteral</a>, <a href="#function">function</a>, <a href="#functionType">functionType</a>, <a href="#secondaryConstructor">secondaryConstructor</a>, <a href="#setter">setter</a>, <a href="#enumEntry">enumEntry</a>, <a href="#companionObject">companionObject</a>, <a href="#primaryConstructor">primaryConstructor</a>, <a href="#functionParameter">functionParameter</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifier">modifier</a><span class="grammar-symbol">*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="modifier">
+						modifier</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifiers">modifiers</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#modifierKeyword">modifierKeyword</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="modifierKeyword">
+						modifierKeyword</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifier">modifier</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#classModifier">classModifier</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#accessModifier">accessModifier</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#varianceAnnotation">varianceAnnotation</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#memberModifier">memberModifier</a><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#annotations">annotations</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="classModifier">
+						classModifier</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifierKeyword">modifierKeyword</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;abstract&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;final&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;enum&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;open&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;annotation&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="memberModifier">
+						memberModifier</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifierKeyword">modifierKeyword</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;override&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;open&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;final&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;abstract&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="accessModifier">
+						accessModifier</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifierKeyword">modifierKeyword</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;private&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;protected&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;public&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;internal&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="varianceAnnotation">
+						varianceAnnotation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#modifierKeyword">modifierKeyword</a>, <a href="#optionalProjection">optionalProjection</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;in&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;out&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="attributes.grm">
+			<div class="grammar-comment">
+				<h2 id="annotations">Annotations<a class="anchor" href="#annotations"></a></h2>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="annotations0">
+						annotations</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#catchBlock">catchBlock</a>, <a href="#prefixUnaryOperation">prefixUnaryOperation</a>, <a href="#for">for</a>, <a href="#modifierKeyword">modifierKeyword</a>, <a href="#class">class</a>, <a href="#property">property</a>, <a href="#type">type</a>, <a href="#typeConstraint">typeConstraint</a>, <a href="#function">function</a>, <a href="#initializer">initializer</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#annotation">annotation</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#annotationList">annotationList</a><span class="grammar-symbol">)*</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="annotation">
+						annotation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#annotations">annotations</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#annotationUseSiteTarget">annotationUseSiteTarget</a>&nbsp;<span class="grammar-string">&quot;:&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<a class="grammar-identifier-name" href="#unescapedAnnotation">unescapedAnnotation</a><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="annotationList">
+						annotationList</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#annotations">annotations</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span>&nbsp;<span class="grammar-symbol">(</span><a class="grammar-identifier-name" href="#annotationUseSiteTarget">annotationUseSiteTarget</a>&nbsp;<span class="grammar-string">&quot;:&quot;</span><span class="grammar-symbol">)?</span>&nbsp;<span class="grammar-string">&quot;[&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#unescapedAnnotation">unescapedAnnotation</a><span class="grammar-symbol">+</span>&nbsp;<span class="grammar-string">&quot;]&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="annotationUseSiteTarget">
+						annotationUseSiteTarget</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#annotation">annotation</a>, <a href="#annotationList">annotationList</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;file&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;field&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;property&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;get&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;set&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;param&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;sparam&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="unescapedAnnotation">
+						unescapedAnnotation</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#annotation">annotation</a>, <a href="#annotationList">annotationList</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-symbol">{</span><span class="grammar-string">&quot;.&quot;</span><span class="grammar-symbol">}</span>&nbsp;<a class="grammar-identifier-name" href="#typeArguments">typeArguments</a><span class="grammar-symbol">?</span>&nbsp;<a class="grammar-identifier-name" href="#valueArguments">valueArguments</a><span class="grammar-symbol">?</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+		</div>
+		<div class="grammar-items-set" data-file-name="lexical.grm">
+			<div class="grammar-comment">
+				<h1 id="lexical-structure">
+					Lexical structure<a class="anchor" href="#lexical-structure"></a></h1>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-annotation">
+					helper</div>
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="Digit">
+						Digit</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#IntegerLiteral">IntegerLiteral</a>, <a href="#HexDigit">HexDigit</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-symbol">[</span><span class="grammar-string">&quot;0&quot;</span><span class="grammar-symbol">..</span><span class="grammar-string">&quot;9&quot;</span><span class="grammar-symbol">]</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="IntegerLiteral">
+						IntegerLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#Digit">Digit</a><span class="grammar-symbol">+?</span><br />
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="FloatLiteral">
+						FloatLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;Java 
+						double literal&gt;</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-annotation">
+					helper</div>
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="HexDigit">
+						HexDigit</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#RegularStringPart">RegularStringPart</a>, <a href="#HexadecimalLiteral">HexadecimalLiteral</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#Digit">Digit</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<span class="grammar-symbol">[</span><span class="grammar-string">&quot;A&quot;</span><span class="grammar-symbol">..</span><span class="grammar-string">&quot;F&quot;</span><span class="grammar-other">,</span>&nbsp;<span class="grammar-string">&quot;a&quot;</span><span class="grammar-symbol">..</span><span class="grammar-string">&quot;f&quot;</span><span class="grammar-symbol">]</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="HexadecimalLiteral">
+						HexadecimalLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;0x&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#HexDigit">HexDigit</a><span class="grammar-symbol">+</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="CharacterLiteral">
+						CharacterLiteral</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;character 
+						as in Java&gt;</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="basic-types.html">
+					Basic types</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="NoEscapeString">
+						NoEscapeString</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#literalConstant">literalConstant</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;&quot;&quot;&quot;-quoted 
+						string&gt;</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="RegularStringPart">
+						RegularStringPart</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#stringTemplateElement">stringTemplateElement</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;any 
+						character other 
+						than backslash, 
+						quote, $ or 
+						newline&gt;</span><br />
+					<a class="grammar-identifier-name" href="#ShortTemplateEntryStart">
+						ShortTemplateEntryStart</a><span class="grammar-symbol">:</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;$&quot;</span><br />
+					<a class="grammar-identifier-name" href="#EscapeSequence">
+						EscapeSequence</a><span class="grammar-symbol">:</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<a class="grammar-identifier-name" href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a>&nbsp;<span class="grammar-symbol">|</span>&nbsp;<a class="grammar-identifier-name" href="#RegularEscapeSequence">RegularEscapeSequence</a><br />
+					<a class="grammar-identifier-name" href="#UnicodeEscapeSequence">
+						UnicodeEscapeSequence</a><span class="grammar-symbol">:</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;\u&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#HexDigit">HexDigit</a><span class="grammar-symbol">{</span><span class="grammar-other">4</span><span class="grammar-symbol">}</span><br />
+					<a class="grammar-identifier-name" href="#RegularEscapeSequence">
+						RegularEscapeSequence</a><span class="grammar-symbol">:</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;\&quot; 
+						&lt;any character 
+						other than 
+						newline&gt;</span><br />
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="basic-types.html#templates">
+					String templates</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="SEMI">
+						SEMI</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#whenEntry">whenEntry</a>, <a href="#if">if</a>, <a href="#statements">statements</a>, <a href="#packageHeader">packageHeader</a>, <a href="#property">property</a>, <a href="#import">import</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;semicolon 
+						or newline&gt;</span><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="SimpleName">
+						SimpleName</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#typeParameter">typeParameter</a>, <a href="#catchBlock">catchBlock</a>, <a href="#simpleUserType">simpleUserType</a>, <a href="#atomicExpression">atomicExpression</a>, <a href="#LabelName">LabelName</a>, <a href="#package">package</a>, <a href="#packageHeader">packageHeader</a>, <a href="#class">class</a>, <a href="#object">object</a>, <a href="#functionLiteral">functionLiteral</a>, <a href="#infixFunctionCall">infixFunctionCall</a>, <a href="#function">function</a>, <a href="#parameter">parameter</a>, <a href="#callableReference">callableReference</a>, <a href="#FieldName">FieldName</a>, <a href="#variableDeclarationEntry">variableDeclarationEntry</a>, <a href="#stringTemplateElement">stringTemplateElement</a>, <a href="#setter">setter</a>, <a href="#enumEntry">enumEntry</a>, <a href="#import">import</a>, <a href="#valueArguments">valueArguments</a>, <a href="#unescapedAnnotation">unescapedAnnotation</a>, <a href="#typeConstraint">typeConstraint</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&lt;java 
+						identifier&gt;</span><br />
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;`&quot;</span>&nbsp;<span class="grammar-string">&lt;java 
+						identifier&gt;</span>&nbsp;<span class="grammar-string">&quot;`&quot;</span><br />
+					&nbsp;&nbsp;<span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="java-interop.html">
+					Java interoperability</a></p>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="FieldName">
+						FieldName</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#atomicExpression">atomicExpression</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;$&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-item">
+				<div class="grammar-declaration">
+					<div class="grammar-declaration-name" id="LabelName">
+						LabelName</div>
+					<div class="grammar-declaration-usedby">
+						(used by <a href="#labelReference">labelReference</a>, <a href="#labelDefinition">labelDefinition</a>)
+					</div>
+				</div>
+				<div class="grammar-description">
+					&nbsp;&nbsp;<span class="grammar-symbol">:</span>&nbsp;<span class="grammar-string">&quot;@&quot;</span>&nbsp;<a class="grammar-identifier-name" href="#SimpleName">SimpleName</a><span class="grammar-other">;</span>
+				</div>
+			</div>
+			<div class="grammar-comment">
+				<p>See
+				<a href="returns.html">
+					Returns and jumps</a></p>
+			</div>
+		</div>
+	</div>
+</article>
+
+</body>
+
+</html>
