@@ -1,7 +1,7 @@
 # Summary
 
 * [关于本书](README.md)
-* [参考简介](txt/index0.md)
+   * [参考简介](txt/index0.md)
 * [开始](txt/getting-started.md)
    * [基础语法](txt/basic-syntax.md)
    * [习惯用法](txt/idioms.md)
