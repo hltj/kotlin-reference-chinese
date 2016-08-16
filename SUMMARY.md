@@ -36,7 +36,7 @@
    * [This表达式](txt/this-expressions.md)
    * [等式](txt/equality.md)
    * [操作符重载](txt/operator-overloading.md)
-   * [Null 安全性](txt/null-safety.md)
+   * [空安全](txt/null-safety.md)
    * [异常](txt/exceptions.md)
    * [注解](txt/annotations.md)
    * [反射](txt/reflection.md)
