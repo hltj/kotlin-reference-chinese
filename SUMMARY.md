@@ -45,7 +45,7 @@
 * [参考](txt/reference0.md)
    * [API参考](reflink.md)
    * [语法](txt/grammar0.md)
-      * [语法正文](txt/grammar.html)
+      * [语法正文](txt/grammar.md)
 * [互操作](txt/interop.md)
    * [Kotlin 调用 Java](txt/java-interop.md)
    * [Java 调用 Kotlin](txt/java-to-kotlin-interop.md)
