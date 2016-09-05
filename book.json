@@ -1,3 +1,15 @@
 {
-    "language": "zh-hans"
+    "language": "zh-hans",
+    "plugins": ["regexplace"],
+    "pluginsConfig": {
+        "regexplace": {
+            "substitutes": [
+                {
+                    "pattern": "<em>([^<]+)</em>\\{: ?\\.keyword\\ ?}",
+                    "flags": "g",
+                    "substitute": "<em><strong><code>$1</code></strong></em>"
+                }
+            ]
+        }
+    }
 }
