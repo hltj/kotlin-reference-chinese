@@ -8,6 +8,11 @@
                     "pattern": "<em>([^<]+)</em>\\{: ?\\.keyword\\ ?}",
                     "flags": "g",
                     "substitute": "<em><strong><code>$1</code></strong></em>"
+                },
+                {
+                    "pattern": "\"\/docs\/tutorials\/",
+                    "flags": "g",
+                    "substitute": "\"http://tanfujun.com/kotlin-web-site-cn/docs/tutorials/"
                 }
             ]
         }
