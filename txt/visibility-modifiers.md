@@ -1,1 +1,1 @@
-{% include "git+https://github.com/cctanfujun/kotlin-web-site-cn.git/docs/reference/visibility-modifiers.md#translations" %}
+{% include "git+https://github.com/cctanfujun/kotlin-web-site-cn.git/pages/docs/reference/visibility-modifiers.md#translations" %}

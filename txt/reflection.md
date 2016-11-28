@@ -1,1 +1,1 @@
-{% include "git+https://github.com/cctanfujun/kotlin-web-site-cn.git/docs/reference/reflection.md#translations" %}
+{% include "git+https://github.com/cctanfujun/kotlin-web-site-cn.git/pages/docs/reference/reflection.md#translations" %}
