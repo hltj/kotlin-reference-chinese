@@ -1,5 +1,9 @@
 # 类和对象
 
+.
+
+所有对象相关的
+
 - [类和继承](classes.md)
 - [属性和字段](properties.md)
 - [接口](interfaces.md)
