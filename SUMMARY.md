@@ -59,6 +59,6 @@
    * [使用 Gradle](txt/using-gradle.md)
    * [Kotlin 和 OSGi](txt/kotlin-osgi.md)
 * [常见问题](txt/faq0.md)
-   * [常见问题](txt/faq.md)
+   * [FAQ](txt/faq.md)
    * [与 Java 比较](txt/comparison-to-java.md)
    * [与 Scala 比较](txt/comparison-to-scala.md)
