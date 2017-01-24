@@ -6,6 +6,7 @@
    * [基础语法](txt/basic-syntax.md)
    * [习惯用法](txt/idioms.md)
    * [编码习惯](txt/coding-conventions.md)
+   * [1.1 的新特性](txt/whatsnew11.md)
 * [基础](txt/basics.md)
    * [基本类型](txt/basic-types.md)
    * [包](txt/packages.md)
