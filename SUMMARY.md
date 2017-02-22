@@ -58,7 +58,7 @@
    * [使用 Maven](txt/using-maven.md)
    * [使用 Ant](txt/using-ant.md)
    * [使用 Gradle](txt/using-gradle.md)
-   * [Kotlin 和 OSGi](txt/kotlin-osgi.md)
+   * [Kotlin 与 OSGi](txt/kotlin-osgi.md)
 * [常见问题](txt/faq0.md)
    * [FAQ](txt/faq.md)
    * [与 Java 比较](txt/comparison-to-java.md)
