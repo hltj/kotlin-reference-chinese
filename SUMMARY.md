@@ -54,7 +54,7 @@
    * [JavaScript 互操作性](txt/js-interop.md)
    * [JavaScript 反射](txt/js-reflection.md)
 * [工具](txt/tools.md)
-   * [生成 Kotlin 代码文档](txt/kotlin-doc.md)
+   * [编写 Kotlin 代码文档](txt/kotlin-doc.md)
    * [使用 Maven](txt/using-maven.md)
    * [使用 Ant](txt/using-ant.md)
    * [使用 Gradle](txt/using-gradle.md)
