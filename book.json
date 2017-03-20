@@ -12,7 +12,12 @@
                 {
                     "pattern": "\"\/docs\/tutorials\/",
                     "flags": "g",
-                    "substitute": "\"http://tanfujun.com/kotlin-web-site-cn/docs/tutorials/"
+                    "substitute": "\"https://kotlin-zhcn.github.io/docs/tutorials/"
+                },
+                {
+                    "pattern": "\"\/docs\/diagnostics\/",
+                    "flags": "g",
+                    "substitute": "\"https://kotlin-zhcn.github.io/docs/diagnostics/"
                 }
             ]
         }
