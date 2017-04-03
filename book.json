@@ -10,12 +10,12 @@
                     "substitute": "<em><strong><code>$1</code></strong></em>"
                 },
                 {
-                    "pattern": "\"\/docs\/tutorials\/",
+                    "pattern": "\"/docs/tutorials/",
                     "flags": "g",
                     "substitute": "\"https://kotlin-zhcn.github.io/docs/tutorials/"
                 },
                 {
-                    "pattern": "\"\/docs\/diagnostics\/",
+                    "pattern": "\"/docs/diagnostics/",
                     "flags": "g",
                     "substitute": "\"https://kotlin-zhcn.github.io/docs/diagnostics/"
                 }
