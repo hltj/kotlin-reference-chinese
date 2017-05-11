@@ -12,12 +12,12 @@
                 {
                     "pattern": "\"/docs/tutorials/",
                     "flags": "g",
-                    "substitute": "\"https://kotlin-zhcn.github.io/docs/tutorials/"
+                    "substitute": "\"https://www.kotlincn.net/docs/tutorials/"
                 },
                 {
                     "pattern": "\"/docs/diagnostics/",
                     "flags": "g",
-                    "substitute": "\"https://kotlin-zhcn.github.io/docs/diagnostics/"
+                    "substitute": "\"https://www.kotlincn.net/docs/diagnostics/"
                 }
             ]
         }
