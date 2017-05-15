@@ -14,3 +14,9 @@
 本书采用 [Apache License 2.0 许可](http://www.apache.org/licenses/LICENSE-2.0)发布，因内容来源采用该许可。
 
 请在[这里](https://github.com/hltj/kotlin-reference-chinese/issues)反馈问题。
+
+欢迎关注我的博客 https://hltj.me/ 以及微博与公众号：
+
+| ![weibo_qr.png](/assets/weibo_qr.png) | ![wechat_qr.png](/assets/wechat_qr.png) |
+|:-----:|:------:|
+| 微博  | 公众号 |
