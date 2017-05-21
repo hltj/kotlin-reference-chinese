@@ -65,6 +65,7 @@
    * [JavaScript 反射](txt/js-reflection.md)
 * [工具](txt/tools.md)
    * [编写 Kotlin 代码文档](txt/kotlin-doc.md)
+   * [使用 Kapt](txt/kapt.md)
    * [使用 Gradle](txt/using-gradle.md)
    * [使用 Maven](txt/using-maven.md)
    * [使用 Ant](txt/using-ant.md)

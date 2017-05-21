@@ -18,6 +18,11 @@
                     "pattern": "\"/docs/diagnostics/",
                     "flags": "g",
                     "substitute": "\"https://www.kotlincn.net/docs/diagnostics/"
+                },
+                {
+                    "pattern": "\"/community/",
+                    "flags": "g",
+                    "substitute": "\"https://www.kotlincn.net/community/"
                 }
             ]
         }

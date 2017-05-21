@@ -9,14 +9,14 @@
 
 非常值得庆祝的是[Kotlin 中文站的参考文档已翻译校对完毕且与官方站同步](https://hltj.me/intro/2017/05/15/kotlin-reference-translated.html)，换句话说**本书目前是最新完整翻译版**，当然以后还会与官网保持同步更新的，请随时关注。
 
-目前已更新至 1.1.2-2。最近一次更新：2017-05-13。
+目前已更新至 1.1.2-2。最近一次更新：2017-05-21。
 
 本书采用 [Apache License 2.0 许可](http://www.apache.org/licenses/LICENSE-2.0)发布，因内容来源采用该许可。
 
 请在[这里](https://github.com/hltj/kotlin-reference-chinese/issues)反馈问题。
 
-欢迎关注我的博客 https://hltj.me/ 以及微博与公众号：
+欢迎关注我的博客 https://hltj.me/ 以及公众号与微博：
 
-| ![weibo_qr.png](/assets/weibo_qr.png) | ![wechat_qr.png](/assets/wechat_qr.png) |
-|:-----:|:------:|
-| 微博  | 公众号 |
+| ![wechat_qr.png](/assets/wechat_qr.png) | ![weibo_qr.png](/assets/weibo_qr.png) |
+|:------:|:----:|
+| 公众号 | 微博 |
