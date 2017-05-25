@@ -1,3 +1,3 @@
-#API参考
+# 标准库
 
-* 参见 http://kotlinlang.org/api/latest/jvm/stdlib/
+* 参见 https://kotlinlang.org/api/latest/jvm/stdlib/index.html
