@@ -13,7 +13,7 @@
     * [Expressions](grammar.md#expressions)
       * [Precedence](grammar.md#precedence)
       * [Rules](grammar.md#rules)
-        * [Pattern matching](grammar.md#pattern-matching)
+        * [When-expression](grammar.md#when-expression)
     * [Modifiers](grammar.md#modifiers)
     * [Annotations](grammar.md#annotations)
   * [Lexical structure](grammar.md#lexical-structure)

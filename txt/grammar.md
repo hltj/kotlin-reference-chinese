@@ -4,433 +4,428 @@ This section informally explains the grammar notation used below.
 
 ## Symbols and naming  
 
-_Terminal symbol_ names start with an uppercase letter, e.g. **SimpleName**.  
-_Nonterminal symbol_ names start with lowercase letter, e.g. **kotlinFile**.  
-Each _production_ starts with a colon (**:**).  
-_Symbol definitions_ may have many productions and are terminated by a semicolon (**;**).  
-Symbol definitions may be prepended with _attributes_, e.g. `start` attribute denotes a start symbol.  
+_Terminal symbol_ names start with an uppercase letter, e.g. **SimpleName**.  
+_Nonterminal symbol_ names start with lowercase letter, e.g. **kotlinFile**.  
+Each _production_ starts with a colon (**:**).  
+_Symbol definitions_ may have many productions and are terminated by a semicolon (**;**).  
+Symbol definitions may be prepended with _attributes_, e.g. `start` attribute denotes a start symbol.  
 
 ## EBNF expressions  
 
-Operator `|` denotes _alternative_.  
-Operator `*` denotes _iteration_ (zero or more).  
-Operator `+` denotes _iteration_ (one or more).  
-Operator `?` denotes _option_ (zero or one).  
-alpha`{`beta`}` denotes a nonempty _beta_-separated list of _alpha_’s.   
+Operator `|` denotes _alternative_.  
+Operator `*` denotes _iteration_ (zero or more).  
+Operator `+` denotes _iteration_ (one or more).  
+Operator `?` denotes _option_ (zero or one).  
+alpha`{ `beta`}` denotes a nonempty _beta_-separated list of _alpha_'s.   
 Operator `++` means that no space or comment allowed between operands.  
 
 # Semicolons  
 
-Kotlin provides “semicolon inference”: syntactically, subsentences (e.g., statements, declarations etc) are separated by the pseudo-token [SEMI](#semi), which stands for “semicolon or newline”. In most cases, there’s no need for semicolons in Kotlin code.  
+Kotlin provides `"semicolon inference"`: syntactically, subsentences (e.g., statements, declarations etc) are separated by the pseudo-token [SEMI](#SEMI), which stands for `"semicolon or newline"`. In most cases, there's no need for semicolons in Kotlin code.  
 
 # Syntax  
 
-Relevant pages: [Packages](packages.html)  
+Relevant pages: [Packages](packages.html)  
 
 start  
 kotlinFile  
 
-  : [preamble](#preamble) [toplevelObject](#toplevelobject)*  
-  ;  
+  : [preamble](#preamble) [topLevelObject](#topLevelObject)*  
+  ;  
 
 start  
 script  
 
-  : [preamble](#preamble) [expression](#expression)*  
-  ;  
+  : [preamble](#preamble) [expression](#expression)*  
+  ;  
 
 ##### preamble  
- (used by [script](#script), [kotlinFile](#kotlinfile))  
+ (used by [script](#script), [kotlinFile](#kotlinFile))  
 
-  : [fileAnnotations](#fileannotations)? [packageHeader](#packageheader)? [import](#import)*  
-  ;  
+  : [fileAnnotations](#fileAnnotations)? [packageHeader](#packageHeader)? [import](#import)*  
+  ;  
 
 ##### fileAnnotations  
- (used by [preamble](#preamble))  
+ (used by [preamble](#preamble))  
 
-  : [fileAnnotation](#fileannotation)*  
-  ;  
+  : [fileAnnotation](#fileAnnotation)*  
+  ;  
 
 ##### fileAnnotation  
- (used by [fileAnnotations](#fileannotations))  
+ (used by [fileAnnotations](#fileAnnotations))  
 
-  : `"@"` `"file"` `":"` (`"["` [annotationEntry](#annotationentry)+ `"]"` | [annotationEntry](#annotationentry))  
-  ;  
+  : `"@"` `"file"` `":"` (`"["` [unescapedAnnotation](#unescapedAnnotation)+ `"]"` | [unescapedAnnotation](#unescapedAnnotation))  
+  ;  
 
 ##### packageHeader  
- (used by [preamble](#preamble))  
+ (used by [preamble](#preamble))  
 
-  : [modifiers](#modifiers) `"package"` [SimpleName](#simplename){ `"."`} [SEMI](#semi)?  
-  ;  
+  : [modifiers](#modifiers) `"package"` [SimpleName](#SimpleName){ `"."`} [SEMI](#SEMI)?  
+  ;  
+
+See [Packages](packages.html)  
 
 ##### import  
- (used by [preamble](#preamble), [package](#package))  
+ (used by [preamble](#preamble))  
 
-  : `"import"` [SimpleName](#simplename){ `"."`} (`"."` `"*"` | `"as"` [SimpleName](#simplename))? [SEMI](#semi)?  
-  ;  
+  : `"import"` [SimpleName](#SimpleName){ `"."`} (`"."` `"*"` | `"as"` [SimpleName](#SimpleName))? [SEMI](#SEMI)?  
+  ;  
 
-See [Imports](packages.html#imports)  
+See [Imports](packages.html#imports)  
 
-##### toplevelObject  
- (used by [package](#package), [kotlinFile](#kotlinfile))  
+##### topLevelObject  
+ (used by [kotlinFile](#kotlinFile))  
 
-  : [package](#package)  
-  : [class](#class)  
-  : [object](#object)  
-  : [function](#function)  
-  : [property](#property)  
-  ;  
+  : [class](#class)  
+  : [object](#object)  
+  : [function](#function)  
+  : [property](#property)  
+  : [typeAlias](#typeAlias)  
+  ;  
 
-##### package  
- (used by [toplevelObject](#toplevelobject))  
+##### typeAlias  
+ (used by [memberDeclaration](#memberDeclaration), [declaration](#declaration), [topLevelObject](#topLevelObject))  
 
-  : `"package"` [SimpleName](#simplename){ `"."`} `"{"`  
-       [import](#import)*  
-       [toplevelObject](#toplevelobject)*  
-    `"}"`  
-  ;  
-
-See [Packages](packages.html)  
+  : [modifiers](#modifiers) `"typealias"` [SimpleName](#SimpleName) [typeParameters](#typeParameters)? `"="` [type](#type)  
+  ;  
 
 ## Classes  
 
-See [Classes and Inheritance](classes.html)  
+See [Classes and Inheritance](classes.html)  
 
 ##### class  
- (used by [memberDeclaration](#memberdeclaration), [declaration](#declaration), [toplevelObject](#toplevelobject))  
+ (used by [memberDeclaration](#memberDeclaration), [declaration](#declaration), [topLevelObject](#topLevelObject))  
 
-  : [modifiers](#modifiers) (`"class"` | `"interface"`) [SimpleName](#simplename)  
-      [typeParameters](#typeparameters)?  
-      [primaryConstructor](#primaryconstructor)?  
-      (`":"` [annotations](#annotations) [delegationSpecifier](#delegationspecifier){ `","`})?  
-      [typeConstraints](#typeconstraints)  
-      ([classBody](#classbody)? | [enumClassBody](#enumclassbody))  
-  ;  
+  : [modifiers](#modifiers) (`"class"` | `"interface"`) [SimpleName](#SimpleName)  
+      [typeParameters](#typeParameters)?  
+      [primaryConstructor](#primaryConstructor)?  
+ (`":"` [annotations](#annotations) [delegationSpecifier](#delegationSpecifier){ `","`})?  
+      [typeConstraints](#typeConstraints)  
+ ([classBody](#classBody)? | [enumClassBody](#enumClassBody))  
+  ;  
 
 ##### primaryConstructor  
- (used by [class](#class), [object](#object))  
+ (used by [class](#class), [object](#object))  
 
-  : ([modifiers](#modifiers) `"constructor"`)? (`"("` [functionParameter](#functionparameter){ `","`} `")"`)  
-  ;  
+  : ([modifiers](#modifiers) `"constructor"`)? (`"("` [functionParameter](#functionParameter){ `","`} `")"`)  
+  ;  
 
 ##### classBody  
- (used by [objectLiteral](#objectliteral), [enumEntry](#enumentry), [class](#class), [object](#object))  
+ (used by [objectLiteral](#objectLiteral), [enumEntry](#enumEntry), [class](#class), [companionObject](#companionObject), [object](#object))  
 
-  : (`"{"` [members](#members) `"}"`)?  
-  ;  
+  : (`"{"` [members](#members) `"}"`)?  
+  ;  
 
 ##### members  
- (used by [enumClassBody](#enumclassbody), [classBody](#classbody))  
+ (used by [enumClassBody](#enumClassBody), [classBody](#classBody))  
 
-  : [memberDeclaration](#memberdeclaration)*  
-  ;  
+  : [memberDeclaration](#memberDeclaration)*  
+  ;  
 
 ##### delegationSpecifier  
- (used by [objectLiteral](#objectliteral), [class](#class), [object](#object))  
+ (used by [objectLiteral](#objectLiteral), [class](#class), [companionObject](#companionObject), [object](#object))  
 
-  : [constructorInvocation](#constructorinvocation)   
-  : [userType](#usertype)  
-  : [explicitDelegation](#explicitdelegation)  
-  ;  
+  : [constructorInvocation](#constructorInvocation)   
+  : [userType](#userType)  
+  : [explicitDelegation](#explicitDelegation)  
+  ;  
 
 ##### explicitDelegation  
- (used by [delegationSpecifier](#delegationspecifier))  
+ (used by [delegationSpecifier](#delegationSpecifier))  
 
-  : [userType](#usertype) `"by"` [expression](#expression)   
-  ;  
+  : [userType](#userType) `"by"` [expression](#expression)   
+  ;  
 
 ##### typeParameters  
- (used by [class](#class), [property](#property), [function](#function))  
+ (used by [typeAlias](#typeAlias), [class](#class), [property](#property), [function](#function))  
 
-  : `"<"` [typeParameter](#typeparameter){ `","`} `">"`  
-  ;  
+  : `"<"` [typeParameter](#typeParameter){ `","`} `">"`  
+  ;  
 
 ##### typeParameter  
- (used by [typeParameters](#typeparameters))  
+ (used by [typeParameters](#typeParameters))  
 
-  : [modifiers](#modifiers) [SimpleName](#simplename) (`":"` [userType](#usertype))?  
-  ;  
+  : [modifiers](#modifiers) [SimpleName](#SimpleName) (`":"` [userType](#userType))?  
+  ;  
 
-See [Generic classes](generics.html)  
+See [Generic classes](generics.html)  
 
 ##### typeConstraints  
- (used by [class](#class), [property](#property), [function](#function))  
+ (used by [class](#class), [property](#property), [function](#function))  
 
-  : (`"where"` [typeConstraint](#typeconstraint){ `","`})?  
-  ;  
+  : (`"where"` [typeConstraint](#typeConstraint){ `","`})?  
+  ;  
 
 ##### typeConstraint  
- (used by [typeConstraints](#typeconstraints))  
+ (used by [typeConstraints](#typeConstraints))  
 
-  : [annotations](#annotations) [SimpleName](#simplename) `":"` [type](#type)  
-  ;  
+  : [annotations](#annotations) [SimpleName](#SimpleName) `":"` [type](#type)  
+  ;  
 
-See [Generic constraints](generics.html#generic-constraints)  
+See [Generic constraints](generics.html#generic-constraints)  
 
 ### Class members  
 
 ##### memberDeclaration  
- (used by [members](#members))  
+ (used by [members](#members))  
 
-  : [companionObject](#companionobject)  
-  : [object](#object)  
-  : [function](#function)  
-  : [property](#property)  
-  : [class](#class)  
-  : [typeAlias](#typealias)  
-  : [anonymousInitializer](#anonymousinitializer)  
-  : [secondaryConstructor](#secondaryconstructor)  
-  ;  
+  : [companionObject](#companionObject)  
+  : [object](#object)  
+  : [function](#function)  
+  : [property](#property)  
+  : [class](#class)  
+  : [typeAlias](#typeAlias)  
+  : [anonymousInitializer](#anonymousInitializer)  
+  : [secondaryConstructor](#secondaryConstructor)  
+  ;  
 
 ##### anonymousInitializer  
- (used by [memberDeclaration](#memberdeclaration))  
+ (used by [memberDeclaration](#memberDeclaration))  
 
-  : `"init"` [block](#block)  
-  ;  
+  : `"init"` [block](#block)  
+  ;  
 
 ##### companionObject  
- (used by [memberDeclaration](#memberdeclaration))  
+ (used by [memberDeclaration](#memberDeclaration))  
 
-  : [modifiers](#modifiers) `"companion"` `"object"`  
-  ;  
+  : [modifiers](#modifiers) `"companion"` `"object"` [SimpleName](#SimpleName)? (`":"` [delegationSpecifier](#delegationSpecifier){ `","`})? [classBody](#classBody)?  
+  ;  
 
 ##### valueParameters  
- (used by [secondaryConstructor](#secondaryconstructor), [function](#function))  
+ (used by [secondaryConstructor](#secondaryConstructor), [function](#function))  
 
-  : `"("` [functionParameter](#functionparameter){ `","`}? `")"`   
-  ;  
+  : `"("` [functionParameter](#functionParameter){ `","`}? `")"`  
+  ;  
 
 ##### functionParameter  
- (used by [valueParameters](#valueparameters), [primaryConstructor](#primaryconstructor))  
+ (used by [valueParameters](#valueParameters), [primaryConstructor](#primaryConstructor))  
 
-  : [modifiers](#modifiers) (`"val"` | `"var"`)? [parameter](#parameter) (`"="` [expression](#expression))?  
-  ;  
-
-##### initializer  
- (used by [enumEntry](#enumentry))  
-
-  : [annotations](#annotations) [constructorInvocation](#constructorinvocation)   
-  ;  
+  : [modifiers](#modifiers) (`"val"` | `"var"`)? [parameter](#parameter) (`"="` [expression](#expression))?  
+  ;  
 
 ##### block  
- (used by [catchBlock](#catchblock), [anonymousInitializer](#anonymousinitializer), [secondaryConstructor](#secondaryconstructor), [functionBody](#functionbody), [try](#try),[finallyBlock](#finallyblock))  
+ (used by [catchBlock](#catchBlock), [anonymousInitializer](#anonymousInitializer), [secondaryConstructor](#secondaryConstructor), [functionBody](#functionBody),[controlStructureBody](#controlStructureBody), [try](#try), [finallyBlock](#finallyBlock))  
 
-  : `"{"` [statements](#statements) `"}"`  
-  ;  
+  : `"{"` [statements](#statements) `"}"`  
+  ;  
 
 ##### function  
- (used by [memberDeclaration](#memberdeclaration), [declaration](#declaration), [toplevelObject](#toplevelobject))  
+ (used by [memberDeclaration](#memberDeclaration), [declaration](#declaration), [topLevelObject](#topLevelObject))  
 
-  : [modifiers](#modifiers) `"fun"` [typeParameters](#typeparameters)?  
-      ([type](#type) `"."` | [annotations](#annotations))?  
-      [SimpleName](#simplename)  
-      [typeParameters](#typeparameters)? [valueParameters](#valueparameters) (`":"` [type](#type))?  
-      [typeConstraints](#typeconstraints)  
-      [functionBody](#functionbody)?  
-  ;  
+  : [modifiers](#modifiers) `"fun"`  
+      [typeParameters](#typeParameters)?  
+ ([type](#type) `"."`)?  
+      [SimpleName](#SimpleName)  
+      [typeParameters](#typeParameters)? [valueParameters](#valueParameters) (`":"` [type](#type))?  
+      [typeConstraints](#typeConstraints)  
+      [functionBody](#functionBody)?  
+  ;  
 
 ##### functionBody  
- (used by [getter](#getter), [setter](#setter), [function](#function))  
+ (used by [getter](#getter), [setter](#setter), [function](#function))  
 
-  : [block](#block)  
-  : `"="` [expression](#expression)  
-  ;  
+  : [block](#block)  
+  : `"="` [expression](#expression)  
+  ;  
 
 ##### variableDeclarationEntry  
- (used by [for](#for), [property](#property), [multipleVariableDeclarations](#multiplevariabledeclarations))  
+ (used by [for](#for), [lambdaParameter](#lambdaParameter), [property](#property), [multipleVariableDeclarations](#multipleVariableDeclarations))  
 
-  : [SimpleName](#simplename) (`":"` [type](#type))?  
-  ;  
+  : [SimpleName](#SimpleName) (`":"` [type](#type))?  
+  ;  
 
 ##### multipleVariableDeclarations  
- (used by [for](#for), [property](#property))  
+ (used by [for](#for), [lambdaParameter](#lambdaParameter), [property](#property))  
 
-  : `"("` [variableDeclarationEntry](#variabledeclarationentry){ `","`} `")"`  
-  ;  
+  : `"("` [variableDeclarationEntry](#variableDeclarationEntry){ `","`} `")"`  
+  ;  
 
 ##### property  
- (used by [memberDeclaration](#memberdeclaration), [declaration](#declaration), [toplevelObject](#toplevelobject))  
+ (used by [memberDeclaration](#memberDeclaration), [declaration](#declaration), [topLevelObject](#topLevelObject))  
 
-  : [modifiers](#modifiers) (`"val"` | `"var"`)  
-      [typeParameters](#typeparameters)? ([type](#type) `"."` | [annotations](#annotations))?  
-      ([multipleVariableDeclarations](#multiplevariabledeclarations) | [variableDeclarationEntry](#variabledeclarationentry))  
-      [typeConstraints](#typeconstraints)  
-      (`"by"` | `"="` [expression](#expression) [SEMI](#semi)?)?  
-      ([getter](#getter)? [setter](#setter)? | [setter](#setter)? [getter](#getter)?) [SEMI](#semi)?  
-  ;  
+  : [modifiers](#modifiers) (`"val"` | `"var"`)  
+      [typeParameters](#typeParameters)?  
+ ([type](#type) `"."`)?  
+      ([multipleVariableDeclarations](#multipleVariableDeclarations) | [variableDeclarationEntry](#variableDeclarationEntry))  
+      [typeConstraints](#typeConstraints)  
+ (`"by"` | `"="` [expression](#expression) [SEMI](#SEMI)?)?  
+      ([getter](#getter)? [setter](#setter)? | [setter](#setter)? [getter](#getter)?) [SEMI](#SEMI)?  
+  ;  
 
-See [Properties and Fields](properties.html)  
+See [Properties and Fields](properties.html)  
 
 ##### getter  
- (used by [property](#property))  
+ (used by [property](#property))  
 
-  : [modifiers](#modifiers) `"get"`  
-  : [modifiers](#modifiers) `"get"` `"("` `")"` (`":"` [type](#type))? [functionBody](#functionbody)  
-  ;  
+  : [modifiers](#modifiers) `"get"`  
+  : [modifiers](#modifiers) `"get"` `"("` `")"` (`":"` [type](#type))? [functionBody](#functionBody)  
+  ;  
 
 ##### setter  
- (used by [property](#property))  
+ (used by [property](#property))  
 
-  : [modifiers](#modifiers) `"set"`  
-  : [modifiers](#modifiers) `"set"` `"("` [modifiers](#modifiers) ([SimpleName](#simplename) | [parameter](#parameter)) `")"` [functionBody](#functionbody)  
-  ;  
+  : [modifiers](#modifiers) `"set"`  
+  : [modifiers](#modifiers) `"set"` `"("` [modifiers](#modifiers) ([SimpleName](#SimpleName) | [parameter](#parameter)) `")"` [functionBody](#functionBody)  
+  ;  
 
 ##### parameter  
- (used by [functionType](#functiontype), [setter](#setter), [functionParameter](#functionparameter))  
+ (used by [functionType](#functionType), [setter](#setter), [functionParameter](#functionParameter))  
 
-  : [SimpleName](#simplename) `":"` [type](#type)  
-  ;  
+  : [SimpleName](#SimpleName) `":"` [type](#type)  
+  ;  
 
 ##### object  
- (used by [memberDeclaration](#memberdeclaration), [declaration](#declaration), [toplevelObject](#toplevelobject))  
+ (used by [memberDeclaration](#memberDeclaration), [declaration](#declaration), [topLevelObject](#topLevelObject))  
 
-  : `"object"` [SimpleName](#simplename) [primaryConstructor](#primaryconstructor)? (`":"` [delegationSpecifier](#delegationspecifier){ `","`})? [classBody](#classbody)?   
+  : `"object"` [SimpleName](#SimpleName) [primaryConstructor](#primaryConstructor)? (`":"` [delegationSpecifier](#delegationSpecifier){ `","`})? [classBody](#classBody)?  
 
 ##### secondaryConstructor  
- (used by [memberDeclaration](#memberdeclaration))  
+ (used by [memberDeclaration](#memberDeclaration))  
 
-  : [modifiers](#modifiers) `"constructor"` [valueParameters](#valueparameters) (`":"` [constructorDelegationCall](#constructordelegationcall))? [block](#block)  
-  ;  
+  : [modifiers](#modifiers) `"constructor"` [valueParameters](#valueParameters) (`":"` [constructorDelegationCall](#constructorDelegationCall))? [block](#block)  
+  ;  
 
 ##### constructorDelegationCall  
- (used by [secondaryConstructor](#secondaryconstructor))  
+ (used by [secondaryConstructor](#secondaryConstructor))  
 
-  : `"this"` [valueArguments](#valuearguments)  
-  : `"super"` [valueArguments](#valuearguments)  
-  ;  
+  : `"this"` [valueArguments](#valueArguments)  
+  : `"super"` [valueArguments](#valueArguments)  
+  ;  
 
-See [Object expressions and Declarations](object-declarations.html)  
+See [Object expressions and Declarations](object-declarations.html)  
 
-### Enum classes[](#enum-classes)  
+### Enum classes  
 
-See [Enum classes](enum-classes.html)  
+See [Enum classes](enum-classes.html)  
 
 ##### enumClassBody  
- (used by [class](#class))  
+ (used by [class](#class))  
 
-  : `"{"` [enumEntries](#enumentries) (`";"` [members](#members))? `"}"`  
-  ;  
-
-##### enumEntries  
- (used by [enumClassBody](#enumclassbody))  
-
-  : [enumEntry](#enumentry)*  
-  ;  
+  : `"{"` [enumEntries](#enumEntries) (`";"` [members](#members))? `"}"`  
+  ;  
 
 ##### enumEntries  
- (used by [enumClassBody](#enumclassbody))  
+ (used by [enumClassBody](#enumClassBody))  
 
-  : ([enumEntry](#enumentry) `","`? )?  
-  ;  
+  : ([enumEntry](#enumEntry){ `","`} `","`? `";"`?)?  
+  ;  
 
 ##### enumEntry  
- (used by [enumEntries](#enumentries))  
+ (used by [enumEntries](#enumEntries))  
 
-  : [modifiers](#modifiers) [SimpleName](#simplename) ((`":"` [initializer](#initializer)) | (`"("` [arguments](#arguments) `")"`))? [classBody](#classbody)?  
-  ;  
+  : [modifiers](#modifiers) [SimpleName](#SimpleName) (`"("` [arguments](#arguments) `")"`)? [classBody](#classBody)?  
+  ;  
 
 ## Types  
 
-See [Types](basic-types.html)  
+See [Types](basic-types.html)  
 
 ##### type  
- (used by [isRHS](#isrhs), [simpleUserType](#simpleusertype), [parameter](#parameter), [functionType](#functiontype), [atomicExpression](#atomicexpression), [getter](#getter),[variableDeclarationEntry](#variabledeclarationentry), [property](#property), [typeArguments](#typearguments), [typeConstraint](#typeconstraint), [function](#function))  
+ (used by [namedInfix](#namedInfix), [simpleUserType](#simpleUserType), [getter](#getter), [atomicExpression](#atomicExpression), [whenCondition](#whenCondition), [property](#property),[typeArguments](#typeArguments), [function](#function), [typeAlias](#typeAlias), [parameter](#parameter), [functionType](#functionType), [variableDeclarationEntry](#variableDeclarationEntry),[lambdaParameter](#lambdaParameter), [typeConstraint](#typeConstraint))  
 
-  : [annotations](#annotations) [typeDescriptor](#typedescriptor)  
-  ;  
+  : [typeModifiers](#typeModifiers) [typeReference](#typeReference)  
+  ;  
 
-##### typeDescriptor  
- (used by [nullableType](#nullabletype), [typeDescriptor](#typedescriptor), [type](#type))  
+##### typeReference  
+ (used by [typeReference](#typeReference), [nullableType](#nullableType), [type](#type))  
 
-  : `"("` [typeDescriptor](#typedescriptor) `")"`  
-  : [functionType](#functiontype)  
-  : [userType](#usertype)  
-  : [nullableType](#nullabletype)  
-  : `"dynamic"`  
-  ;  
+  : `"("` [typeReference](#typeReference) `")"`  
+  : [functionType](#functionType)  
+  : [userType](#userType)  
+  : [nullableType](#nullableType)  
+  : `"dynamic"`  
+  ;  
 
 ##### nullableType  
- (used by [typeDescriptor](#typedescriptor))  
+ (used by [typeReference](#typeReference))  
 
-  : [typeDescriptor](#typedescriptor) `"?"`  
+  : [typeReference](#typeReference) `"?"`  
+  ;  
 
 ##### userType  
- (used by [typeParameter](#typeparameter), [catchBlock](#catchblock), [callableReference](#callablereference), [typeDescriptor](#typedescriptor),[delegationSpecifier](#delegationspecifier), [constructorInvocation](#constructorinvocation), [explicitDelegation](#explicitdelegation))  
+ (used by [typeParameter](#typeParameter), [catchBlock](#catchBlock), [callableReference](#callableReference), [typeReference](#typeReference), [delegationSpecifier](#delegationSpecifier),[constructorInvocation](#constructorInvocation), [explicitDelegation](#explicitDelegation))  
 
-  : (`"package"` `"."`)? [simpleUserType](#simpleusertype){ `"."`}  
-  ;  
+  : [simpleUserType](#simpleUserType){ `"."`}  
+  ;  
 
 ##### simpleUserType  
- (used by [userType](#usertype))  
+ (used by [userType](#userType))  
 
-  : [SimpleName](#simplename) (`"<"` ([optionalProjection](#optionalprojection) [type](#type) | `"*"`){ `","`} `">"`)?  
-  ;  
+  : [SimpleName](#SimpleName) (`"<"` ([optionalProjection](#optionalProjection) [type](#type) | `"*"`){ `","`} `">"`)?  
+  ;  
 
 ##### optionalProjection  
- (used by [simpleUserType](#simpleusertype))  
+ (used by [simpleUserType](#simpleUserType))  
 
-  : [varianceAnnotation](#varianceannotation)  
-  ;  
+  : [varianceAnnotation](#varianceAnnotation)  
+  ;  
 
 ##### functionType  
- (used by [typeDescriptor](#typedescriptor))  
+ (used by [typeReference](#typeReference))  
 
-  : ([type](#type) `"."`)? `"("` ([parameter](#parameter) | [modifiers](#modifiers)  [type](#type)){ `","`} `")"` `"->"` [type](#type)?  
-  ;  
+  : ([type](#type) `"."`)? `"("` [parameter](#parameter){ `","`}? `")"` `"->"` [type](#type)?  
+  ;  
 
 ## Control structures  
 
-See [Control structures](control-flow.html)  
+See [Control structures](control-flow.html)  
+
+##### controlStructureBody  
+ (used by [whenEntry](#whenEntry), [for](#for), [if](#if), [doWhile](#doWhile), [while](#while))  
+
+  : [block](#block)  
+  : [blockLevelExpression](#blockLevelExpression)  
+  ;  
 
 ##### if  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"if"` `"("` [expression](#expression) `")"` [expression](#expression) [SEMI](#semi)? (`"else"` [expression](#expression))?  
-  ;  
+  : `"if"` `"("` [expression](#expression) `")"` [controlStructureBody](#controlStructureBody) [SEMI](#SEMI)? (`"else"` [controlStructureBody](#controlStructureBody))?  
+  ;  
 
 ##### try  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"try"` [block](#block) [catchBlock](#catchblock)* [finallyBlock](#finallyblock)?  
-  ;  
+  : `"try"` [block](#block) [catchBlock](#catchBlock)* [finallyBlock](#finallyBlock)?  
+  ;  
 
 ##### catchBlock  
- (used by [try](#try))  
+ (used by [try](#try))  
 
-  : `"catch"` `"("` [annotations](#annotations) [SimpleName](#simplename) `":"` [userType](#usertype) `")"` [block](#block)  
-  ;  
+  : `"catch"` `"("` [annotations](#annotations) [SimpleName](#SimpleName) `":"` [userType](#userType) `")"` [block](#block)  
+  ;  
 
 ##### finallyBlock  
- (used by [try](#try))  
+ (used by [try](#try))  
 
-  : `"finally"` [block](#block)  
-  ;  
+  : `"finally"` [block](#block)  
+  ;  
 
 ##### loop  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : [for](#for)  
-  : [while](#while)  
-  : [doWhile](#dowhile)  
-  ;  
+  : [for](#for)  
+  : [while](#while)  
+  : [doWhile](#doWhile)  
+  ;  
 
 ##### for  
- (used by [loop](#loop))  
+ (used by [loop](#loop))  
 
-  : `"for"` `"("` [annotations](#annotations) ([multipleVariableDeclarations](#multiplevariabledeclarations) | [variableDeclarationEntry](#variabledeclarationentry)) `"in"` [expression](#expression) `")"` [expression](#expression)  
-  ;  
+  : `"for"` `"("` [annotations](#annotations) ([multipleVariableDeclarations](#multipleVariableDeclarations) | [variableDeclarationEntry](#variableDeclarationEntry)) `"in"` [expression](#expression) `")"` [controlStructureBody](#controlStructureBody)  
+  ;  
 
 ##### while  
- (used by [loop](#loop))  
+ (used by [loop](#loop))  
 
-  : `"while"` `"("` [expression](#expression) `")"` [expression](#expression)  
-  ;  
+  : `"while"` `"("` [expression](#expression) `")"` [controlStructureBody](#controlStructureBody)  
+  ;  
 
 ##### doWhile  
- (used by [loop](#loop))  
+ (used by [loop](#loop))  
 
-  : `"do"` [expression](#expression) `"while"` `"("` [expression](#expression) `")"`  
-  ;  
+  : `"do"` [controlStructureBody](#controlStructureBody) `"while"` `"("` [expression](#expression) `")"`  
+  ;  
 
 ## Expressions  
 
@@ -438,542 +433,595 @@ See [Control structures](control-flow.html)
 
 | Precedence | Title | Symbols |  
 | --- | --- | --- |  
-| Highest | Postfix | `++`, `--`, `.`, `?.`, `?` |  
- Prefix | `-`, `+`, `++`, `--`, `!`, [`labelDefinition@`](#identifier)`@` |  
- Type RHS | `:`, `as`, `as?` |  
- Multiplicative | `*`, `/`, `%` |  
- Additive | `+`, `-` |  
+| Highest | Postfix | `++`, `--`, `.`, `?.`, `?` |  
+ Prefix | `-`, `+`, `++`, `--`, `!`, [`labelDefinition`](#IDENTIFIER)`@` |  
+ Type RHS | `:`, `as`, `as?` |  
+ Multiplicative | `*`, `/`, `%` |  
+ Additive | `+`, `-` |  
  Range | `..` |  
- Infix function | [`SimpleName`](#simplename) |  
+ Infix function | [`SimpleName`](#SimpleName) |  
  Elvis | `?:` |  
- Named checks | `in`, `!in`, `is`, `!is` |  
- Comparison | `<`, `>`, `<=`, `>=` |  
- Equality | `==`, `\!==` |  
+ Named checks | `in`, `!in`, `is`, `!is` |  
+ Comparison | `<`, `>`, `<=`, `>=` |  
+ Equality | `==`, `\!==` |  
  Conjunction | `&&` |  
  Disjunction | `||` |  
-| Lowest | Assignment | `=`, `+=`, `-=`, `*=`, `/=`, `%=` |  
+| Lowest | Assignment | `=`, `+=`, `-=`, `*=`, `/=`, `%=` |  
 
 ### Rules  
 
 ##### expression  
- (used by [for](#for), [atomicExpression](#atomicexpression), [longTemplate](#longtemplate), [whenCondition](#whencondition), [functionBody](#functionbody), [doWhile](#dowhile),[property](#property), [script](#script), [explicitDelegation](#explicitdelegation), [jump](#jump), [while](#while), [whenEntry](#whenentry), [arrayAccess](#arrayaccess),[statement](#statement), [if](#if), [when](#when), [valueArguments](#valuearguments), [functionParameter](#functionparameter))  
+ (used by [for](#for), [atomicExpression](#atomicExpression), [longTemplate](#longTemplate), [whenCondition](#whenCondition), [functionBody](#functionBody), [doWhile](#doWhile),[property](#property), [script](#script), [explicitDelegation](#explicitDelegation), [jump](#jump), [while](#while), [arrayAccess](#arrayAccess), [blockLevelExpression](#blockLevelExpression), [if](#if),[when](#when), [valueArguments](#valueArguments), [functionParameter](#functionParameter))  
 
-  : [disjunction](#disjunction) ([assignmentOperator](#assignmentoperator) [disjunction](#disjunction))*  
-  ;  
+  : [disjunction](#disjunction) ([assignmentOperator](#assignmentOperator) [disjunction](#disjunction))*  
+  ;  
 
 ##### disjunction  
- (used by [expression](#expression))  
+ (used by [expression](#expression))  
 
-  : [conjunction](#conjunction) (`"||"` [conjunction](#conjunction))*  
-  ;  
+  : [conjunction](#conjunction) (`"||"` [conjunction](#conjunction))*  
+  ;  
 
 ##### conjunction  
- (used by [disjunction](#disjunction))  
+ (used by [disjunction](#disjunction))  
 
-  : [equalityComparison](#equalitycomparison) (`"&&"` [equalityComparison](#equalitycomparison))*  
-  ;  
+  : [equalityComparison](#equalityComparison) (`"&&"` [equalityComparison](#equalityComparison))*  
+  ;  
 
 ##### equalityComparison  
- (used by [conjunction](#conjunction))  
+ (used by [conjunction](#conjunction))  
 
-  : [comparison](#comparison) ([equalityOperation](#equalityoperation) [comparison](#comparison))*  
-  ;  
+  : [comparison](#comparison) ([equalityOperation](#equalityOperation) [comparison](#comparison))*  
+  ;  
 
 ##### comparison  
- (used by [equalityComparison](#equalitycomparison))  
+ (used by [equalityComparison](#equalityComparison))  
 
-  : [namedInfix](#namedinfix) ([comparisonOperation](#comparisonoperation) [namedInfix](#namedinfix))*  
-  ;  
+  : [namedInfix](#namedInfix) ([comparisonOperation](#comparisonOperation) [namedInfix](#namedInfix))*  
+  ;  
 
 ##### namedInfix  
- (used by [comparison](#comparison))  
+ (used by [comparison](#comparison))  
 
-  : [elvisExpression](#elvisexpression) ([inOperation](#inoperation) [elvisExpression](#elvisexpression))*  
-  : [elvisExpression](#elvisexpression) ([isOperation](#isoperation) [isRHS](#isrhs))?  
-  ;  
+  : [elvisExpression](#elvisExpression) ([inOperation](#inOperation) [elvisExpression](#elvisExpression))*  
+  : [elvisExpression](#elvisExpression) ([isOperation](#isOperation) [type](#type))?  
+  ;  
 
 ##### elvisExpression  
- (used by [namedInfix](#namedinfix))  
+ (used by [namedInfix](#namedInfix))  
 
-  : [infixFunctionCall](#infixfunctioncall) (`"?:"` [infixFunctionCall](#infixfunctioncall))*  
-  ;  
+  : [infixFunctionCall](#infixFunctionCall) (`"?:"` [infixFunctionCall](#infixFunctionCall))*  
+  ;  
 
 ##### infixFunctionCall  
- (used by [elvisExpression](#elvisexpression))  
+ (used by [elvisExpression](#elvisExpression))  
 
-  : [rangeExpression](#rangeexpression) ([SimpleName](#simplename) [rangeExpression](#rangeexpression))*  
-  ;  
+  : [rangeExpression](#rangeExpression) ([SimpleName](#SimpleName) [rangeExpression](#rangeExpression))*  
+  ;  
 
 ##### rangeExpression  
- (used by [infixFunctionCall](#infixfunctioncall))  
+ (used by [infixFunctionCall](#infixFunctionCall))  
 
-  : [additiveExpression](#additiveexpression) (`".."` [additiveExpression](#additiveexpression))*  
-  ;  
+  : [additiveExpression](#additiveExpression) (`".."` [additiveExpression](#additiveExpression))*  
+  ;  
 
 ##### additiveExpression  
- (used by [rangeExpression](#rangeexpression))  
+ (used by [rangeExpression](#rangeExpression))  
 
-  : [multiplicativeExpression](#multiplicativeexpression) ([additiveOperation](#additiveoperation) [multiplicativeExpression](#multiplicativeexpression))*  
-  ;  
+  : [multiplicativeExpression](#multiplicativeExpression) ([additiveOperation](#additiveOperation) [multiplicativeExpression](#multiplicativeExpression))*  
+  ;  
 
 ##### multiplicativeExpression  
- (used by [additiveExpression](#additiveexpression))  
+ (used by [additiveExpression](#additiveExpression))  
 
-  : [typeRHS](#typerhs) ([multiplicativeOperation](#multiplicativeoperation) [typeRHS](#typerhs))*  
-  ;  
+  : [typeRHS](#typeRHS) ([multiplicativeOperation](#multiplicativeOperation) [typeRHS](#typeRHS))*  
+  ;  
 
 ##### typeRHS  
- (used by [multiplicativeExpression](#multiplicativeexpression))  
+ (used by [multiplicativeExpression](#multiplicativeExpression))  
 
-  : [prefixUnaryExpression](#prefixunaryexpression) ([typeOperation](#typeoperation) [prefixUnaryExpression](#prefixunaryexpression))*  
-  ;  
+  : [prefixUnaryExpression](#prefixUnaryExpression) ([typeOperation](#typeOperation) [prefixUnaryExpression](#prefixUnaryExpression))*  
+  ;  
 
 ##### prefixUnaryExpression  
- (used by [typeRHS](#typerhs))  
+ (used by [typeRHS](#typeRHS))  
 
-  : [prefixUnaryOperation](#prefixunaryoperation)* [postfixUnaryExpression](#postfixunaryexpression)  
-  ;  
+  : [prefixUnaryOperation](#prefixUnaryOperation)* [postfixUnaryExpression](#postfixUnaryExpression)  
+  ;  
 
 ##### postfixUnaryExpression  
- (used by [prefixUnaryExpression](#prefixunaryexpression), [postfixUnaryOperation](#postfixunaryoperation))  
+ (used by [prefixUnaryExpression](#prefixUnaryExpression), [postfixUnaryOperation](#postfixUnaryOperation))  
 
-  : [atomicExpression](#atomicexpression) [postfixUnaryOperation](#postfixunaryoperation)*  
-  : [callableReference](#callablereference) [postfixUnaryOperation](#postfixunaryoperation)*  
-  ;  
+  : [atomicExpression](#atomicExpression) [postfixUnaryOperation](#postfixUnaryOperation)*  
+  : [callableReference](#callableReference) [postfixUnaryOperation](#postfixUnaryOperation)*  
+  ;  
 
 ##### callableReference  
- (used by [postfixUnaryExpression](#postfixunaryexpression))  
+ (used by [postfixUnaryExpression](#postfixUnaryExpression))  
 
-  : ([userType](#usertype) `"?"`*)? `"::"` [SimpleName](#simplename) [typeArguments](#typearguments)?  
-  ;  
+  : ([userType](#userType) `"?"`*)? `"::"` [SimpleName](#SimpleName) [typeArguments](#typeArguments)?  
+  ;  
 
 ##### atomicExpression  
- (used by [postfixUnaryExpression](#postfixunaryexpression))  
+ (used by [postfixUnaryExpression](#postfixUnaryExpression))  
 
-  : `"("` [expression](#expression) `")"`  
-  : [literalConstant](#literalconstant)  
-  : [functionLiteral](#functionliteral)  
-  : `"this"` [labelReference](#labelreference)?  
-  : `"super"` (`"<"` [type](#type) `">"`)? [labelReference](#labelreference)?  
-  : [if](#if)  
-  : [when](#when)  
-  : [try](#try)  
-  : [objectLiteral](#objectliteral)  
-  : [jump](#jump)  
-  : [loop](#loop)  
-  : [SimpleName](#simplename)  
-  : [FieldName](#fieldname)  
-  : `"package"`   
-  ;  
+  : `"("` [expression](#expression) `")"`  
+  : [literalConstant](#literalConstant)  
+  : [functionLiteral](#functionLiteral)  
+  : `"this"` [labelReference](#labelReference)?  
+  : `"super"` (`"<"` [type](#type) `">"`)? [labelReference](#labelReference)?  
+  : [if](#if)  
+  : [when](#when)  
+  : [try](#try)  
+  : [objectLiteral](#objectLiteral)  
+  : [jump](#jump)  
+  : [loop](#loop)  
+  : [collectionLiteral](#collectionLiteral)  
+  : [SimpleName](#SimpleName)  
+  ;  
 
 ##### labelReference  
- (used by [atomicExpression](#atomicexpression), [jump](#jump))  
+ (used by [atomicExpression](#atomicExpression), [jump](#jump))  
 
-  : `"@"` ++ [LabelName](#labelname)  
-  ;  
+  : `"@"` ++ [LabelName](#LabelName)  
+  ;  
 
 ##### labelDefinition  
- (used by [prefixUnaryOperation](#prefixunaryoperation), [annotatedLambda](#annotatedlambda))  
+ (used by [prefixUnaryOperation](#prefixUnaryOperation), [annotatedLambda](#annotatedLambda))  
 
-  : [LabelName](#labelname) ++ `"@"`  
-  ;  
+  : [LabelName](#LabelName) ++ `"@"`  
+  ;  
 
 ##### literalConstant  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"true"` | `"false"`  
-  : [stringTemplate](#stringtemplate)  
-  : [NoEscapeString](#noescapestring)  
-  : [IntegerLiteral](#integerliteral)  
-  : [HexadecimalLiteral](#hexadecimalliteral)  
-  : [CharacterLiteral](#characterliteral)  
-  : [FloatLiteral](#floatliteral)  
-  : `"null"`  
-  ;  
+  : `"true"` | `"false"`  
+  : [stringTemplate](#stringTemplate)  
+  : [NoEscapeString](#NoEscapeString)  
+  : [IntegerLiteral](#IntegerLiteral)  
+  : [HexadecimalLiteral](#HexadecimalLiteral)  
+  : [CharacterLiteral](#CharacterLiteral)  
+  : [FloatLiteral](#FloatLiteral)  
+  : `"null"`  
+  ;  
 
 ##### stringTemplate  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : `"\"` `"` [stringTemplateElement](#stringtemplateelement)* `"\""`  
-  ;  
+  : `"\"``" [stringTemplateElement](#stringTemplateElement)* "`\""  
+  ;  
 
 ##### stringTemplateElement  
- (used by [stringTemplate](#stringtemplate))  
+ (used by [stringTemplate](#stringTemplate))  
 
-  : [RegularStringPart](#regularstringpart)  
-  : [ShortTemplateEntryStart](#shorttemplateentrystart) ([SimpleName](#simplename) | `"this"`)  
-  : [EscapeSequence](#escapesequence)  
-  : [longTemplate](#longtemplate)  
-  ;  
+  : [RegularStringPart](#RegularStringPart)  
+  : [ShortTemplateEntryStart](#ShortTemplateEntryStart) ([SimpleName](#SimpleName) | `"this"`)  
+  : [EscapeSequence](#EscapeSequence)  
+  : [longTemplate](#longTemplate)  
+  ;  
 
 ##### longTemplate  
- (used by [stringTemplateElement](#stringtemplateelement))  
+ (used by [stringTemplateElement](#stringTemplateElement))  
 
-  : `"${"` [expression](#expression) `"}"`  
-  ;  
-
-##### isRHS  
- (used by [namedInfix](#namedinfix), [whenCondition](#whencondition))  
-
-  : [type](#type)  
-  ;  
+  : `"${"` [expression](#expression) `"}"`  
+  ;  
 
 ##### declaration  
- (used by [statement](#statement))  
+ (used by [statement](#statement))  
 
-  : [function](#function)  
-  : [property](#property)  
-  : [class](#class)  
-  : [object](#object)  
-  ;  
+  : [function](#function)  
+  : [property](#property)  
+  : [class](#class)  
+  : [typeAlias](#typeAlias)  
+  : [object](#object)  
+  ;  
 
 ##### statement  
- (used by [statements](#statements))  
+ (used by [statements](#statements))  
 
-  : [declaration](#declaration)  
-  : [expression](#expression)  
-  ;  
+  : [declaration](#declaration)  
+  : [blockLevelExpression](#blockLevelExpression)  
+  ;  
+
+##### blockLevelExpression  
+ (used by [statement](#statement), [controlStructureBody](#controlStructureBody))  
+
+  : [annotations](#annotations) (`"\n"`)+ [expression](#expression)  
+  ;  
 
 ##### multiplicativeOperation  
- (used by [multiplicativeExpression](#multiplicativeexpression))  
+ (used by [multiplicativeExpression](#multiplicativeExpression))  
 
-  : `"*"` : `"/"` : `"%"`  
-  ;  
+  : `"*"` : `"/"` : `"%"`  
+  ;  
 
 ##### additiveOperation  
- (used by [additiveExpression](#additiveexpression))  
+ (used by [additiveExpression](#additiveExpression))  
 
-  : `"+"` : `"-"`  
-  ;  
+  : `"+"` : `"-"`  
+  ;  
 
 ##### inOperation  
- (used by [namedInfix](#namedinfix))  
+ (used by [namedInfix](#namedInfix))  
 
-  : `"in"` : `"!in"`  
-  ;  
+  : `"in"` : `"!in"`  
+  ;  
 
 ##### typeOperation  
- (used by [typeRHS](#typerhs))  
+ (used by [typeRHS](#typeRHS))  
 
-  : `"as"` : `"as?"` : `":"`  
-  ;  
+  : `"as"` : `"as?"` : `":"`  
+  ;  
 
 ##### isOperation  
- (used by [namedInfix](#namedinfix))  
+ (used by [namedInfix](#namedInfix))  
 
-  : `"is"` : `"!is"`  
-  ;  
+  : `"is"` : `"!is"`  
+  ;  
 
 ##### comparisonOperation  
- (used by [comparison](#comparison))  
+ (used by [comparison](#comparison))  
 
-  : `"<"` : `">"` : `">="` : `"<="`  
-  ;  
+  : `"<"` : `">"` : `">="` : `"<="`  
+  ;  
 
 ##### equalityOperation  
- (used by [equalityComparison](#equalitycomparison))  
+ (used by [equalityComparison](#equalityComparison))  
 
-  : `"!="` : `"=="`  
-  ;  
+  : `"!="` : `"=="`  
+  ;  
 
 ##### assignmentOperator  
- (used by [expression](#expression))  
+ (used by [expression](#expression))  
 
-  : `"="`  
-  : `"+="` : `"-="` : `"*="` : `"/="` : `"%="`  
-  ;  
+  : `"="`  
+  : `"+="` : `"-="` : `"*="` : `"/="` : `"%="`  
+  ;  
 
 ##### prefixUnaryOperation  
- (used by [prefixUnaryExpression](#prefixunaryexpression))  
+ (used by [prefixUnaryExpression](#prefixUnaryExpression))  
 
-  : `"-"` : `"+"`  
-  : `"++"` : `"--"`  
-  : `"!"`    
-  : [annotations](#annotations)   
-  : [labelDefinition](#labeldefinition)  
-  ;  
+  : `"-"` : `"+"`  
+  : `"++"` : `"--"`  
+  : `"!"`  
+  : [annotations](#annotations)  
+  : [labelDefinition](#labelDefinition)  
+  ;  
 
 ##### postfixUnaryOperation  
- (used by [postfixUnaryExpression](#postfixunaryexpression))  
+ (used by [postfixUnaryExpression](#postfixUnaryExpression))  
 
-  : `"++"` : `"--"` : `"!!"`  
-  : [callSuffix](#callsuffix)  
-  : [arrayAccess](#arrayaccess)  
-  : [memberAccessOperation](#memberaccessoperation) [postfixUnaryExpression](#postfixunaryexpression)   
-  ;  
+  : `"++"` : `"--"` : `"!!"`  
+  : [callSuffix](#callSuffix)  
+  : [arrayAccess](#arrayAccess)  
+  : [memberAccessOperation](#memberAccessOperation) [postfixUnaryExpression](#postfixUnaryExpression)   
+  ;  
 
 ##### callSuffix  
- (used by [constructorInvocation](#constructorinvocation), [postfixUnaryOperation](#postfixunaryoperation))  
+ (used by [constructorInvocation](#constructorInvocation), [postfixUnaryOperation](#postfixUnaryOperation))  
 
-  : [typeArguments](#typearguments)? [valueArguments](#valuearguments) [annotatedLambda](#annotatedlambda)  
-  : [typeArguments](#typearguments) [annotatedLambda](#annotatedlambda)  
-  ;  
+  : [typeArguments](#typeArguments)? [valueArguments](#valueArguments) [annotatedLambda](#annotatedLambda)  
+  : [typeArguments](#typeArguments) [annotatedLambda](#annotatedLambda)  
+  ;  
 
 ##### annotatedLambda  
- (used by [callSuffix](#callsuffix))  
+ (used by [callSuffix](#callSuffix))  
 
-  : (`"@"` [annotationEntry](#annotationentry))* [labelDefinition](#labeldefinition)? [functionLiteral](#functionliteral)  
+  : (`"@"` [unescapedAnnotation](#unescapedAnnotation))* [labelDefinition](#labelDefinition)? [functionLiteral](#functionLiteral)  
 
 ##### memberAccessOperation  
- (used by [postfixUnaryOperation](#postfixunaryoperation))  
+ (used by [postfixUnaryOperation](#postfixUnaryOperation))  
 
-  : `"."` : `"?."` : `"?"`  
-  ;  
+  : `"."` : `"?."` : `"?"`  
+  ;  
 
 ##### typeArguments  
- (used by [callSuffix](#callsuffix), [callableReference](#callablereference), [unescapedAnnotation](#unescapedannotation))  
+ (used by [callSuffix](#callSuffix), [callableReference](#callableReference), [unescapedAnnotation](#unescapedAnnotation))  
 
-  : `"<"` [type](#type){ `","`} `">"`  
-  ;  
+  : `"<"` [type](#type){ `","`} `">"`  
+  ;  
 
 ##### valueArguments  
- (used by [callSuffix](#callsuffix), [constructorDelegationCall](#constructordelegationcall), [unescapedAnnotation](#unescapedannotation))  
+ (used by [callSuffix](#callSuffix), [constructorDelegationCall](#constructorDelegationCall), [unescapedAnnotation](#unescapedAnnotation))  
 
-  : `"("` ([SimpleName](#simplename) `"="`)? `"*"`? [expression](#expression){ `","`} `")"`  
-  ;  
+  : `"("` ([SimpleName](#SimpleName) `"="`)? `"*"`? [expression](#expression){ `","`} `")"`  
+  ;  
 
 ##### jump  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"throw"` [expression](#expression)  
-  : `"return"` ++ [labelReference](#labelreference)? [expression](#expression)?  
-  : `"continue"` ++ [labelReference](#labelreference)?  
-  : `"break"` ++ [labelReference](#labelreference)?  
-  ;  
+  : `"throw"` [expression](#expression)  
+  : `"return"` ++ [labelReference](#labelReference)? [expression](#expression)?  
+  : `"continue"` ++ [labelReference](#labelReference)?  
+  : `"break"` ++ [labelReference](#labelReference)?  
+  ;  
 
 ##### functionLiteral  
- (used by [atomicExpression](#atomicexpression), [annotatedLambda](#annotatedlambda))  
+ (used by [atomicExpression](#atomicExpression), [annotatedLambda](#annotatedLambda))  
 
-  : `"{"` [statements](#statements) `"}"`  
-  : `"{"` ([modifiers](#modifiers) [SimpleName](#simplename)){ `","`} `"->"` [statements](#statements) `"}"`  
-  ;  
+  : `"{"` [statements](#statements) `"}"`  
+  : `"{"` [lambdaParameter](#lambdaParameter){ `","`} `"->"` [statements](#statements) `"}"`  
+  ;  
+
+##### lambdaParameter  
+ (used by [functionLiteral](#functionLiteral))  
+
+  : [variableDeclarationEntry](#variableDeclarationEntry)  
+  : [multipleVariableDeclarations](#multipleVariableDeclarations) (`":"` [type](#type))?  
+  ;  
 
 ##### statements  
- (used by [block](#block), [functionLiteral](#functionliteral))  
+ (used by [block](#block), [functionLiteral](#functionLiteral))  
 
-  : [SEMI](#semi)* [statement](#statement){[SEMI](#semi)+} [SEMI](#semi)*  
-  ;  
+  : [SEMI](#SEMI)* [statement](#statement){[SEMI](#SEMI)+} [SEMI](#SEMI)*  
+  ;  
 
 ##### constructorInvocation  
- (used by [delegationSpecifier](#delegationspecifier), [initializer](#initializer))  
+ (used by [delegationSpecifier](#delegationSpecifier))  
 
-  : [userType](#usertype) [callSuffix](#callsuffix)  
-  ;  
+  : [userType](#userType) [callSuffix](#callSuffix)  
+  ;  
 
 ##### arrayAccess  
- (used by [postfixUnaryOperation](#postfixunaryoperation))  
+ (used by [postfixUnaryOperation](#postfixUnaryOperation))  
 
-  : `"["` [expression](#expression){ `","`} `"]"`  
-  ;  
+  : `"["` [expression](#expression){ `","`} `"]"`  
+  ;  
 
 ##### objectLiteral  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"object"` (`":"` [delegationSpecifier](#delegationspecifier){ `","`})? [classBody](#classbody)   
-  ;  
+  : `"object"` (`":"` [delegationSpecifier](#delegationSpecifier){ `","`})? [classBody](#classBody)  
+  ;  
 
-#### Pattern matching  
+##### collectionLiteral  
+ (used by [atomicExpression](#atomicExpression))  
 
-See [When-expression](control-flow.html#when-expression)  
+  : `"["` [element](#element){ `","`}? `"]"`  
+  ;  
+
+#### When-expression  
+
+See [When-expression](control-flow.html#when-expression)  
 
 ##### when  
- (used by [atomicExpression](#atomicexpression))  
+ (used by [atomicExpression](#atomicExpression))  
 
-  : `"when"` (`"("` [expression](#expression) `")"`)? `"{"`  
-        [whenEntry](#whenentry)*  
-    `"}"`  
-  ;  
+  : `"when"` (`"("` [expression](#expression) `")"`)? `"{"`  
+        [whenEntry](#whenEntry)*  
+    `"}"`  
+  ;  
 
 ##### whenEntry  
- (used by [when](#when))  
+ (used by [when](#when))  
 
-  : [whenCondition](#whencondition){ `","`} `"->"` [expression](#expression) [SEMI](#semi)  
-  : `"else"` `"->"` [expression](#expression) [SEMI](#semi)  
-  ;  
+  : [whenCondition](#whenCondition){ `","`} `"->"` [controlStructureBody](#controlStructureBody) [SEMI](#SEMI)  
+  : `"else"` `"->"` [controlStructureBody](#controlStructureBody) [SEMI](#SEMI)  
+  ;  
 
 ##### whenCondition  
- (used by [whenEntry](#whenentry))  
+ (used by [whenEntry](#whenEntry))  
 
-  : [expression](#expression)  
-  : (`"in"` | `"!in"`) [expression](#expression)  
-  : (`"is"` | `"!is"`) [isRHS](#isrhs)  
-  ;  
+  : [expression](#expression)  
+  : (`"in"` | `"!in"`) [expression](#expression)  
+  : (`"is"` | `"!is"`) [type](#type)  
+  ;  
 
 ## Modifiers  
 
 ##### modifiers  
- (used by [typeParameter](#typeparameter), [getter](#getter), [packageHeader](#packageheader), [class](#class), [property](#property), [functionLiteral](#functionliteral),[function](#function), [functionType](#functiontype), [secondaryConstructor](#secondaryconstructor), [setter](#setter), [enumEntry](#enumentry), [companionObject](#companionobject),[primaryConstructor](#primaryconstructor), [functionParameter](#functionparameter))  
+ (used by [typeParameter](#typeParameter), [getter](#getter), [packageHeader](#packageHeader), [class](#class), [property](#property), [function](#function), [typeAlias](#typeAlias),[secondaryConstructor](#secondaryConstructor), [enumEntry](#enumEntry), [setter](#setter), [companionObject](#companionObject), [primaryConstructor](#primaryConstructor),[functionParameter](#functionParameter))  
 
-  : [modifier](#modifier)*  
-  ;  
+  : ([modifier](#modifier) | [annotations](#annotations))*  
+  ;  
+
+##### typeModifiers  
+ (used by [type](#type))  
+
+  : ([suspendModifier](#suspendModifier) | [annotations](#annotations))*  
+  ;  
 
 ##### modifier  
- (used by [modifiers](#modifiers))  
+ (used by [modifiers](#modifiers))  
 
-  : [modifierKeyword](#modifierkeyword)  
-  ;  
-
-##### modifierKeyword  
- (used by [modifier](#modifier))  
-
-  : [classModifier](#classmodifier)  
-  : [accessModifier](#accessmodifier)  
-  : [varianceAnnotation](#varianceannotation)  
-  : [memberModifier](#membermodifier)  
-  : [annotations](#annotations)  
-  ;  
+  : [classModifier](#classModifier)  
+  : [accessModifier](#accessModifier)  
+  : [varianceAnnotation](#varianceAnnotation)  
+  : [memberModifier](#memberModifier)  
+  : [parameterModifier](#parameterModifier)  
+  : [typeParameterModifier](#typeParameterModifier)  
+  : [functionModifier](#functionModifier)  
+  : [propertyModifier](#propertyModifier)  
+  ;  
 
 ##### classModifier  
- (used by [modifierKeyword](#modifierkeyword))  
+ (used by [modifier](#modifier))  
 
-  : `"abstract"`  
-  : `"final"`  
-  : `"enum"`  
-  : `"open"`  
-  : `"annotation"`  
-  ;  
+  : `"abstract"`  
+  : `"final"`  
+  : `"enum"`  
+  : `"open"`  
+  : `"annotation"`  
+  : `"sealed"`  
+  : `"data"`  
+  ;  
 
 ##### memberModifier  
- (used by [modifierKeyword](#modifierkeyword))  
+ (used by [modifier](#modifier))  
 
-  : `"override"`  
-  : `"open"`  
-  : `"final"`  
-  : `"abstract"`  
-  ;  
+  : `"override"`  
+  : `"open"`  
+  : `"final"`  
+  : `"abstract"`  
+  : `"lateinit"`  
+  ;  
 
 ##### accessModifier  
- (used by [modifierKeyword](#modifierkeyword))  
+ (used by [modifier](#modifier))  
 
-  : `"private"`  
-  : `"protected"`  
-  : `"public"`  
-  : `"internal"`  
-  ;  
+  : `"private"`  
+  : `"protected"`  
+  : `"public"`  
+  : `"internal"`  
+  ;  
 
 ##### varianceAnnotation  
- (used by [modifierKeyword](#modifierkeyword), [optionalProjection](#optionalprojection))  
+ (used by [modifier](#modifier), [optionalProjection](#optionalProjection))  
 
-  : `"in"`  
-  : `"out"`  
-  ;  
+  : `"in"`  
+  : `"out"`  
+  ;  
+
+##### parameterModifier  
+ (used by [modifier](#modifier))  
+
+  : `"noinline"`  
+  : `"crossinline"`  
+  : `"vararg"`  
+  ;  
+
+##### typeParameterModifier  
+ (used by [modifier](#modifier))  
+
+  : `"reified"`  
+  ;  
+
+##### functionModifier  
+ (used by [modifier](#modifier))  
+
+  : `"tailrec"`  
+  : `"operator"`  
+  : `"infix"`  
+  : `"inline"`  
+  : `"external"`  
+  : [suspendModifier](#suspendModifier)  
+  ;  
+
+##### propertyModifier  
+ (used by [modifier](#modifier))  
+
+  : `"const"`  
+  ;  
+
+##### suspendModifier  
+ (used by [typeModifiers](#typeModifiers), [functionModifier](#functionModifier))  
+
+  : `"suspend"`  
+  ;  
 
 ## Annotations  
 
 ##### annotations  
- (used by [catchBlock](#catchblock), [prefixUnaryOperation](#prefixunaryoperation), [for](#for), [modifierKeyword](#modifierkeyword), [class](#class), [property](#property),[type](#type), [typeConstraint](#typeconstraint), [function](#function), [initializer](#initializer))  
+ (used by [catchBlock](#catchBlock), [prefixUnaryOperation](#prefixUnaryOperation), [blockLevelExpression](#blockLevelExpression), [for](#for), [typeModifiers](#typeModifiers), [class](#class),[modifiers](#modifiers), [typeConstraint](#typeConstraint))  
 
-  : ([annotation](#annotation) | [annotationList](#annotationlist))*  
-  ;  
+  : ([annotation](#annotation) | [annotationList](#annotationList))*  
+  ;  
 
 ##### annotation  
- (used by [annotations](#annotations))  
+ (used by [annotations](#annotations))  
 
-  : `"@"` ([annotationUseSiteTarget](#annotationusesitetarget) `":"`)? [unescapedAnnotation](#unescapedannotation)  
-  ;  
+  : `"@"` ([annotationUseSiteTarget](#annotationUseSiteTarget) `":"`)? [unescapedAnnotation](#unescapedAnnotation)  
+  ;  
 
 ##### annotationList  
- (used by [annotations](#annotations))  
+ (used by [annotations](#annotations))  
 
-  : `"@"` ([annotationUseSiteTarget](#annotationusesitetarget) `":"`)? `"["` [unescapedAnnotation](#unescapedannotation)+ `"]"`  
-  ;  
+  : `"@"` ([annotationUseSiteTarget](#annotationUseSiteTarget) `":"`)? `"["` [unescapedAnnotation](#unescapedAnnotation)+ `"]"`  
+  ;  
 
 ##### annotationUseSiteTarget  
- (used by [annotation](#annotation), [annotationList](#annotationlist))  
+ (used by [annotation](#annotation), [annotationList](#annotationList))  
 
-  : `"file"`  
-  : `"field"`  
-  : `"property"`  
-  : `"get"`  
-  : `"set"`  
-  : `"param"`  
-  : `"sparam"`  
-  ;  
+  : `"field"`  
+  : `"file"`  
+  : `"property"`  
+  : `"get"`  
+  : `"set"`  
+  : `"receiver"`  
+  : `"param"`  
+  : `"setparam"`  
+  : `"delegate"`  
+  ;  
 
 ##### unescapedAnnotation  
- (used by [annotation](#annotation), [annotationList](#annotationlist))  
+ (used by [annotation](#annotation), [fileAnnotation](#fileAnnotation), [annotatedLambda](#annotatedLambda), [annotationList](#annotationList))  
 
-  : [SimpleName](#simplename){ `"."`} [typeArguments](#typearguments)? [valueArguments](#valuearguments)?  
-  ;  
+  : [SimpleName](#SimpleName){ `"."`} [typeArguments](#typeArguments)? [valueArguments](#valueArguments)?  
+  ;  
 
 # Lexical structure  
 
 helper  
 ##### Digit  
- (used by [IntegerLiteral](#integerliteral), [HexDigit](#hexdigit))  
+ (used by [IntegerLiteral](#IntegerLiteral), [HexDigit](#HexDigit))  
 
-  : [`"0"`..`"9"`];  
+  : [`"0"`..`"9"`];  
 
 ##### IntegerLiteral  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : [Digit](#digit)+?  
+  : [Digit](#Digit) ([Digit](#Digit) | `"_"`)*  
 
 ##### FloatLiteral  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : \<Java double literal\>;  
+  : \<Java double literal\>;  
 
 helper  
 ##### HexDigit  
- (used by [RegularStringPart](#regularstringpart), [HexadecimalLiteral](#hexadecimalliteral))  
+ (used by [RegularStringPart](#RegularStringPart), [HexadecimalLiteral](#HexadecimalLiteral))  
 
-  : [Digit](#digit) | [`"A"`..`"F"`, `"a"`..`"f"`];  
+  : [Digit](#Digit) | [`"A"`..`"F"`, `"a"`..`"f"`];  
 
 ##### HexadecimalLiteral  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : `"0x"` [HexDigit](#hexdigit)+;  
+  : `"0x"` [HexDigit](#HexDigit) ([HexDigit](#HexDigit) | `"_"`)*;  
 
 ##### CharacterLiteral  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : \<character as in Java\>;  
+  : \<character as in Java\>;  
 
-See [Basic types](basic-types.html)  
+See [Basic types](basic-types.html)  
 
 ##### NoEscapeString  
- (used by [literalConstant](#literalconstant))  
+ (used by [literalConstant](#literalConstant))  
 
-  : \<"""-quoted string\>;  
+  : \<"""-quoted string\>;  
 
 ##### RegularStringPart  
- (used by [stringTemplateElement](#stringtemplateelement))  
+ (used by [stringTemplateElement](#stringTemplateElement))  
 
-  : \<any character other than backslash, quote, $ or newline\>  
-[ShortTemplateEntryStart](#shorttemplateentrystart):  
-  : `"$"`  
-[EscapeSequence](#escapesequence):  
-  : [UnicodeEscapeSequence](#unicodeescapesequence) | [RegularEscapeSequence](#regularescapesequence)  
-[UnicodeEscapeSequence](#unicodeescapesequence):  
-  : `"\u"` [HexDigit](#hexdigit){4}  
-[RegularEscapeSequence](#regularescapesequence):  
-  : `"\"` \<any character other than newline\>  
+  : \<any character other than backslash, quote, $ or newline\>  
+[ShortTemplateEntryStart](#ShortTemplateEntryStart):  
+  : `"$"`  
+[EscapeSequence](#EscapeSequence):  
+  : [UnicodeEscapeSequence](#UnicodeEscapeSequence) | [RegularEscapeSequence](#RegularEscapeSequence)  
+[UnicodeEscapeSequence](#UnicodeEscapeSequence):  
+  : `"\u"` [HexDigit](#HexDigit){4}  
+[RegularEscapeSequence](#RegularEscapeSequence):  
+  : `"\"` \<any character other than newline\>  
 
-See [String templates](basic-types.html#templates)  
+See [String templates](basic-types.html#templates)  
 
 ##### SEMI  
- (used by [whenEntry](#whenentry), [if](#if), [statements](#statements), [packageHeader](#packageheader), [property](#property), [import](#import))  
+ (used by [whenEntry](#whenEntry), [if](#if), [statements](#statements), [packageHeader](#packageHeader), [property](#property), [import](#import))  
 
-  : \<semicolon or newline\>;  
+  : \<semicolon or newline\>;  
 
 ##### SimpleName  
- (used by [typeParameter](#typeparameter), [catchBlock](#catchblock), [simpleUserType](#simpleusertype), [atomicExpression](#atomicexpression), [LabelName](#labelname),[package](#package), [packageHeader](#packageheader), [class](#class), [object](#object), [functionLiteral](#functionliteral), [infixFunctionCall](#infixfunctioncall), [function](#function),[parameter](#parameter), [callableReference](#callablereference), [FieldName](#fieldname), [variableDeclarationEntry](#variabledeclarationentry),[stringTemplateElement](#stringtemplateelement), [setter](#setter), [enumEntry](#enumentry), [import](#import), [valueArguments](#valuearguments),[unescapedAnnotation](#unescapedannotation), [typeConstraint](#typeconstraint))  
+ (used by [typeParameter](#typeParameter), [catchBlock](#catchBlock), [simpleUserType](#simpleUserType), [atomicExpression](#atomicExpression), [LabelName](#LabelName),[packageHeader](#packageHeader), [class](#class), [object](#object), [infixFunctionCall](#infixFunctionCall), [function](#function), [typeAlias](#typeAlias), [parameter](#parameter),[callableReference](#callableReference), [variableDeclarationEntry](#variableDeclarationEntry), [stringTemplateElement](#stringTemplateElement), [enumEntry](#enumEntry), [setter](#setter),[import](#import), [companionObject](#companionObject), [valueArguments](#valueArguments), [unescapedAnnotation](#unescapedAnnotation), [typeConstraint](#typeConstraint))  
 
-  : \<java identifier\>  
-  : ```"`"``` \<java identifier\> ```"`"```  
-  ;  
+  : \<java identifier\>  
+  : ```"`"``` \<java identifier\> ```"`"```  
+  ;  
 
-See [Java interoperability](java-interop.html)  
-
-##### FieldName  
- (used by [atomicExpression](#atomicexpression))  
-
-  : `"$"` [SimpleName](#simplename);  
+See [Java interoperability](java-interop.html)  
 
 ##### LabelName  
- (used by [labelReference](#labelreference), [labelDefinition](#labeldefinition))  
+ (used by [labelReference](#labelReference), [labelDefinition](#labelDefinition))  
 
-  : `"@"` [SimpleName](#simplename);  
+  : `"@"` [SimpleName](#SimpleName);  
 
-See [Returns and jumps](returns.html)  
+See [Returns and jumps](returns.html)  
