@@ -10,7 +10,7 @@
 * [开始](txt/getting-started.md)
    * [基础语法](txt/basic-syntax.md)
    * [习惯用法](txt/idioms.md)
-   * [编码习惯](txt/coding-conventions.md)
+   * [编码规范](txt/coding-conventions.md)
 * [基础](txt/basics.md)
    * [基本类型](txt/basic-types.md)
    * [包](txt/packages.md)
