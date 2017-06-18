@@ -9,7 +9,7 @@
 
 非常值得庆祝的是[Kotlin 中文站的参考文档已翻译校对完毕且与官方站同步](https://hltj.me/intro/2017/05/15/kotlin-reference-translated.html)，换句话说**本书目前是最新完整翻译版**，当然以后还会与官网保持同步更新的，请随时关注。
 
-目前已更新至 1.1.2-5。最近一次更新：2017-06-13。
+目前已更新至 1.1.2-5。最近一次更新：2017-06-18。
 
 本书采用 [Apache License 2.0 许可](http://www.apache.org/licenses/LICENSE-2.0)发布，因内容来源采用该许可。
 
