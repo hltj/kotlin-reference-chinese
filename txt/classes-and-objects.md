@@ -1,11 +1,11 @@
-# 类和对象
+# 类与对象
 
 .
 
 所有对象相关的
 
-- [类和继承](classes.md)
-- [属性和字段](properties.md)
+- [类与继承](classes.md)
+- [属性与字段](properties.md)
 - [接口](interfaces.md)
 - [可见性修饰符](visibility-modifiers.md)
 - [扩展](extensions.md)
