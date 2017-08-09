@@ -53,6 +53,7 @@
    * [标准库](reflink.md)
    * [kotlin.test](testlink.md)
 * [参考](txt/reference0.md)
+   * [关键字与操作符](txt/keyword-reference.md)
    * [语法](txt/grammar0.md)
       * [语法正文](txt/grammar.md)
    * [兼容性](txt/compatibility.md)
