@@ -9,3 +9,4 @@ Kotlin 与 JavaScript 合用
 - [JavaScript 中调用 Kotlin](js-to-kotlin-interop.md)
 - [JavaScript 模块](js-modules.md)
 - [JavaScript 反射](js-reflection.md)
+- [JavaScript DCE](javascript-dce.md)

@@ -66,6 +66,7 @@
    * [JavaScript 中调用 Kotlin](txt/js-to-kotlin-interop.md)
    * [JavaScript 模块](txt/js-modules.md)
    * [JavaScript 反射](txt/js-reflection.md)
+   * [JavaScript DCE](txt/javascript-dce.md)
 * [工具](txt/tools.md)
    * [编写 Kotlin 代码文档](txt/kotlin-doc.md)
    * [使用 Kapt](txt/kapt.md)
