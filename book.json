@@ -10,6 +10,11 @@
                     "substitute": "<em><strong><code>$1</code></strong></em>"
                 },
                 {
+                    "pattern": "<p>\\{:#([^} ]+)\\}</p>",
+                    "flags": "g",
+                    "substitute": "<a name=\"$1\"></a>"
+                },
+                {
                     "pattern": "\"/docs/tutorials/",
                     "flags": "g",
                     "substitute": "\"https://www.kotlincn.net/docs/tutorials/"
