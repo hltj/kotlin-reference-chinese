@@ -6,6 +6,7 @@
    * [Kotlin 用于服务器端](txt/server-overview.md)
    * [Kotlin 用于 Android](txt/android-overview.md)
    * [Kotlin 用于 JavaScript](txt/js-overview.md)
+   * [Kotlin Native](txt/native-overview.md)
    * [1.1 的新特性](txt/whatsnew11.md)
 * [开始](txt/getting-started.md)
    * [基础语法](txt/basic-syntax.md)
