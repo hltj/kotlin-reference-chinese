@@ -2,7 +2,7 @@
 
 .
 
-使用 Kotlin/Native 进行 iOS 与原生开发
+使用 Kotlin/Native 进行 iOS 与原生开发。
 
 - [并发](native/concurrency.md)
 - [不可变性](native/immutability.md)
