@@ -1,5 +1,5 @@
 /* CSS for website */
-.markdown-section hr:nth-child(1) {display: none}
-.markdown-section p:nth-child(2) {display: none}
-.markdown-section h2:nth-child(3),hr:nth-child(3),pre:nth-child(3) {display: none}
-.markdown-section hr:nth-child(4) {display: none}
+#book-search-results > div.search-noresults > section > hr:nth-child(1) {display: none}
+#book-search-results > div.search-noresults > section > p:nth-child(2) {display: none}
+#book-search-results > div.search-noresults > section > h2:nth-child(3),hr:nth-child(3),pre:nth-child(3) {display: none}
+#book-search-results > div.search-noresults > section > hr:nth-child(4) {display: none}
