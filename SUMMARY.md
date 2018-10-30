@@ -12,6 +12,7 @@
    * [1.1 的新特性](txt/whatsnew11.md)
    * [1.2 的新特性](txt/whatsnew12.md)
    * [1.3 的新特性](txt/whatsnew13.md)
+   * [Kotlin 1.3 的兼容性指南](txt/compatibility-guide-13.md)
 * [开始](txt/getting-started.md)
    * [基础语法](txt/basic-syntax.md)
    * [习惯用法](txt/idioms.md)

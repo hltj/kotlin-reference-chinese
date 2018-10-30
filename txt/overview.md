@@ -10,4 +10,6 @@ Kotlin 的概述
  - [Kotlin Native](native-overview.md)
  - [1.1 的新特性](whatsnew11.md)
  - [1.2 的新特性](whatsnew12.md)
+ - [1.3 的新特性](whatsnew13.md)
+ - [Kotlin 1.3 的兼容性指南](compatibility-guide-13.md)
 
