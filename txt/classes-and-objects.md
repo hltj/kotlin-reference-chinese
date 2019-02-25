@@ -15,5 +15,6 @@
 - [嵌套类](nested-classes.md)
 - [枚举类](enum-classes.md)
 - [对象](object-declarations.md)
+- [类型别名](type-aliases.md)
 - [委托](delegation.md)
 - [委托属性](delegated-properties.md)
