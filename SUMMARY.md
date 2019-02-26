@@ -57,7 +57,6 @@
    * [注解](txt/annotations.md)
    * [反射](txt/reflection.md)
    * [类型安全的构建器](txt/type-safe-builders.md)
-   * [多平台项目（预览版）](txt/multiplatform.md)
 * [核心库](txt/corelibs.md)
    * [标准库](reflink.md)
    * [kotlin.test](testlink.md)
