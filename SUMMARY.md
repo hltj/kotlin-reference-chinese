@@ -82,6 +82,7 @@
    * [平台库](txt/native/platform_libs.md)
    * [与 C 语言互操作](txt/native/c_interop.md)
    * [与 Objective-C 及 Swift 互操作](txt/native/objc_interop.md)
+   * [CocoaPods 集成](txt/native/cocoapods.md)
    * [Gradle 插件](txt/native/gradle_plugin.md)
    * [调试](txt/native/debugging.md)
    * [FAQ](txt/native/faq.md)
