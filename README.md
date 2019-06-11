@@ -7,7 +7,7 @@
 
 本书会与 [Kotlin 中文站](https://github.com/hltj/kotlin-web-site-cn)及 JetBrains 的 [Kotlin 官方站](https://github.com/JetBrains/kotlin-web-site)准同步更新。所以请时常来更新，或者同时关注 Kotlin 中文站（https://www.kotlincn.net/ ）。
 
-2017-05-13，[Kotlin 中文站的参考文档已翻译校对完毕且与官方站同步](https://hltj.me/intro/2017/05/15/kotlin-reference-translated.html)。换句话说，自 2017 年 5 月中旬起，**本书已是最新完整翻译版**。当然今后还会持续与官网保持同步更新的，请随时关注。
+2017-05-13，[Kotlin 中文站的参考文档已翻译校对完毕且与官方站同步](https://hltj.me/kotlin/2017/05/15/kotlin-reference-translated.html)。换句话说，自 2017 年 5 月中旬起，**本书已是最新完整翻译版**。当然今后还会持续与官网保持同步更新的，请随时关注。
 
 目前已更新至 1.3.31。最近一次更新：2019-06-10。
 
