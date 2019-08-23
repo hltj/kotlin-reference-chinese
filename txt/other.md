@@ -7,7 +7,7 @@
 - [解构声明](multi-declarations.md)
 - [集合](collections.md)
 - [区间](ranges.md)
-- [类型检查与转换](typecasts.md)
+- [类型检测与转换](typecasts.md)
 - [This 表达式](this-expressions.md)
 - [相等性](equality.md)
 - [操作符重载](operator-overloading.md)
