@@ -117,6 +117,7 @@
 * [工具](txt/tools.md)
    * [编写 Kotlin 代码文档](txt/kotlin-doc.md)
    * [使用 Kapt](txt/kapt.md)
+   * [Kotlin 编译器选项](txt/compiler-reference.md)
    * [使用 Gradle](txt/using-gradle.md)
    * [使用 Maven](txt/using-maven.md)
    * [使用 Ant](txt/using-ant.md)
