@@ -7,6 +7,7 @@
    * [Kotlin 用于 Android 开发](txt/android-overview.md)
    * [Kotlin 用于 JavaScript 开发](txt/js-overview.md)
    * [Kotlin 用于原生开发](txt/native-overview.md)
+   * [Kotlin 用于数据科学](txt/data-science-overview.md)
    * [协程](txt/coroutines-overview.md)
    * [多平台](txt/multiplatform.md)
    * [1.1 的新特性](txt/whatsnew11.md)
