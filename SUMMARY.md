@@ -87,6 +87,7 @@
    * [Kotlin 中调用 Java](txt/java-interop.md)
    * [Java 中调用 Kotlin](txt/java-to-kotlin-interop.md)
 * [JavaScript](txt/javascript.md)
+   * [搭建项目](txt/js-project-setup.md)
    * [动态类型](txt/dynamic-type.md)
    * [Kotlin 中调用 JavaScript](txt/js-interop.md)
    * [JavaScript 中调用 Kotlin](txt/js-to-kotlin-interop.md)

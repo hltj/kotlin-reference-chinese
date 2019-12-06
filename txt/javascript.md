@@ -4,6 +4,7 @@
 
 Kotlin 与 JavaScript 合用
 
+- [搭建项目](js-project-setup.md)
 - [动态类型](dynamic-type.md)
 - [Kotlin 中调用 JavaScript](js-interop.md)
 - [JavaScript 中调用 Kotlin](js-to-kotlin-interop.md)
