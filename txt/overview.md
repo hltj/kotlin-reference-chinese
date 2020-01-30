@@ -9,7 +9,3 @@ Kotlin 的概述
  - [Kotlin 用于 JavaScript](js-overview.md)
  - [Kotlin Native](native-overview.md)
  - [Kotlin 用于数据科学](data-science-overview.md)
- - [1.1 的新特性](whatsnew11.md)
- - [1.2 的新特性](whatsnew12.md)
- - [1.3 的新特性](whatsnew13.md)
-
