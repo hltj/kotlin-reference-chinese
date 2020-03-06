@@ -88,7 +88,7 @@
    * [反射](txt/reflection.md)
    * [作用域函数](txt/scope-functions.md)
    * [类型安全的构建器](txt/type-safe-builders.md)
-   * [实验性 API 标记](txt/experimental.md)
+   * [Opt-in Requirements](txt/opt-in-requirements.md)
 * [核心库](txt/corelibs.md)
    * [标准库](reflink.md)
    * [kotlin.test](testlink.md)
