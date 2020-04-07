@@ -6,3 +6,4 @@
 
 - [平台相关声明](platform-specific-declarations.md)
 - [以 Gradle 构建](building-mpp-with-gradle.md)
+- [多平台 Gradle DSL 参考](mpp-dsl-reference.md)

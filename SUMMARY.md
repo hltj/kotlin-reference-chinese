@@ -76,6 +76,7 @@
 * [多平台程序设计](txt/multiplatform-programming.md)
    * [平台相关声明](txt/platform-specific-declarations.md)
    * [以 Gradle 构建](txt/building-mpp-with-gradle.md)
+   * [多平台 Gradle DSL 参考](txt/mpp-dsl-reference.md)
 * [更多语言结构](txt/other.md)
    * [解构声明](txt/multi-declarations.md)
    * [类型检测与转换](txt/typecasts.md)
