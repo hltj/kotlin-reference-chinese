@@ -18,17 +18,17 @@ Short description:
 
 ### Grammar source files
 
-Kotlin grammar source files (in ANTLR format) are located in the <a href="https://github.com/JetBrains/kotlin-spec/tree/spec-rework" target="_blank">Kotlin specification repository</a>:
-- <strong><a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/KotlinLexer.g4" target="_blank">KotlinLexer.g4</a></strong> describes [lexical structure](#lexical-structure);
-- <strong><a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4" target="_blank">UnicodeClasses.g4</a></strong> describes the characters that can be used in identifiers (these rules are omitted on this page for better readability);
-- <strong><a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/KotlinParser.g4" target="_blank">KotlinParser.g4</a></strong> describes [syntax](#syntax).
+Kotlin grammar source files (in ANTLR format) are located in the [Kotlin specification repository](https://github.com/Kotlin/kotlin-spec):
+- **[KotlinLexer.g4](https://github.com/Kotlin/kotlin-spec/tree/master/grammar/src/main/antlr/KotlinLexer.g4)** describes [lexical structure](#lexical-grammar);
+- **[UnicodeClasses.g4](https://github.com/Kotlin/kotlin-spec/tree/master/grammar/src/main/antlr/UnicodeClasses.g4)** describes the characters that can be used in identifiers (these rules are omitted on this page for better readability);
+- **[KotlinParser.g4](https://github.com/Kotlin/kotlin-spec/tree/master/grammar/src/main/antlr/KotlinParser.g4)** describes [syntax](#syntax-grammar).
 
 The grammar on this page corresponds to the grammar files above.
 
 ### Symbols and naming
 
-_Terminal symbol_ names start with an uppercase letter, e.g. [Identifier](#Identifier).<br>
-_Non-terminal symbol_ names start with a lowercase letter, e.g. [kotlinFile](#kotlinFile).<br>
+_Terminal symbol_ names start with an uppercase letter, e.g. [Identifier](#Identifier).  
+_Non-terminal symbol_ names start with a lowercase letter, e.g. [kotlinFile](#kotlinFile).  
 
 Symbol definitions may be documented with _attributes_:
 
@@ -44,7 +44,7 @@ Also for better readability some simplifications are made:
 The grammar corresponds to the latest stable version of the Kotlin compiler excluding lexer and parser rules for experimental features that are disabled by default.
 
 
-## Syntax
+## Syntax grammar
 
 ### General
 
@@ -55,14 +55,14 @@ Relevant pages: [Packages](packages.html)
 start  
 <h4 id="kotlinFile">kotlinFile</h4>
 
- **:**  [shebangLine](#shebangLine)**?**  [fileAnnotation](#fileAnnotation)**\***  [packageHeader](#packageHeader) [importList](#importList) [topLevelObject](#topLevelObject)**\***  `EOF`  
+ **:**  [shebangLine](#shebangLine)**?**  [fileAnnotation](#fileAnnotation)**\***  [packageHeader](#packageHeader) [importList](#importList) [topLevelObject](#topLevelObject)**\***   `EOF`   
  **;** 
 
 
 start  
 <h4 id="script">script</h4>
 
- **:**  [shebangLine](#shebangLine)**?**  [fileAnnotation](#fileAnnotation)**\***  [packageHeader](#packageHeader) [importList](#importList) **(** [statement](#statement) [semi](#semi)**)** **\***  `EOF`  
+ **:**  [shebangLine](#shebangLine)**?**  [fileAnnotation](#fileAnnotation)**\***  [packageHeader](#packageHeader) [importList](#importList) **(** [statement](#statement) [semi](#semi)**)** **\***   `EOF`   
  **;** 
 
 <h4 id="shebangLine">shebangLine</h4>
@@ -74,7 +74,7 @@ start
 <h4 id="fileAnnotation">fileAnnotation</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[kotlinFile](#kotlinFile)<span style="color:gray">, </span>[script](#script)<span style="color:gray">)</span>  
- **:**  [ANNOTATION_USE_SITE_TARGET_FILE](#ANNOTATION_USE_SITE_TARGET_FILE) **(** **(** `'['` [unescapedAnnotation](#unescapedAnnotation)**+**  `']'`**)**  **|**  [unescapedAnnotation](#unescapedAnnotation)**)**   
+ **:**  [ANNOTATION_USE_SITE_TARGET_FILE](#ANNOTATION_USE_SITE_TARGET_FILE) **(** **(**  `'['`  [unescapedAnnotation](#unescapedAnnotation)**+**   `']'` **)**  **|**  [unescapedAnnotation](#unescapedAnnotation)**)**   
  **;** 
 
 See [Packages](packages.html)
@@ -83,7 +83,7 @@ See [Packages](packages.html)
 <h4 id="packageHeader">packageHeader</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[kotlinFile](#kotlinFile)<span style="color:gray">, </span>[script](#script)<span style="color:gray">)</span>  
- **:**  **(** `'package'` [identifier](#identifier) [semi](#semi)**?** **)** **?**   
+ **:**  **(**  `'package'`  [identifier](#identifier) [semi](#semi)**?** **)** **?**   
  **;** 
 
 See [Imports](packages.html#imports)
@@ -98,13 +98,13 @@ See [Imports](packages.html#imports)
 <h4 id="importHeader">importHeader</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[importList](#importList)<span style="color:gray">)</span>  
- **:**  `'import'` [identifier](#identifier) **(** **(** `'.'` `'*'`**)**  **|**  [importAlias](#importAlias)**)** **?**  [semi](#semi)**?**   
+ **:**   `'import'`  [identifier](#identifier) **(** **(**  `'.'`   `'*'` **)**  **|**  [importAlias](#importAlias)**)** **?**  [semi](#semi)**?**   
  **;** 
 
 <h4 id="importAlias">importAlias</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[importHeader](#importHeader)<span style="color:gray">)</span>  
- **:**  `'as'` [simpleIdentifier](#simpleIdentifier)  
+ **:**   `'as'`  [simpleIdentifier](#simpleIdentifier)  
  **;** 
 
 <h4 id="topLevelObject">topLevelObject</h4>
@@ -116,7 +116,7 @@ See [Imports](packages.html#imports)
 <h4 id="typeAlias">typeAlias</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[declaration](#declaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'typealias'` [simpleIdentifier](#simpleIdentifier) [typeParameters](#typeParameters)**?**  `'='` [type](#type)  
+ **:**  [modifiers](#modifiers)**?**   `'typealias'`  [simpleIdentifier](#simpleIdentifier) [typeParameters](#typeParameters)**?**   `'='`  [type](#type)  
  **;** 
 
 <h4 id="declaration">declaration</h4>
@@ -137,10 +137,10 @@ See [Classes and Inheritance](classes.html)
 <h4 id="classDeclaration">classDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[declaration](#declaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  **(** `'class'` **|**  `'interface'`**)**   
+ **:**  [modifiers](#modifiers)**?**  **(**  `'class'`  **|**   `'interface'` **)**   
    [simpleIdentifier](#simpleIdentifier) [typeParameters](#typeParameters)**?**   
    [primaryConstructor](#primaryConstructor)**?**   
-   **(** `':'` [delegationSpecifiers](#delegationSpecifiers)**)** **?**   
+   **(**  `':'`  [delegationSpecifiers](#delegationSpecifiers)**)** **?**   
    [typeConstraints](#typeConstraints)**?**   
    **(** [classBody](#classBody) **|**  [enumClassBody](#enumClassBody)**)** **?**   
  **;** 
@@ -148,31 +148,31 @@ See [Classes and Inheritance](classes.html)
 <h4 id="primaryConstructor">primaryConstructor</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">)</span>  
- **:**  **(** [modifiers](#modifiers)**?**  `'constructor'`**)** **?**  [classParameters](#classParameters)  
+ **:**  **(** [modifiers](#modifiers)**?**   `'constructor'` **)** **?**  [classParameters](#classParameters)  
  **;** 
 
 <h4 id="classBody">classBody</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">, </span>[companionObject](#companionObject)<span style="color:gray">, </span>[objectDeclaration](#objectDeclaration)<span style="color:gray">, </span>[enumEntry](#enumEntry)<span style="color:gray">, </span>[objectLiteral](#objectLiteral)<span style="color:gray">)</span>  
- **:**  `'{'` [classMemberDeclarations](#classMemberDeclarations) `'}'`  
+ **:**   `'{'`  [classMemberDeclarations](#classMemberDeclarations)  `'}'`   
  **;** 
 
 <h4 id="classParameters">classParameters</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryConstructor](#primaryConstructor)<span style="color:gray">)</span>  
- **:**  `'('` **(** [classParameter](#classParameter) **(** `','` [classParameter](#classParameter)**)** **\*** **)** **?**  `')'`  
+ **:**   `'('`  **(** [classParameter](#classParameter) **(**  `','`  [classParameter](#classParameter)**)** **\*** **)** **?**   `')'`   
  **;** 
 
 <h4 id="classParameter">classParameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classParameters](#classParameters)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  **(** `'val'` **|**  `'var'`**)** **?**  [simpleIdentifier](#simpleIdentifier) `':'` [type](#type) **(** `'='` [expression](#expression)**)** **?**   
+ **:**  [modifiers](#modifiers)**?**  **(**  `'val'`  **|**   `'var'` **)** **?**  [simpleIdentifier](#simpleIdentifier)  `':'`  [type](#type) **(**  `'='`  [expression](#expression)**)** **?**   
  **;** 
 
 <h4 id="delegationSpecifiers">delegationSpecifiers</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">, </span>[companionObject](#companionObject)<span style="color:gray">, </span>[objectDeclaration](#objectDeclaration)<span style="color:gray">, </span>[objectLiteral](#objectLiteral)<span style="color:gray">)</span>  
- **:**  [annotatedDelegationSpecifier](#annotatedDelegationSpecifier) **(** `','` [annotatedDelegationSpecifier](#annotatedDelegationSpecifier)**)** **\***   
+ **:**  [annotatedDelegationSpecifier](#annotatedDelegationSpecifier) **(**  `','`  [annotatedDelegationSpecifier](#annotatedDelegationSpecifier)**)** **\***   
  **;** 
 
 <h4 id="delegationSpecifier">delegationSpecifier</h4>
@@ -199,7 +199,7 @@ See [Classes and Inheritance](classes.html)
 <h4 id="explicitDelegation">explicitDelegation</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[delegationSpecifier](#delegationSpecifier)<span style="color:gray">)</span>  
- **:**  **(** [userType](#userType) **|**  [functionType](#functionType)**)**  `'by'` [expression](#expression)  
+ **:**  **(** [userType](#userType) **|**  [functionType](#functionType)**)**   `'by'`  [expression](#expression)  
  **;** 
 
 See [Generic classes](generics.html)
@@ -208,13 +208,13 @@ See [Generic classes](generics.html)
 <h4 id="typeParameters">typeParameters</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeAlias](#typeAlias)<span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">, </span>[functionDeclaration](#functionDeclaration)<span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">)</span>  
- **:**  `'<'` [typeParameter](#typeParameter) **(** `','` [typeParameter](#typeParameter)**)** **\***  `'>'`  
+ **:**   `'<'`  [typeParameter](#typeParameter) **(**  `','`  [typeParameter](#typeParameter)**)** **\***   `'>'`   
  **;** 
 
 <h4 id="typeParameter">typeParameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeParameters](#typeParameters)<span style="color:gray">)</span>  
- **:**  [typeParameterModifiers](#typeParameterModifiers)**?**  [simpleIdentifier](#simpleIdentifier) **(** `':'` [type](#type)**)** **?**   
+ **:**  [typeParameterModifiers](#typeParameterModifiers)**?**  [simpleIdentifier](#simpleIdentifier) **(**  `':'`  [type](#type)**)** **?**   
  **;** 
 
 See [Generic constraints](generics.html#generic-constraints)
@@ -223,13 +223,13 @@ See [Generic constraints](generics.html#generic-constraints)
 <h4 id="typeConstraints">typeConstraints</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">, </span>[functionDeclaration](#functionDeclaration)<span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">, </span>[anonymousFunction](#anonymousFunction)<span style="color:gray">)</span>  
- **:**  `'where'` [typeConstraint](#typeConstraint) **(** `','` [typeConstraint](#typeConstraint)**)** **\***   
+ **:**   `'where'`  [typeConstraint](#typeConstraint) **(**  `','`  [typeConstraint](#typeConstraint)**)** **\***   
  **;** 
 
 <h4 id="typeConstraint">typeConstraint</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeConstraints](#typeConstraints)<span style="color:gray">)</span>  
- **:**  [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier) `':'` [type](#type)  
+ **:**  [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier)  `':'`  [type](#type)  
  **;** 
 
 ### Class members
@@ -253,36 +253,36 @@ See [Generic constraints](generics.html#generic-constraints)
 <h4 id="anonymousInitializer">anonymousInitializer</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classMemberDeclaration](#classMemberDeclaration)<span style="color:gray">)</span>  
- **:**  `'init'` [block](#block)  
+ **:**   `'init'`  [block](#block)  
  **;** 
 
 <h4 id="companionObject">companionObject</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classMemberDeclaration](#classMemberDeclaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'companion'` `'object'` [simpleIdentifier](#simpleIdentifier)**?**   
-   **(** `':'` [delegationSpecifiers](#delegationSpecifiers)**)** **?**   
+ **:**  [modifiers](#modifiers)**?**   `'companion'`   `'object'`  [simpleIdentifier](#simpleIdentifier)**?**   
+   **(**  `':'`  [delegationSpecifiers](#delegationSpecifiers)**)** **?**   
    [classBody](#classBody)**?**   
  **;** 
 
 <h4 id="functionValueParameters">functionValueParameters</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionDeclaration](#functionDeclaration)<span style="color:gray">, </span>[secondaryConstructor](#secondaryConstructor)<span style="color:gray">, </span>[anonymousFunction](#anonymousFunction)<span style="color:gray">)</span>  
- **:**  `'('` **(** [functionValueParameter](#functionValueParameter) **(** `','` [functionValueParameter](#functionValueParameter)**)** **\*** **)** **?**  `')'`  
+ **:**   `'('`  **(** [functionValueParameter](#functionValueParameter) **(**  `','`  [functionValueParameter](#functionValueParameter)**)** **\*** **)** **?**   `')'`   
  **;** 
 
 <h4 id="functionValueParameter">functionValueParameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionValueParameters](#functionValueParameters)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  [parameter](#parameter) **(** `'='` [expression](#expression)**)** **?**   
+ **:**  [modifiers](#modifiers)**?**  [parameter](#parameter) **(**  `'='`  [expression](#expression)**)** **?**   
  **;** 
 
 <h4 id="functionDeclaration">functionDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[declaration](#declaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'fun'` [typeParameters](#typeParameters)**?**   
-   **(** [receiverType](#receiverType) `'.'`**)** **?**   
+ **:**  [modifiers](#modifiers)**?**   `'fun'`  [typeParameters](#typeParameters)**?**   
+   **(** [receiverType](#receiverType)  `'.'` **)** **?**   
    [simpleIdentifier](#simpleIdentifier) [functionValueParameters](#functionValueParameters)  
-   **(** `':'` [type](#type)**)** **?**  [typeConstraints](#typeConstraints)**?**   
+   **(**  `':'`  [type](#type)**)** **?**  [typeConstraints](#typeConstraints)**?**   
    [functionBody](#functionBody)**?**   
  **;** 
 
@@ -290,19 +290,19 @@ See [Generic constraints](generics.html#generic-constraints)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionDeclaration](#functionDeclaration)<span style="color:gray">, </span>[getter](#getter)<span style="color:gray">, </span>[setter](#setter)<span style="color:gray">, </span>[anonymousFunction](#anonymousFunction)<span style="color:gray">)</span>  
  **:**  [block](#block)  
- **|**  `'='` [expression](#expression)  
+ **|**   `'='`  [expression](#expression)  
  **;** 
 
 <h4 id="variableDeclaration">variableDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiVariableDeclaration](#multiVariableDeclaration)<span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">, </span>[forStatement](#forStatement)<span style="color:gray">, </span>[lambdaParameter](#lambdaParameter)<span style="color:gray">, </span>[whenSubject](#whenSubject)<span style="color:gray">)</span>  
- **:**  [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier) **(** `':'` [type](#type)**)** **?**   
+ **:**  [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier) **(**  `':'`  [type](#type)**)** **?**   
  **;** 
 
 <h4 id="multiVariableDeclaration">multiVariableDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">, </span>[forStatement](#forStatement)<span style="color:gray">, </span>[lambdaParameter](#lambdaParameter)<span style="color:gray">)</span>  
- **:**  `'('` [variableDeclaration](#variableDeclaration) **(** `','` [variableDeclaration](#variableDeclaration)**)** **\***  `')'`  
+ **:**   `'('`  [variableDeclaration](#variableDeclaration) **(**  `','`  [variableDeclaration](#variableDeclaration)**)** **\***   `')'`   
  **;** 
 
 See [Properties and Fields](properties.html)
@@ -311,48 +311,48 @@ See [Properties and Fields](properties.html)
 <h4 id="propertyDeclaration">propertyDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[declaration](#declaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  **(** `'val'` **|**  `'var'`**)**  [typeParameters](#typeParameters)**?**   
-   **(** [receiverType](#receiverType) `'.'`**)** **?**   
+ **:**  [modifiers](#modifiers)**?**  **(**  `'val'`  **|**   `'var'` **)**  [typeParameters](#typeParameters)**?**   
+   **(** [receiverType](#receiverType)  `'.'` **)** **?**   
    **(** [multiVariableDeclaration](#multiVariableDeclaration) **|**  [variableDeclaration](#variableDeclaration)**)**   
    [typeConstraints](#typeConstraints)**?**   
-   **(** **(** `'='` [expression](#expression)**)**  **|**  [propertyDelegate](#propertyDelegate)**)** **?**  `';'`**?**   
+   **(** **(**  `'='`  [expression](#expression)**)**  **|**  [propertyDelegate](#propertyDelegate)**)** **?**   `';'` **?**   
    **(** **(** [getter](#getter)**?**  **(** [semi](#semi)**?**  [setter](#setter)**)** **?** **)**  **|**  **(** [setter](#setter)**?**  **(** [semi](#semi)**?**  [getter](#getter)**)** **?** **)** **)**   
  **;** 
 
 <h4 id="propertyDelegate">propertyDelegate</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">)</span>  
- **:**  `'by'` [expression](#expression)  
+ **:**   `'by'`  [expression](#expression)  
  **;** 
 
 <h4 id="getter">getter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'get'`  
- **|**  [modifiers](#modifiers)**?**  `'get'` `'('` `')'`  
-   **(** `':'` [type](#type)**)** **?**   
+ **:**  [modifiers](#modifiers)**?**   `'get'`   
+ **|**  [modifiers](#modifiers)**?**   `'get'`   `'('`   `')'`   
+   **(**  `':'`  [type](#type)**)** **?**   
    [functionBody](#functionBody)  
  **;** 
 
 <h4 id="setter">setter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'set'`  
- **|**  [modifiers](#modifiers)**?**  `'set'` `'('` **(** [annotation](#annotation) **|**  [parameterModifier](#parameterModifier)**)** **\***  [setterParameter](#setterParameter) `')'`  
-   **(** `':'` [type](#type)**)** **?**   
+ **:**  [modifiers](#modifiers)**?**   `'set'`   
+ **|**  [modifiers](#modifiers)**?**   `'set'`   `'('`  **(** [annotation](#annotation) **|**  [parameterModifier](#parameterModifier)**)** **\***  [setterParameter](#setterParameter)  `')'`   
+   **(**  `':'`  [type](#type)**)** **?**   
    [functionBody](#functionBody)  
  **;** 
 
 <h4 id="setterParameter">setterParameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[setter](#setter)<span style="color:gray">)</span>  
- **:**  [simpleIdentifier](#simpleIdentifier) **(** `':'` [type](#type)**)** **?**   
+ **:**  [simpleIdentifier](#simpleIdentifier) **(**  `':'`  [type](#type)**)** **?**   
  **;** 
 
 <h4 id="parameter">parameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionValueParameter](#functionValueParameter)<span style="color:gray">, </span>[functionTypeParameters](#functionTypeParameters)<span style="color:gray">)</span>  
- **:**  [simpleIdentifier](#simpleIdentifier) `':'` [type](#type)  
+ **:**  [simpleIdentifier](#simpleIdentifier)  `':'`  [type](#type)  
  **;** 
 
 See [Object expressions and Declarations](object-declarations.html)
@@ -361,21 +361,21 @@ See [Object expressions and Declarations](object-declarations.html)
 <h4 id="objectDeclaration">objectDeclaration</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[declaration](#declaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'object'` [simpleIdentifier](#simpleIdentifier) **(** `':'` [delegationSpecifiers](#delegationSpecifiers)**)** **?**  [classBody](#classBody)**?**   
+ **:**  [modifiers](#modifiers)**?**   `'object'`  [simpleIdentifier](#simpleIdentifier) **(**  `':'`  [delegationSpecifiers](#delegationSpecifiers)**)** **?**  [classBody](#classBody)**?**   
  **;** 
 
 <h4 id="secondaryConstructor">secondaryConstructor</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classMemberDeclaration](#classMemberDeclaration)<span style="color:gray">)</span>  
- **:**  [modifiers](#modifiers)**?**  `'constructor'` [functionValueParameters](#functionValueParameters)  
-   **(** `':'` [constructorDelegationCall](#constructorDelegationCall)**)** **?**  [block](#block)**?**   
+ **:**  [modifiers](#modifiers)**?**   `'constructor'`  [functionValueParameters](#functionValueParameters)  
+   **(**  `':'`  [constructorDelegationCall](#constructorDelegationCall)**)** **?**  [block](#block)**?**   
  **;** 
 
 <h4 id="constructorDelegationCall">constructorDelegationCall</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[secondaryConstructor](#secondaryConstructor)<span style="color:gray">)</span>  
- **:**  `'this'` [valueArguments](#valueArguments)  
- **|**  `'super'` [valueArguments](#valueArguments)  
+ **:**   `'this'`  [valueArguments](#valueArguments)  
+ **|**   `'super'`  [valueArguments](#valueArguments)  
  **;** 
 
 ### Enum classes
@@ -386,13 +386,13 @@ See [Enum classes](enum-classes.html)
 <h4 id="enumClassBody">enumClassBody</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">)</span>  
- **:**  `'{'` [enumEntries](#enumEntries)**?**  **(** `';'` [classMemberDeclarations](#classMemberDeclarations)**)** **?**  `'}'`  
+ **:**   `'{'`  [enumEntries](#enumEntries)**?**  **(**  `';'`  [classMemberDeclarations](#classMemberDeclarations)**)** **?**   `'}'`   
  **;** 
 
 <h4 id="enumEntries">enumEntries</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[enumClassBody](#enumClassBody)<span style="color:gray">)</span>  
- **:**  [enumEntry](#enumEntry) **(** `','` [enumEntry](#enumEntry)**)** **\***  `','`**?**   
+ **:**  [enumEntry](#enumEntry) **(**  `','`  [enumEntry](#enumEntry)**)** **\***   `','` **?**   
  **;** 
 
 <h4 id="enumEntry">enumEntry</h4>
@@ -416,7 +416,7 @@ See [Types](basic-types.html)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[type](#type)<span style="color:gray">, </span>[nullableType](#nullableType)<span style="color:gray">, </span>[receiverType](#receiverType)<span style="color:gray">)</span>  
  **:**  [userType](#userType)  
- **|**  `'dynamic'`  
+ **|**   `'dynamic'`   
  **;** 
 
 <h4 id="nullableType">nullableType</h4>
@@ -428,14 +428,14 @@ See [Types](basic-types.html)
 <h4 id="quest">quest</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[nullableType](#nullableType)<span style="color:gray">)</span>  
- **:**  `'?'`  
+ **:**   `'?'`   
  **|**  [QUEST_WS](#QUEST_WS)  
  **;** 
 
 <h4 id="userType">userType</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[delegationSpecifier](#delegationSpecifier)<span style="color:gray">, </span>[constructorInvocation](#constructorInvocation)<span style="color:gray">, </span>[explicitDelegation](#explicitDelegation)<span style="color:gray">, </span>[typeReference](#typeReference)<span style="color:gray">, </span>[parenthesizedUserType](#parenthesizedUserType)<span style="color:gray">, </span>[unescapedAnnotation](#unescapedAnnotation)<span style="color:gray">)</span>  
- **:**  [simpleUserType](#simpleUserType) **(** `'.'` [simpleUserType](#simpleUserType)**)** **\***   
+ **:**  [simpleUserType](#simpleUserType) **(**  `'.'`  [simpleUserType](#simpleUserType)**)** **\***   
  **;** 
 
 <h4 id="simpleUserType">simpleUserType</h4>
@@ -448,7 +448,7 @@ See [Types](basic-types.html)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeArguments](#typeArguments)<span style="color:gray">)</span>  
  **:**  [typeProjectionModifiers](#typeProjectionModifiers)**?**  [type](#type)  
- **|**  `'*'`  
+ **|**   `'*'`   
  **;** 
 
 <h4 id="typeProjectionModifiers">typeProjectionModifiers</h4>
@@ -467,19 +467,19 @@ See [Types](basic-types.html)
 <h4 id="functionType">functionType</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[delegationSpecifier](#delegationSpecifier)<span style="color:gray">, </span>[explicitDelegation](#explicitDelegation)<span style="color:gray">, </span>[type](#type)<span style="color:gray">)</span>  
- **:**  **(** [receiverType](#receiverType) `'.'`**)** **?**  [functionTypeParameters](#functionTypeParameters) `'->'` [type](#type)  
+ **:**  **(** [receiverType](#receiverType)  `'.'` **)** **?**  [functionTypeParameters](#functionTypeParameters)  `'->'`  [type](#type)  
  **;** 
 
 <h4 id="functionTypeParameters">functionTypeParameters</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionType](#functionType)<span style="color:gray">)</span>  
- **:**  `'('` **(** [parameter](#parameter) **|**  [type](#type)**)** **?**  **(** `','` **(** [parameter](#parameter) **|**  [type](#type)**)** **)** **\***  `')'`  
+ **:**   `'('`  **(** [parameter](#parameter) **|**  [type](#type)**)** **?**  **(**  `','`  **(** [parameter](#parameter) **|**  [type](#type)**)** **)** **\***   `')'`   
  **;** 
 
 <h4 id="parenthesizedType">parenthesizedType</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[type](#type)<span style="color:gray">, </span>[nullableType](#nullableType)<span style="color:gray">, </span>[receiverType](#receiverType)<span style="color:gray">)</span>  
- **:**  `'('` [type](#type) `')'`  
+ **:**   `'('`  [type](#type)  `')'`   
  **;** 
 
 <h4 id="receiverType">receiverType</h4>
@@ -491,8 +491,8 @@ See [Types](basic-types.html)
 <h4 id="parenthesizedUserType">parenthesizedUserType</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[parenthesizedUserType](#parenthesizedUserType)<span style="color:gray">)</span>  
- **:**  `'('` [userType](#userType) `')'`  
- **|**  `'('` [parenthesizedUserType](#parenthesizedUserType) `')'`  
+ **:**   `'('`  [userType](#userType)  `')'`   
+ **|**   `'('`  [parenthesizedUserType](#parenthesizedUserType)  `')'`   
  **;** 
 
 ### Statements
@@ -529,7 +529,7 @@ See [Returns and jumps](returns.html)
 <h4 id="block">block</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[anonymousInitializer](#anonymousInitializer)<span style="color:gray">, </span>[functionBody](#functionBody)<span style="color:gray">, </span>[secondaryConstructor](#secondaryConstructor)<span style="color:gray">, </span>[controlStructureBody](#controlStructureBody)<span style="color:gray">, </span>[tryExpression](#tryExpression)<span style="color:gray">, </span>[catchBlock](#catchBlock)<span style="color:gray">, </span>[finallyBlock](#finallyBlock)<span style="color:gray">)</span>  
- **:**  `'{'` [statements](#statements) `'}'`  
+ **:**   `'{'`  [statements](#statements)  `'}'`   
  **;** 
 
 <h4 id="loopStatement">loopStatement</h4>
@@ -543,41 +543,41 @@ See [Returns and jumps](returns.html)
 <h4 id="forStatement">forStatement</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[loopStatement](#loopStatement)<span style="color:gray">)</span>  
- **:**  `'for'`  
-   `'('` [annotation](#annotation)**\***  **(** [variableDeclaration](#variableDeclaration) **|**  [multiVariableDeclaration](#multiVariableDeclaration)**)**  `'in'` [expression](#expression) `')'`  
+ **:**   `'for'`   
+    `'('`  [annotation](#annotation)**\***  **(** [variableDeclaration](#variableDeclaration) **|**  [multiVariableDeclaration](#multiVariableDeclaration)**)**   `'in'`  [expression](#expression)  `')'`   
    [controlStructureBody](#controlStructureBody)**?**   
  **;** 
 
 <h4 id="whileStatement">whileStatement</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[loopStatement](#loopStatement)<span style="color:gray">)</span>  
- **:**  `'while'` `'('` [expression](#expression) `')'` [controlStructureBody](#controlStructureBody)  
- **|**  `'while'` `'('` [expression](#expression) `')'` `';'`  
+ **:**   `'while'`   `'('`  [expression](#expression)  `')'`  [controlStructureBody](#controlStructureBody)  
+ **|**   `'while'`   `'('`  [expression](#expression)  `')'`   `';'`   
  **;** 
 
 <h4 id="doWhileStatement">doWhileStatement</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[loopStatement](#loopStatement)<span style="color:gray">)</span>  
- **:**  `'do'` [controlStructureBody](#controlStructureBody)**?**  `'while'` `'('` [expression](#expression) `')'`  
+ **:**   `'do'`  [controlStructureBody](#controlStructureBody)**?**   `'while'`   `'('`  [expression](#expression)  `')'`   
  **;** 
 
 <h4 id="assignment">assignment</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[statement](#statement)<span style="color:gray">)</span>  
- **:**  [directlyAssignableExpression](#directlyAssignableExpression) `'='` [expression](#expression)  
+ **:**  [directlyAssignableExpression](#directlyAssignableExpression)  `'='`  [expression](#expression)  
  **|**  [assignableExpression](#assignableExpression) [assignmentAndOperator](#assignmentAndOperator) [expression](#expression)  
  **;** 
 
 <h4 id="semi">semi</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[script](#script)<span style="color:gray">, </span>[packageHeader](#packageHeader)<span style="color:gray">, </span>[importHeader](#importHeader)<span style="color:gray">, </span>[propertyDeclaration](#propertyDeclaration)<span style="color:gray">, </span>[whenEntry](#whenEntry)<span style="color:gray">)</span>  
- **:**  `EOF`  
+ **:**   `EOF`   
  **;** 
 
 <h4 id="semis">semis</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[topLevelObject](#topLevelObject)<span style="color:gray">, </span>[classMemberDeclarations](#classMemberDeclarations)<span style="color:gray">, </span>[statements](#statements)<span style="color:gray">)</span>  
- **:**  `EOF`  
+ **:**   `EOF`   
  **;** 
 
 ### Expressions
@@ -597,6 +597,7 @@ See [Returns and jumps](returns.html)
 | | Equality | `==`, `!==` |
 | | Conjunction | `&&` |
 | | Disjunction | `||` |
+| | Spread operator | `*` |
 | Lowest | Assignment | `=`, `+=`, `-=`, `*=`, `/=`, `%=` |
 
 
@@ -609,13 +610,13 @@ See [Returns and jumps](returns.html)
 <h4 id="disjunction">disjunction</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[expression](#expression)<span style="color:gray">)</span>  
- **:**  [conjunction](#conjunction) **(** `'||'` [conjunction](#conjunction)**)** **\***   
+ **:**  [conjunction](#conjunction) **(**  `'||'`  [conjunction](#conjunction)**)** **\***   
  **;** 
 
 <h4 id="conjunction">conjunction</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[disjunction](#disjunction)<span style="color:gray">)</span>  
- **:**  [equality](#equality) **(** `'&&'` [equality](#equality)**)** **\***   
+ **:**  [equality](#equality) **(**  `'&&'`  [equality](#equality)**)** **\***   
  **;** 
 
 <h4 id="equality">equality</h4>
@@ -645,7 +646,7 @@ See [Returns and jumps](returns.html)
 <h4 id="elvis">elvis</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[elvisExpression](#elvisExpression)<span style="color:gray">)</span>  
- **:**  `'?'` `':'`  
+ **:**   `'?'`   `':'`   
  **;** 
 
 <h4 id="infixFunctionCall">infixFunctionCall</h4>
@@ -657,7 +658,7 @@ See [Returns and jumps](returns.html)
 <h4 id="rangeExpression">rangeExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[infixFunctionCall](#infixFunctionCall)<span style="color:gray">)</span>  
- **:**  [additiveExpression](#additiveExpression) **(** `'..'` [additiveExpression](#additiveExpression)**)** **\***   
+ **:**  [additiveExpression](#additiveExpression) **(**  `'..'`  [additiveExpression](#additiveExpression)**)** **\***   
  **;** 
 
 <h4 id="additiveExpression">additiveExpression</h4>
@@ -733,13 +734,13 @@ See [Returns and jumps](returns.html)
 <h4 id="indexingSuffix">indexingSuffix</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[postfixUnarySuffix](#postfixUnarySuffix)<span style="color:gray">, </span>[assignableSuffix](#assignableSuffix)<span style="color:gray">)</span>  
- **:**  `'['` [expression](#expression) **(** `','` [expression](#expression)**)** **\***  `']'`  
+ **:**   `'['`  [expression](#expression) **(**  `','`  [expression](#expression)**)** **\***   `']'`   
  **;** 
 
 <h4 id="navigationSuffix">navigationSuffix</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[postfixUnarySuffix](#postfixUnarySuffix)<span style="color:gray">, </span>[assignableSuffix](#assignableSuffix)<span style="color:gray">)</span>  
- **:**  [memberAccessOperator](#memberAccessOperator) **(** [simpleIdentifier](#simpleIdentifier) **|**  [parenthesizedExpression](#parenthesizedExpression) **|**  `'class'`**)**   
+ **:**  [memberAccessOperator](#memberAccessOperator) **(** [simpleIdentifier](#simpleIdentifier) **|**  [parenthesizedExpression](#parenthesizedExpression) **|**   `'class'` **)**   
  **;** 
 
 <h4 id="callSuffix">callSuffix</h4>
@@ -758,20 +759,20 @@ See [Returns and jumps](returns.html)
 <h4 id="typeArguments">typeArguments</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[simpleUserType](#simpleUserType)<span style="color:gray">, </span>[postfixUnarySuffix](#postfixUnarySuffix)<span style="color:gray">, </span>[assignableSuffix](#assignableSuffix)<span style="color:gray">, </span>[callSuffix](#callSuffix)<span style="color:gray">)</span>  
- **:**  `'<'` [typeProjection](#typeProjection) **(** `','` [typeProjection](#typeProjection)**)** **\***  `'>'`  
+ **:**   `'<'`  [typeProjection](#typeProjection) **(**  `','`  [typeProjection](#typeProjection)**)** **\***   `'>'`   
  **;** 
 
 <h4 id="valueArguments">valueArguments</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[constructorInvocation](#constructorInvocation)<span style="color:gray">, </span>[constructorDelegationCall](#constructorDelegationCall)<span style="color:gray">, </span>[enumEntry](#enumEntry)<span style="color:gray">, </span>[callSuffix](#callSuffix)<span style="color:gray">)</span>  
- **:**  `'('` `')'`  
- **|**  `'('` [valueArgument](#valueArgument) **(** `','` [valueArgument](#valueArgument)**)** **\***  `')'`  
+ **:**   `'('`   `')'`   
+ **|**   `'('`  [valueArgument](#valueArgument) **(**  `','`  [valueArgument](#valueArgument)**)** **\***   `')'`   
  **;** 
 
 <h4 id="valueArgument">valueArgument</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[valueArguments](#valueArguments)<span style="color:gray">)</span>  
- **:**  [annotation](#annotation)**?**  **(** [simpleIdentifier](#simpleIdentifier) `'='`**)** **?**  `'*'`**?**  [expression](#expression)  
+ **:**  [annotation](#annotation)**?**  **(** [simpleIdentifier](#simpleIdentifier)  `'='` **)** **?**   `'*'` **?**  [expression](#expression)  
  **;** 
 
 <h4 id="primaryExpression">primaryExpression</h4>
@@ -796,14 +797,14 @@ See [Returns and jumps](returns.html)
 <h4 id="parenthesizedExpression">parenthesizedExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[navigationSuffix](#navigationSuffix)<span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'('` [expression](#expression) `')'`  
+ **:**   `'('`  [expression](#expression)  `')'`   
  **;** 
 
 <h4 id="collectionLiteral">collectionLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'['` [expression](#expression) **(** `','` [expression](#expression)**)** **\***  `']'`  
- **|**  `'['` `']'`  
+ **:**   `'['`  [expression](#expression) **(**  `','`  [expression](#expression)**)** **\***   `']'`   
+ **|**   `'['`   `']'`   
  **;** 
 
 <h4 id="literalConstant">literalConstant</h4>
@@ -815,7 +816,7 @@ See [Returns and jumps](returns.html)
  **|**  [BinLiteral](#BinLiteral)  
  **|**  [CharacterLiteral](#CharacterLiteral)  
  **|**  [RealLiteral](#RealLiteral)  
- **|**  `'null'`  
+ **|**   `'null'`   
  **|**  [LongLiteral](#LongLiteral)  
  **|**  [UnsignedLiteral](#UnsignedLiteral)  
  **;** 
@@ -830,13 +831,13 @@ See [Returns and jumps](returns.html)
 <h4 id="lineStringLiteral">lineStringLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[stringLiteral](#stringLiteral)<span style="color:gray">)</span>  
- **:**  `'"'` **(** [lineStringContent](#lineStringContent) **|**  [lineStringExpression](#lineStringExpression)**)** **\***  `'"'`  
+ **:**   `'"'`  **(** [lineStringContent](#lineStringContent) **|**  [lineStringExpression](#lineStringExpression)**)** **\***   `'"'`   
  **;** 
 
 <h4 id="multiLineStringLiteral">multiLineStringLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[stringLiteral](#stringLiteral)<span style="color:gray">)</span>  
- **:**  `'"""'` **(** [multiLineStringContent](#multiLineStringContent) **|**  [multiLineStringExpression](#multiLineStringExpression) **|**  `'"'`**)** **\***   
+ **:**   `'"""'`  **(** [multiLineStringContent](#multiLineStringContent) **|**  [multiLineStringExpression](#multiLineStringExpression) **|**   `'"'` **)** **\***   
    [TRIPLE_QUOTE_CLOSE](#TRIPLE_QUOTE_CLOSE)  
  **;** 
 
@@ -851,48 +852,48 @@ See [Returns and jumps](returns.html)
 <h4 id="lineStringExpression">lineStringExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[lineStringLiteral](#lineStringLiteral)<span style="color:gray">)</span>  
- **:**  `'${'` [expression](#expression) `'}'`  
+ **:**   `'${'`  [expression](#expression)  `'}'`   
  **;** 
 
 <h4 id="multiLineStringContent">multiLineStringContent</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiLineStringLiteral](#multiLineStringLiteral)<span style="color:gray">)</span>  
  **:**  [MultiLineStrText](#MultiLineStrText)  
- **|**  `'"'`  
+ **|**   `'"'`   
  **|**  [MultiLineStrRef](#MultiLineStrRef)  
  **;** 
 
 <h4 id="multiLineStringExpression">multiLineStringExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiLineStringLiteral](#multiLineStringLiteral)<span style="color:gray">)</span>  
- **:**  `'${'` [expression](#expression) `'}'`  
+ **:**   `'${'`  [expression](#expression)  `'}'`   
  **;** 
 
 <h4 id="lambdaLiteral">lambdaLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotatedLambda](#annotatedLambda)<span style="color:gray">, </span>[functionLiteral](#functionLiteral)<span style="color:gray">)</span>  
- **:**  `'{'` [statements](#statements) `'}'`  
- **|**  `'{'` [lambdaParameters](#lambdaParameters)**?**  `'->'` [statements](#statements) `'}'`  
+ **:**   `'{'`  [statements](#statements)  `'}'`   
+ **|**   `'{'`  [lambdaParameters](#lambdaParameters)**?**   `'->'`  [statements](#statements)  `'}'`   
  **;** 
 
 <h4 id="lambdaParameters">lambdaParameters</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[lambdaLiteral](#lambdaLiteral)<span style="color:gray">)</span>  
- **:**  [lambdaParameter](#lambdaParameter) **(** `','` [lambdaParameter](#lambdaParameter)**)** **\***   
+ **:**  [lambdaParameter](#lambdaParameter) **(**  `','`  [lambdaParameter](#lambdaParameter)**)** **\***   
  **;** 
 
 <h4 id="lambdaParameter">lambdaParameter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[lambdaParameters](#lambdaParameters)<span style="color:gray">)</span>  
  **:**  [variableDeclaration](#variableDeclaration)  
- **|**  [multiVariableDeclaration](#multiVariableDeclaration) **(** `':'` [type](#type)**)** **?**   
+ **|**  [multiVariableDeclaration](#multiVariableDeclaration) **(**  `':'`  [type](#type)**)** **?**   
  **;** 
 
 <h4 id="anonymousFunction">anonymousFunction</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[functionLiteral](#functionLiteral)<span style="color:gray">)</span>  
- **:**  `'fun'` **(** [type](#type) `'.'`**)** **?**  [functionValueParameters](#functionValueParameters)  
-   **(** `':'` [type](#type)**)** **?**  [typeConstraints](#typeConstraints)**?**   
+ **:**   `'fun'`  **(** [type](#type)  `'.'` **)** **?**  [functionValueParameters](#functionValueParameters)  
+   **(**  `':'`  [type](#type)**)** **?**  [typeConstraints](#typeConstraints)**?**   
    [functionBody](#functionBody)**?**   
  **;** 
 
@@ -906,50 +907,50 @@ See [Returns and jumps](returns.html)
 <h4 id="objectLiteral">objectLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'object'` `':'` [delegationSpecifiers](#delegationSpecifiers) [classBody](#classBody)  
- **|**  `'object'` [classBody](#classBody)  
+ **:**   `'object'`   `':'`  [delegationSpecifiers](#delegationSpecifiers) [classBody](#classBody)  
+ **|**   `'object'`  [classBody](#classBody)  
  **;** 
 
 <h4 id="thisExpression">thisExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'this'`  
+ **:**   `'this'`   
  **|**  [THIS_AT](#THIS_AT)  
  **;** 
 
 <h4 id="superExpression">superExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'super'` **(** `'<'` [type](#type) `'>'`**)** **?**  **(** `'@'` [simpleIdentifier](#simpleIdentifier)**)** **?**   
+ **:**   `'super'`  **(**  `'<'`  [type](#type)  `'>'` **)** **?**  **(**  `'@'`  [simpleIdentifier](#simpleIdentifier)**)** **?**   
  **|**  [SUPER_AT](#SUPER_AT)  
  **;** 
 
 <h4 id="ifExpression">ifExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'if'` `'('` [expression](#expression) `')'`  
-   **(** [controlStructureBody](#controlStructureBody) **|**  `';'`**)**   
- **|**  `'if'` `'('` [expression](#expression) `')'`  
-   [controlStructureBody](#controlStructureBody)**?**  `';'`**?**  `'else'` **(** [controlStructureBody](#controlStructureBody) **|**  `';'`**)**   
+ **:**   `'if'`   `'('`  [expression](#expression)  `')'`   
+   **(** [controlStructureBody](#controlStructureBody) **|**   `';'` **)**   
+ **|**   `'if'`   `'('`  [expression](#expression)  `')'`   
+   [controlStructureBody](#controlStructureBody)**?**   `';'` **?**   `'else'`  **(** [controlStructureBody](#controlStructureBody) **|**   `';'` **)**   
  **;** 
 
 <h4 id="whenSubject">whenSubject</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[whenExpression](#whenExpression)<span style="color:gray">)</span>  
- **:**  `'('` **(** [annotation](#annotation)**\***  `'val'` [variableDeclaration](#variableDeclaration) `'='`**)** **?**  [expression](#expression) `')'`  
+ **:**   `'('`  **(** [annotation](#annotation)**\***   `'val'`  [variableDeclaration](#variableDeclaration)  `'='` **)** **?**  [expression](#expression)  `')'`   
  **;** 
 
 <h4 id="whenExpression">whenExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'when'` [whenSubject](#whenSubject)**?**  `'{'` [whenEntry](#whenEntry)**\***  `'}'`  
+ **:**   `'when'`  [whenSubject](#whenSubject)**?**   `'{'`  [whenEntry](#whenEntry)**\***   `'}'`   
  **;** 
 
 <h4 id="whenEntry">whenEntry</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[whenExpression](#whenExpression)<span style="color:gray">)</span>  
- **:**  [whenCondition](#whenCondition) **(** `','` [whenCondition](#whenCondition)**)** **\***  `'->'` [controlStructureBody](#controlStructureBody) [semi](#semi)**?**   
- **|**  `'else'` `'->'` [controlStructureBody](#controlStructureBody) [semi](#semi)**?**   
+ **:**  [whenCondition](#whenCondition) **(**  `','`  [whenCondition](#whenCondition)**)** **\***   `'->'`  [controlStructureBody](#controlStructureBody) [semi](#semi)**?**   
+ **|**   `'else'`   `'->'`  [controlStructureBody](#controlStructureBody) [semi](#semi)**?**   
  **;** 
 
 <h4 id="whenCondition">whenCondition</h4>
@@ -975,139 +976,139 @@ See [Returns and jumps](returns.html)
 <h4 id="tryExpression">tryExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'try'` [block](#block) **(** **(** [catchBlock](#catchBlock)**+**  [finallyBlock](#finallyBlock)**?** **)**  **|**  [finallyBlock](#finallyBlock)**)**   
+ **:**   `'try'`  [block](#block) **(** **(** [catchBlock](#catchBlock)**+**  [finallyBlock](#finallyBlock)**?** **)**  **|**  [finallyBlock](#finallyBlock)**)**   
  **;** 
 
 <h4 id="catchBlock">catchBlock</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[tryExpression](#tryExpression)<span style="color:gray">)</span>  
- **:**  `'catch'` `'('` [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier) `':'` [type](#type) `')'` [block](#block)  
+ **:**   `'catch'`   `'('`  [annotation](#annotation)**\***  [simpleIdentifier](#simpleIdentifier)  `':'`  [type](#type)  `')'`  [block](#block)  
  **;** 
 
 <h4 id="finallyBlock">finallyBlock</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[tryExpression](#tryExpression)<span style="color:gray">)</span>  
- **:**  `'finally'` [block](#block)  
+ **:**   `'finally'`  [block](#block)  
  **;** 
 
 <h4 id="jumpExpression">jumpExpression</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  `'throw'` [expression](#expression)  
- **|**  **(** `'return'` **|**  [RETURN_AT](#RETURN_AT)**)**  [expression](#expression)**?**   
- **|**  `'continue'`  
+ **:**   `'throw'`  [expression](#expression)  
+ **|**  **(**  `'return'`  **|**  [RETURN_AT](#RETURN_AT)**)**  [expression](#expression)**?**   
+ **|**   `'continue'`   
  **|**  [CONTINUE_AT](#CONTINUE_AT)  
- **|**  `'break'`  
+ **|**   `'break'`   
  **|**  [BREAK_AT](#BREAK_AT)  
  **;** 
 
 <h4 id="callableReference">callableReference</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">)</span>  
- **:**  **(** [receiverType](#receiverType)**?**  `'::'` **(** [simpleIdentifier](#simpleIdentifier) **|**  `'class'`**)** **)**   
+ **:**  **(** [receiverType](#receiverType)**?**   `'::'`  **(** [simpleIdentifier](#simpleIdentifier) **|**   `'class'` **)** **)**   
  **;** 
 
 <h4 id="assignmentAndOperator">assignmentAndOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[assignment](#assignment)<span style="color:gray">)</span>  
- **:**  `'+='`  
- **|**  `'-='`  
- **|**  `'*='`  
- **|**  `'/='`  
- **|**  `'%='`  
+ **:**   `'+='`   
+ **|**   `'-='`   
+ **|**   `'*='`   
+ **|**   `'/='`   
+ **|**   `'%='`   
  **;** 
 
 <h4 id="equalityOperator">equalityOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[equality](#equality)<span style="color:gray">)</span>  
- **:**  `'!='`  
- **|**  `'!=='`  
- **|**  `'=='`  
- **|**  `'==='`  
+ **:**   `'!='`   
+ **|**   `'!=='`   
+ **|**   `'=='`   
+ **|**   `'==='`   
  **;** 
 
 <h4 id="comparisonOperator">comparisonOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[comparison](#comparison)<span style="color:gray">)</span>  
- **:**  `'<'`  
- **|**  `'>'`  
- **|**  `'<='`  
- **|**  `'>='`  
+ **:**   `'<'`   
+ **|**   `'>'`   
+ **|**   `'<='`   
+ **|**   `'>='`   
  **;** 
 
 <h4 id="inOperator">inOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[infixOperation](#infixOperation)<span style="color:gray">, </span>[rangeTest](#rangeTest)<span style="color:gray">)</span>  
- **:**  `'in'`  
+ **:**   `'in'`   
  **|**  [NOT_IN](#NOT_IN)  
  **;** 
 
 <h4 id="isOperator">isOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[infixOperation](#infixOperation)<span style="color:gray">, </span>[typeTest](#typeTest)<span style="color:gray">)</span>  
- **:**  `'is'`  
+ **:**   `'is'`   
  **|**  [NOT_IS](#NOT_IS)  
  **;** 
 
 <h4 id="additiveOperator">additiveOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[additiveExpression](#additiveExpression)<span style="color:gray">)</span>  
- **:**  `'+'`  
- **|**  `'-'`  
+ **:**   `'+'`   
+ **|**   `'-'`   
  **;** 
 
 <h4 id="multiplicativeOperator">multiplicativeOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiplicativeExpression](#multiplicativeExpression)<span style="color:gray">)</span>  
- **:**  `'*'`  
- **|**  `'/'`  
- **|**  `'%'`  
+ **:**   `'*'`   
+ **|**   `'/'`   
+ **|**   `'%'`   
  **;** 
 
 <h4 id="asOperator">asOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[asExpression](#asExpression)<span style="color:gray">)</span>  
- **:**  `'as'`  
- **|**  `'as?'`  
+ **:**   `'as'`   
+ **|**   `'as?'`   
  **;** 
 
 <h4 id="prefixUnaryOperator">prefixUnaryOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[unaryPrefix](#unaryPrefix)<span style="color:gray">)</span>  
- **:**  `'++'`  
- **|**  `'--'`  
- **|**  `'-'`  
- **|**  `'+'`  
+ **:**   `'++'`   
+ **|**   `'--'`   
+ **|**   `'-'`   
+ **|**   `'+'`   
  **|**  [excl](#excl)  
  **;** 
 
 <h4 id="postfixUnaryOperator">postfixUnaryOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[postfixUnarySuffix](#postfixUnarySuffix)<span style="color:gray">)</span>  
- **:**  `'++'`  
- **|**  `'--'`  
- **|**  `'!'` [excl](#excl)  
+ **:**   `'++'`   
+ **|**   `'--'`   
+ **|**   `'!'`  [excl](#excl)  
  **;** 
 
 <h4 id="excl">excl</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[prefixUnaryOperator](#prefixUnaryOperator)<span style="color:gray">, </span>[postfixUnaryOperator](#postfixUnaryOperator)<span style="color:gray">)</span>  
- **:**  `'!'`  
+ **:**   `'!'`   
  **|**  [EXCL_WS](#EXCL_WS)  
  **;** 
 
 <h4 id="memberAccessOperator">memberAccessOperator</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[navigationSuffix](#navigationSuffix)<span style="color:gray">)</span>  
- **:**  `'.'`  
+ **:**   `'.'`   
  **|**  [safeNav](#safeNav)  
- **|**  `'::'`  
+ **|**   `'::'`   
  **;** 
 
 <h4 id="safeNav">safeNav</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[memberAccessOperator](#memberAccessOperator)<span style="color:gray">)</span>  
- **:**  `'?'` `'.'`  
+ **:**   `'?'`   `'.'`   
  **;** 
 
 ### Modifiers
@@ -1143,40 +1144,40 @@ See [Returns and jumps](returns.html)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeModifiers](#typeModifiers)<span style="color:gray">)</span>  
  **:**  [annotation](#annotation)  
- **|**  `'suspend'`  
+ **|**   `'suspend'`   
  **;** 
 
 <h4 id="classModifier">classModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'enum'`  
- **|**  `'sealed'`  
- **|**  `'annotation'`  
- **|**  `'data'`  
- **|**  `'inner'`  
+ **:**   `'enum'`   
+ **|**   `'sealed'`   
+ **|**   `'annotation'`   
+ **|**   `'data'`   
+ **|**   `'inner'`   
  **;** 
 
 <h4 id="memberModifier">memberModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'override'`  
- **|**  `'lateinit'`  
+ **:**   `'override'`   
+ **|**   `'lateinit'`   
  **;** 
 
 <h4 id="visibilityModifier">visibilityModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'public'`  
- **|**  `'private'`  
- **|**  `'internal'`  
- **|**  `'protected'`  
+ **:**   `'public'`   
+ **|**   `'private'`   
+ **|**   `'internal'`   
+ **|**   `'protected'`   
  **;** 
 
 <h4 id="varianceModifier">varianceModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeProjectionModifier](#typeProjectionModifier)<span style="color:gray">, </span>[typeParameterModifier](#typeParameterModifier)<span style="color:gray">)</span>  
- **:**  `'in'`  
- **|**  `'out'`  
+ **:**   `'in'`   
+ **|**   `'out'`   
  **;** 
 
 <h4 id="typeParameterModifiers">typeParameterModifiers</h4>
@@ -1196,47 +1197,47 @@ See [Returns and jumps](returns.html)
 <h4 id="functionModifier">functionModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'tailrec'`  
- **|**  `'operator'`  
- **|**  `'infix'`  
- **|**  `'inline'`  
- **|**  `'external'`  
- **|**  `'suspend'`  
+ **:**   `'tailrec'`   
+ **|**   `'operator'`   
+ **|**   `'infix'`   
+ **|**   `'inline'`   
+ **|**   `'external'`   
+ **|**   `'suspend'`   
  **;** 
 
 <h4 id="propertyModifier">propertyModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'const'`  
+ **:**   `'const'`   
  **;** 
 
 <h4 id="inheritanceModifier">inheritanceModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'abstract'`  
- **|**  `'final'`  
- **|**  `'open'`  
+ **:**   `'abstract'`   
+ **|**   `'final'`   
+ **|**   `'open'`   
  **;** 
 
 <h4 id="parameterModifier">parameterModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[setter](#setter)<span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'vararg'`  
- **|**  `'noinline'`  
- **|**  `'crossinline'`  
+ **:**   `'vararg'`   
+ **|**   `'noinline'`   
+ **|**   `'crossinline'`   
  **;** 
 
 <h4 id="reificationModifier">reificationModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[typeParameterModifier](#typeParameterModifier)<span style="color:gray">)</span>  
- **:**  `'reified'`  
+ **:**   `'reified'`   
  **;** 
 
 <h4 id="platformModifier">platformModifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[modifier](#modifier)<span style="color:gray">)</span>  
- **:**  `'expect'`  
- **|**  `'actual'`  
+ **:**   `'expect'`   
+ **|**   `'actual'`   
  **;** 
 
 ### Annotations
@@ -1253,14 +1254,14 @@ See [Returns and jumps](returns.html)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotation](#annotation)<span style="color:gray">)</span>  
  **:**  [annotationUseSiteTarget](#annotationUseSiteTarget) [unescapedAnnotation](#unescapedAnnotation)  
- **|**  `'@'` [unescapedAnnotation](#unescapedAnnotation)  
+ **|**   `'@'`  [unescapedAnnotation](#unescapedAnnotation)  
  **;** 
 
 <h4 id="multiAnnotation">multiAnnotation</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotation](#annotation)<span style="color:gray">)</span>  
- **:**  [annotationUseSiteTarget](#annotationUseSiteTarget) `'['` [unescapedAnnotation](#unescapedAnnotation)**+**  `']'`  
- **|**  `'@'` `'['` [unescapedAnnotation](#unescapedAnnotation)**+**  `']'`  
+ **:**  [annotationUseSiteTarget](#annotationUseSiteTarget)  `'['`  [unescapedAnnotation](#unescapedAnnotation)**+**   `']'`   
+ **|**   `'@'`   `'['`  [unescapedAnnotation](#unescapedAnnotation)**+**   `']'`   
  **;** 
 
 <h4 id="annotationUseSiteTarget">annotationUseSiteTarget</h4>
@@ -1290,54 +1291,54 @@ See [Returns and jumps](returns.html)
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[importAlias](#importAlias)<span style="color:gray">, </span>[typeAlias](#typeAlias)<span style="color:gray">, </span>[classDeclaration](#classDeclaration)<span style="color:gray">, </span>[classParameter](#classParameter)<span style="color:gray">, </span>[typeParameter](#typeParameter)<span style="color:gray">, </span>[typeConstraint](#typeConstraint)<span style="color:gray">, </span>[companionObject](#companionObject)<span style="color:gray">, </span>[functionDeclaration](#functionDeclaration)<span style="color:gray">, </span>[variableDeclaration](#variableDeclaration)<span style="color:gray">, </span>[setterParameter](#setterParameter)<span style="color:gray">, </span>[parameter](#parameter)<span style="color:gray">, </span>[objectDeclaration](#objectDeclaration)<span style="color:gray">, </span>[enumEntry](#enumEntry)<span style="color:gray">, </span>[simpleUserType](#simpleUserType)<span style="color:gray">, </span>[infixFunctionCall](#infixFunctionCall)<span style="color:gray">, </span>[directlyAssignableExpression](#directlyAssignableExpression)<span style="color:gray">, </span>[navigationSuffix](#navigationSuffix)<span style="color:gray">, </span>[valueArgument](#valueArgument)<span style="color:gray">, </span>[primaryExpression](#primaryExpression)<span style="color:gray">, </span>[superExpression](#superExpression)<span style="color:gray">, </span>[catchBlock](#catchBlock)<span style="color:gray">, </span>[callableReference](#callableReference)<span style="color:gray">, </span>[identifier](#identifier)<span style="color:gray">)</span>  
  **:**  [Identifier](#Identifier)  
- **|**  `'abstract'`  
- **|**  `'annotation'`  
- **|**  `'by'`  
- **|**  `'catch'`  
- **|**  `'companion'`  
- **|**  `'constructor'`  
- **|**  `'crossinline'`  
- **|**  `'data'`  
- **|**  `'dynamic'`  
- **|**  `'enum'`  
- **|**  `'external'`  
- **|**  `'final'`  
- **|**  `'finally'`  
- **|**  `'get'`  
- **|**  `'import'`  
- **|**  `'infix'`  
- **|**  `'init'`  
- **|**  `'inline'`  
- **|**  `'inner'`  
- **|**  `'internal'`  
- **|**  `'lateinit'`  
- **|**  `'noinline'`  
- **|**  `'open'`  
- **|**  `'operator'`  
- **|**  `'out'`  
- **|**  `'override'`  
- **|**  `'private'`  
- **|**  `'protected'`  
- **|**  `'public'`  
- **|**  `'reified'`  
- **|**  `'sealed'`  
- **|**  `'tailrec'`  
- **|**  `'set'`  
- **|**  `'vararg'`  
- **|**  `'where'`  
- **|**  `'expect'`  
- **|**  `'actual'`  
- **|**  `'const'`  
- **|**  `'suspend'`  
+ **|**   `'abstract'`   
+ **|**   `'annotation'`   
+ **|**   `'by'`   
+ **|**   `'catch'`   
+ **|**   `'companion'`   
+ **|**   `'constructor'`   
+ **|**   `'crossinline'`   
+ **|**   `'data'`   
+ **|**   `'dynamic'`   
+ **|**   `'enum'`   
+ **|**   `'external'`   
+ **|**   `'final'`   
+ **|**   `'finally'`   
+ **|**   `'get'`   
+ **|**   `'import'`   
+ **|**   `'infix'`   
+ **|**   `'init'`   
+ **|**   `'inline'`   
+ **|**   `'inner'`   
+ **|**   `'internal'`   
+ **|**   `'lateinit'`   
+ **|**   `'noinline'`   
+ **|**   `'open'`   
+ **|**   `'operator'`   
+ **|**   `'out'`   
+ **|**   `'override'`   
+ **|**   `'private'`   
+ **|**   `'protected'`   
+ **|**   `'public'`   
+ **|**   `'reified'`   
+ **|**   `'sealed'`   
+ **|**   `'tailrec'`   
+ **|**   `'set'`   
+ **|**   `'vararg'`   
+ **|**   `'where'`   
+ **|**   `'expect'`   
+ **|**   `'actual'`   
+ **|**   `'const'`   
+ **|**   `'suspend'`   
  **;** 
 
 <h4 id="identifier">identifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[packageHeader](#packageHeader)<span style="color:gray">, </span>[importHeader](#importHeader)<span style="color:gray">)</span>  
- **:**  [simpleIdentifier](#simpleIdentifier) **(** `'.'` [simpleIdentifier](#simpleIdentifier)**)** **\***   
+ **:**  [simpleIdentifier](#simpleIdentifier) **(**  `'.'`  [simpleIdentifier](#simpleIdentifier)**)** **\***   
  **;** 
 
-## Lexical structure
+## Lexical grammar
 
 ### General
 
@@ -1345,25 +1346,25 @@ See [Returns and jumps](returns.html)
 <h4 id="ShebangLine">ShebangLine</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[shebangLine](#shebangLine)<span style="color:gray">)</span>  
- **:**  `'#!'` **~** `[\r\n]`**\***   
+ **:**   `'#!'`  **~**  `[\r\n]` **\***   
  **;** 
 
 <h4 id="DelimitedComment">DelimitedComment</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[DelimitedComment](#DelimitedComment)<span style="color:gray">, </span>[Hidden](#Hidden)<span style="color:gray">)</span>  
- **:**  **(** `'/*'` **(** [DelimitedComment](#DelimitedComment) **|**  `.`**)** **\*** **?**  `'*/'`**)**    
+ **:**  **(**  `'/*'`  **(** [DelimitedComment](#DelimitedComment) **|**   `.` **)** **\*** **?**   `'*/'` **)**    
  **;** 
 
 <h4 id="LineComment">LineComment</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[Hidden](#Hidden)<span style="color:gray">)</span>  
- **:**  **(** `'//'` **~** `[\r\n]`**\*** **)**    
+ **:**  **(**  `'//'`  **~**  `[\r\n]` **\*** **)**    
  **;** 
 
 <h4 id="WS">WS</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[Hidden](#Hidden)<span style="color:gray">)</span>  
- **:**  `[\u0020\u0009\u000C]`   
+ **:**   `[\u0020\u0009\u000C]`    
  **;** 
 
 
@@ -1381,39 +1382,39 @@ helper
 
 <h4 id="RESERVED">RESERVED</h4>
 
- **:**  `'...'`  
+ **:**   `'...'`   
  **;** 
 
 <h4 id="EXCL_WS">EXCL_WS</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[excl](#excl)<span style="color:gray">)</span>  
- **:**  `'!'` [Hidden](#Hidden)  
+ **:**   `'!'`  [Hidden](#Hidden)  
  **;** 
 
 <h4 id="DOUBLE_ARROW">DOUBLE_ARROW</h4>
 
- **:**  `'=>'`  
+ **:**   `'=>'`   
  **;** 
 
 <h4 id="DOUBLE_SEMICOLON">DOUBLE_SEMICOLON</h4>
 
- **:**  `';;'`  
+ **:**   `';;'`   
  **;** 
 
 <h4 id="HASH">HASH</h4>
 
- **:**  `'#'`  
+ **:**   `'#'`   
  **;** 
 
 <h4 id="QUEST_WS">QUEST_WS</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[quest](#quest)<span style="color:gray">)</span>  
- **:**  `'?'` [Hidden](#Hidden)  
+ **:**   `'?'`  [Hidden](#Hidden)  
  **;** 
 
 <h4 id="SINGLE_QUOTE">SINGLE_QUOTE</h4>
 
- **:**  `'\''`  
+ **:**   `'\''`   
  **;** 
 
 ### Keywords
@@ -1422,102 +1423,102 @@ helper
 <h4 id="RETURN_AT">RETURN_AT</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[jumpExpression](#jumpExpression)<span style="color:gray">)</span>  
- **:**  `'return@'` [Identifier](#Identifier)  
+ **:**   `'return@'`  [Identifier](#Identifier)  
  **;** 
 
 <h4 id="CONTINUE_AT">CONTINUE_AT</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[jumpExpression](#jumpExpression)<span style="color:gray">)</span>  
- **:**  `'continue@'` [Identifier](#Identifier)  
+ **:**   `'continue@'`  [Identifier](#Identifier)  
  **;** 
 
 <h4 id="BREAK_AT">BREAK_AT</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[jumpExpression](#jumpExpression)<span style="color:gray">)</span>  
- **:**  `'break@'` [Identifier](#Identifier)  
+ **:**   `'break@'`  [Identifier](#Identifier)  
  **;** 
 
 <h4 id="THIS_AT">THIS_AT</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[thisExpression](#thisExpression)<span style="color:gray">)</span>  
- **:**  `'this@'` [Identifier](#Identifier)  
+ **:**   `'this@'`  [Identifier](#Identifier)  
  **;** 
 
 <h4 id="SUPER_AT">SUPER_AT</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[superExpression](#superExpression)<span style="color:gray">)</span>  
- **:**  `'super@'` [Identifier](#Identifier)  
+ **:**   `'super@'`  [Identifier](#Identifier)  
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_FILE">ANNOTATION_USE_SITE_TARGET_FILE</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[fileAnnotation](#fileAnnotation)<span style="color:gray">)</span>  
- **:**  `'@file'` `':'`  
+ **:**   `'@file'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_FIELD">ANNOTATION_USE_SITE_TARGET_FIELD</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@field'` `':'`  
+ **:**   `'@field'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_PROPERTY">ANNOTATION_USE_SITE_TARGET_PROPERTY</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@property'` `':'`  
+ **:**   `'@property'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_GET">ANNOTATION_USE_SITE_TARGET_GET</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@get'` `':'`  
+ **:**   `'@get'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_SET">ANNOTATION_USE_SITE_TARGET_SET</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@set'` `':'`  
+ **:**   `'@set'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_RECEIVER">ANNOTATION_USE_SITE_TARGET_RECEIVER</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@receiver'` `':'`  
+ **:**   `'@receiver'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_PARAM">ANNOTATION_USE_SITE_TARGET_PARAM</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@param'` `':'`  
+ **:**   `'@param'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_SETPARAM">ANNOTATION_USE_SITE_TARGET_SETPARAM</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@setparam'` `':'`  
+ **:**   `'@setparam'`   `':'`   
  **;** 
 
 <h4 id="ANNOTATION_USE_SITE_TARGET_DELEGATE">ANNOTATION_USE_SITE_TARGET_DELEGATE</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[annotationUseSiteTarget](#annotationUseSiteTarget)<span style="color:gray">)</span>  
- **:**  `'@delegate'` `':'`  
+ **:**   `'@delegate'`   `':'`   
  **;** 
 
 <h4 id="TYPEOF">TYPEOF</h4>
 
- **:**  `'typeof'`  
+ **:**   `'typeof'`   
  **;** 
 
 <h4 id="NOT_IS">NOT_IS</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[isOperator](#isOperator)<span style="color:gray">)</span>  
- **:**  `'!is'` [Hidden](#Hidden)  
+ **:**   `'!is'`  [Hidden](#Hidden)  
  **;** 
 
 <h4 id="NOT_IN">NOT_IN</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[inOperator](#inOperator)<span style="color:gray">)</span>  
- **:**  `'!in'` [Hidden](#Hidden)  
+ **:**   `'!in'`  [Hidden](#Hidden)  
  **;** 
 
 ### Literals
@@ -1528,7 +1529,7 @@ helper
 <h4 id="DecDigit">DecDigit</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[DecDigitOrSeparator](#DecDigitOrSeparator)<span style="color:gray">, </span>[DecDigits](#DecDigits)<span style="color:gray">, </span>[IntegerLiteral](#IntegerLiteral)<span style="color:gray">)</span>  
- **:**  `'0'``..``'9'`  
+ **:**   `'0'`  `..`  `'9'`   
  **;** 
 
 
@@ -1536,7 +1537,7 @@ helper
 <h4 id="DecDigitNoZero">DecDigitNoZero</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[IntegerLiteral](#IntegerLiteral)<span style="color:gray">)</span>  
- **:**  `'1'``..``'9'`  
+ **:**   `'1'`  `..`  `'9'`   
  **;** 
 
 
@@ -1545,7 +1546,7 @@ helper
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[DecDigits](#DecDigits)<span style="color:gray">, </span>[IntegerLiteral](#IntegerLiteral)<span style="color:gray">)</span>  
  **:**  [DecDigit](#DecDigit)  
- **|**  `'_'`  
+ **|**   `'_'`   
  **;** 
 
 
@@ -1562,7 +1563,7 @@ helper
 <h4 id="DoubleExponent">DoubleExponent</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[DoubleLiteral](#DoubleLiteral)<span style="color:gray">)</span>  
- **:**  `[eE]` `[+-]`**?**  [DecDigits](#DecDigits)  
+ **:**   `[eE]`   `[+-]` **?**  [DecDigits](#DecDigits)  
  **;** 
 
 <h4 id="RealLiteral">RealLiteral</h4>
@@ -1575,14 +1576,14 @@ helper
 <h4 id="FloatLiteral">FloatLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[RealLiteral](#RealLiteral)<span style="color:gray">)</span>  
- **:**  [DoubleLiteral](#DoubleLiteral) `[fF]`  
- **|**  [DecDigits](#DecDigits) `[fF]`  
+ **:**  [DoubleLiteral](#DoubleLiteral)  `[fF]`   
+ **|**  [DecDigits](#DecDigits)  `[fF]`   
  **;** 
 
 <h4 id="DoubleLiteral">DoubleLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[RealLiteral](#RealLiteral)<span style="color:gray">, </span>[FloatLiteral](#FloatLiteral)<span style="color:gray">)</span>  
- **:**  [DecDigits](#DecDigits)**?**  `'.'` [DecDigits](#DecDigits) [DoubleExponent](#DoubleExponent)**?**   
+ **:**  [DecDigits](#DecDigits)**?**   `'.'`  [DecDigits](#DecDigits) [DoubleExponent](#DoubleExponent)**?**   
  **|**  [DecDigits](#DecDigits) [DoubleExponent](#DoubleExponent)  
  **;** 
 
@@ -1598,7 +1599,7 @@ helper
 <h4 id="HexDigit">HexDigit</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[HexDigitOrSeparator](#HexDigitOrSeparator)<span style="color:gray">, </span>[HexLiteral](#HexLiteral)<span style="color:gray">, </span>[UniCharacterLiteral](#UniCharacterLiteral)<span style="color:gray">)</span>  
- **:**  `[0-9a-fA-F]`  
+ **:**   `[0-9a-fA-F]`   
  **;** 
 
 
@@ -1607,14 +1608,14 @@ helper
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[HexLiteral](#HexLiteral)<span style="color:gray">)</span>  
  **:**  [HexDigit](#HexDigit)  
- **|**  `'_'`  
+ **|**   `'_'`   
  **;** 
 
 <h4 id="HexLiteral">HexLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">, </span>[UnsignedLiteral](#UnsignedLiteral)<span style="color:gray">, </span>[LongLiteral](#LongLiteral)<span style="color:gray">)</span>  
- **:**  `'0'` `[xX]` [HexDigit](#HexDigit) [HexDigitOrSeparator](#HexDigitOrSeparator)**\***  [HexDigit](#HexDigit)  
- **|**  `'0'` `[xX]` [HexDigit](#HexDigit)  
+ **:**   `'0'`   `[xX]`  [HexDigit](#HexDigit) [HexDigitOrSeparator](#HexDigitOrSeparator)**\***  [HexDigit](#HexDigit)  
+ **|**   `'0'`   `[xX]`  [HexDigit](#HexDigit)  
  **;** 
 
 
@@ -1622,7 +1623,7 @@ helper
 <h4 id="BinDigit">BinDigit</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[BinDigitOrSeparator](#BinDigitOrSeparator)<span style="color:gray">, </span>[BinLiteral](#BinLiteral)<span style="color:gray">)</span>  
- **:**  `[01]`  
+ **:**   `[01]`   
  **;** 
 
 
@@ -1631,39 +1632,39 @@ helper
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[BinLiteral](#BinLiteral)<span style="color:gray">)</span>  
  **:**  [BinDigit](#BinDigit)  
- **|**  `'_'`  
+ **|**   `'_'`   
  **;** 
 
 <h4 id="BinLiteral">BinLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">, </span>[UnsignedLiteral](#UnsignedLiteral)<span style="color:gray">, </span>[LongLiteral](#LongLiteral)<span style="color:gray">)</span>  
- **:**  `'0'` `[bB]` [BinDigit](#BinDigit) [BinDigitOrSeparator](#BinDigitOrSeparator)**\***  [BinDigit](#BinDigit)  
- **|**  `'0'` `[bB]` [BinDigit](#BinDigit)  
+ **:**   `'0'`   `[bB]`  [BinDigit](#BinDigit) [BinDigitOrSeparator](#BinDigitOrSeparator)**\***  [BinDigit](#BinDigit)  
+ **|**   `'0'`   `[bB]`  [BinDigit](#BinDigit)  
  **;** 
 
 <h4 id="UnsignedLiteral">UnsignedLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">)</span>  
- **:**  **(** [IntegerLiteral](#IntegerLiteral) **|**  [HexLiteral](#HexLiteral) **|**  [BinLiteral](#BinLiteral)**)**  `[uU]` `'L'`**?**   
+ **:**  **(** [IntegerLiteral](#IntegerLiteral) **|**  [HexLiteral](#HexLiteral) **|**  [BinLiteral](#BinLiteral)**)**   `[uU]`   `'L'` **?**   
  **;** 
 
 <h4 id="LongLiteral">LongLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">)</span>  
- **:**  **(** [IntegerLiteral](#IntegerLiteral) **|**  [HexLiteral](#HexLiteral) **|**  [BinLiteral](#BinLiteral)**)**  `'L'`  
+ **:**  **(** [IntegerLiteral](#IntegerLiteral) **|**  [HexLiteral](#HexLiteral) **|**  [BinLiteral](#BinLiteral)**)**   `'L'`   
  **;** 
 
 <h4 id="BooleanLiteral">BooleanLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">)</span>  
- **:**  `'true'`  
- **|**  `'false'`  
+ **:**   `'true'`   
+ **|**   `'false'`   
  **;** 
 
 <h4 id="CharacterLiteral">CharacterLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[literalConstant](#literalConstant)<span style="color:gray">)</span>  
- **:**  `'\''` **(** [EscapeSeq](#EscapeSeq) **|**  **~** `[\n\r'\\]`**)**  `'\''`  
+ **:**   `'\''`  **(** [EscapeSeq](#EscapeSeq) **|**  **~**  `[\n\r'\\]` **)**   `'\''`   
  **;** 
 
 ### Identifiers
@@ -1674,81 +1675,131 @@ helper
 <h4 id="UnicodeDigit">UnicodeDigit</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[Identifier](#Identifier)<span style="color:gray">)</span>  
- **:**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L1608" target="_black">UNICODE_CLASS_ND</a>** 
+ **:**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L1605" target="_black">UNICODE_CLASS_ND</a>** 
  **;** 
 
 <h4 id="Identifier">Identifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[simpleIdentifier](#simpleIdentifier)<span style="color:gray">, </span>[RETURN_AT](#RETURN_AT)<span style="color:gray">, </span>[CONTINUE_AT](#CONTINUE_AT)<span style="color:gray">, </span>[BREAK_AT](#BREAK_AT)<span style="color:gray">, </span>[THIS_AT](#THIS_AT)<span style="color:gray">, </span>[SUPER_AT](#SUPER_AT)<span style="color:gray">, </span>[IdentifierOrSoftKey](#IdentifierOrSoftKey)<span style="color:gray">)</span>  
- **:**  **(** [Letter](#Letter) **|**  `'_'`**)**  **(** [Letter](#Letter) **|**  `'_'` **|**  [UnicodeDigit](#UnicodeDigit)**)** **\***   
- **|**  ``'`'`` **~** `[\r\n]`  
- **|**  ``'`'``  
- **|**  `'.'`  
- **|**  `';'`  
- **|**  `':'`  
- **|**  `'\\'`  
- **|**  `'/'`  
- **|**  `'['`  
- **|**  `']'`  
- **|**  `'<'`  
- **|**  `'>'`**+**  ``'`'``  
+ **:**  **(** [Letter](#Letter) **|**   `'_'` **)**  **(** [Letter](#Letter) **|**   `'_'`  **|**  [UnicodeDigit](#UnicodeDigit)**)** **\***   
+ **|**   ``'`'``  **~** **(**  `[\r\n]`  **|**   ``'`'``  **|**   `'.'`  **|**   `';'`  **|**   `':'`  **|**   `'\\'`  **|**   `'/'`  **|**   `'['`  **|**   `']'`  **|**   `'<'`  **|**   `'>'` **)** **+**   ``'`'``   
  **;** 
+
+Depending on the target and publicity of the declaration, the set of allowed symbols in identifiers is different.
+This rule contains the union of allowed symbols from all targets.
+Thus, the code for any target can be parsed using the grammar.
+
+The allowed symbols in identifiers corresponding to the target and publicity of the declaration are given below.
+
+##### Kotlin/JVM (any declaration publicity)
+
+ `~`
+ **(**
+ `[\r\n]`
+ **|**
+ ``'`'``
+ **|**
+ `'.'`
+ **|**
+ `';'`
+ **|**
+ `':'`
+ **|**
+ `'\'`
+ **|**
+ `'/'`
+ **|**
+ `'['`
+ **|**
+ `']'`
+ **|**
+ `'<'`
+ **|**
+ `'>'`
+ **)**
+
+##### Kotlin/Android (any declaration publicity)
+
+The allowed symbols are different from allowed symbols for Kotlin/JVM and correspond to the <a href="https://source.android.com/devices/tech/dalvik/dex-format#simplename" target="_blank">Dalvik Executable format</a>.
+
+##### Kotlin/JS (private declarations)
+
+ `~`
+ **(**
+ `[\r\n]`
+ **|**
+ ``'`'``
+ **)**
+
+##### Kotlin/JS (public declarations)
+
+The allowed symbols for public declarations correspond to the <a href="https://www.ecma-international.org/ecma-262/5.1/#sec-7.6" target="_blank">ECMA specification (section 7.6)</a> except that ECMA reserved words is allowed.
+
+##### Kotlin/Native (any declaration publicity)
+
+ `~`
+ **(**
+ `[\r\n]`
+ **|**
+ ``'`'``
+ **)**
+
 
 <h4 id="IdentifierOrSoftKey">IdentifierOrSoftKey</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[IdentifierAt](#IdentifierAt)<span style="color:gray">, </span>[FieldIdentifier](#FieldIdentifier)<span style="color:gray">)</span>  
  **:**  [Identifier](#Identifier)  
- **|**  `'abstract'`  
- **|**  `'annotation'`  
- **|**  `'by'`  
- **|**  `'catch'`  
- **|**  `'companion'`  
- **|**  `'constructor'`  
- **|**  `'crossinline'`  
- **|**  `'data'`  
- **|**  `'dynamic'`  
- **|**  `'enum'`  
- **|**  `'external'`  
- **|**  `'final'`  
- **|**  `'finally'`  
- **|**  `'get'`  
- **|**  `'import'`  
- **|**  `'infix'`  
- **|**  `'init'`  
- **|**  `'inline'`  
- **|**  `'inner'`  
- **|**  `'internal'`  
- **|**  `'lateinit'`  
- **|**  `'noinline'`  
- **|**  `'open'`  
- **|**  `'operator'`  
- **|**  `'out'`  
- **|**  `'override'`  
- **|**  `'private'`  
- **|**  `'protected'`  
- **|**  `'public'`  
- **|**  `'reified'`  
- **|**  `'sealed'`  
- **|**  `'tailrec'`  
- **|**  `'set'`  
- **|**  `'vararg'`  
- **|**  `'where'`  
- **|**  `'expect'`  
- **|**  `'actual'`  
- **|**  `'const'`  
- **|**  `'suspend'`  
+ **|**   `'abstract'`   
+ **|**   `'annotation'`   
+ **|**   `'by'`   
+ **|**   `'catch'`   
+ **|**   `'companion'`   
+ **|**   `'constructor'`   
+ **|**   `'crossinline'`   
+ **|**   `'data'`   
+ **|**   `'dynamic'`   
+ **|**   `'enum'`   
+ **|**   `'external'`   
+ **|**   `'final'`   
+ **|**   `'finally'`   
+ **|**   `'get'`   
+ **|**   `'import'`   
+ **|**   `'infix'`   
+ **|**   `'init'`   
+ **|**   `'inline'`   
+ **|**   `'inner'`   
+ **|**   `'internal'`   
+ **|**   `'lateinit'`   
+ **|**   `'noinline'`   
+ **|**   `'open'`   
+ **|**   `'operator'`   
+ **|**   `'out'`   
+ **|**   `'override'`   
+ **|**   `'private'`   
+ **|**   `'protected'`   
+ **|**   `'public'`   
+ **|**   `'reified'`   
+ **|**   `'sealed'`   
+ **|**   `'tailrec'`   
+ **|**   `'set'`   
+ **|**   `'vararg'`   
+ **|**   `'where'`   
+ **|**   `'expect'`   
+ **|**   `'actual'`   
+ **|**   `'const'`   
+ **|**   `'suspend'`   
  **;** 
 
 <h4 id="IdentifierAt">IdentifierAt</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[label](#label)<span style="color:gray">)</span>  
- **:**  [IdentifierOrSoftKey](#IdentifierOrSoftKey) `'@'`  
+ **:**  [IdentifierOrSoftKey](#IdentifierOrSoftKey)  `'@'`   
  **;** 
 
 <h4 id="FieldIdentifier">FieldIdentifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[LineStrRef](#LineStrRef)<span style="color:gray">, </span>[MultiLineStrRef](#MultiLineStrRef)<span style="color:gray">)</span>  
- **:**  `'$'` [IdentifierOrSoftKey](#IdentifierOrSoftKey)  
+ **:**   `'$'`  [IdentifierOrSoftKey](#IdentifierOrSoftKey)  
  **;** 
 
 
@@ -1756,7 +1807,7 @@ helper
 <h4 id="UniCharacterLiteral">UniCharacterLiteral</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[EscapeSeq](#EscapeSeq)<span style="color:gray">, </span>[LineStrEscapedChar](#LineStrEscapedChar)<span style="color:gray">)</span>  
- **:**  `'\\'` `'u'` [HexDigit](#HexDigit) [HexDigit](#HexDigit) [HexDigit](#HexDigit) [HexDigit](#HexDigit)  
+ **:**   `'\\'`   `'u'`  [HexDigit](#HexDigit) [HexDigit](#HexDigit) [HexDigit](#HexDigit) [HexDigit](#HexDigit)  
  **;** 
 
 
@@ -1764,7 +1815,7 @@ helper
 <h4 id="EscapedIdentifier">EscapedIdentifier</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[EscapeSeq](#EscapeSeq)<span style="color:gray">, </span>[LineStrEscapedChar](#LineStrEscapedChar)<span style="color:gray">)</span>  
- **:**  `'\\'` **(** `'t'` **|**  `'b'` **|**  `'r'` **|**  `'n'` **|**  `'\''` **|**  `'"'` **|**  `'\\'` **|**  `'$'`**)**   
+ **:**   `'\\'`  **(**  `'t'`  **|**   `'b'`  **|**   `'r'`  **|**   `'n'`  **|**   `'\''`  **|**   `'"'`  **|**   `'\\'`  **|**   `'$'` **)**   
  **;** 
 
 
@@ -1784,12 +1835,12 @@ helper
 <h4 id="Letter">Letter</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[Identifier](#Identifier)<span style="color:gray">)</span>  
- **:**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L12" target="_black">UNICODE_CLASS_LL</a>** 
- **|**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L616" target="_black">UNICODE_CLASS_LM</a>** 
- **|**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L676" target="_black">UNICODE_CLASS_LO</a>** 
- **|**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L1002" target="_black">UNICODE_CLASS_LT</a>** 
- **|**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L1014" target="_black">UNICODE_CLASS_LU</a>** 
- **|**  **<a href="https://github.com/JetBrains/kotlin-spec/blob/spec-rework/src/grammar/UnicodeClasses.g4#L1645" target="_black">UNICODE_CLASS_NL</a>** 
+ **:**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L9" target="_black">UNICODE_CLASS_LL</a>** 
+ **|**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L613" target="_black">UNICODE_CLASS_LM</a>** 
+ **|**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L673" target="_black">UNICODE_CLASS_LO</a>** 
+ **|**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L999" target="_black">UNICODE_CLASS_LT</a>** 
+ **|**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L1011" target="_black">UNICODE_CLASS_LU</a>** 
+ **|**  **<a href="https://github.com/Kotlin/kotlin-spec/blob/master/grammar/src/main/antlr/UnicodeClasses.g4#L1642" target="_black">UNICODE_CLASS_NL</a>** 
  **;** 
 
 ### Strings
@@ -1801,13 +1852,14 @@ helper
  **:**  [FieldIdentifier](#FieldIdentifier)  
  **;** 
 
+See [String templates](basic-types.html#string-templates)
+
+
 <h4 id="LineStrText">LineStrText</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[lineStringContent](#lineStringContent)<span style="color:gray">)</span>  
- **:**  **~** `'\\'`  
- **|**  `'"'`  
- **|**  `'$'`**+**   
- **|**  `'$'`  
+ **:**  **~** **(**  `'\\'`  **|**   `'"'`  **|**   `'$'` **)** **+**   
+ **|**   `'$'`   
  **;** 
 
 <h4 id="LineStrEscapedChar">LineStrEscapedChar</h4>
@@ -1820,7 +1872,7 @@ helper
 <h4 id="TRIPLE_QUOTE_CLOSE">TRIPLE_QUOTE_CLOSE</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiLineStringLiteral](#multiLineStringLiteral)<span style="color:gray">)</span>  
- **:**  **(** `'"'`**?**  `'"""'`**)**    
+ **:**  **(**  `'"'` **?**   `'"""'` **)**    
  **;** 
 
 <h4 id="MultiLineStrRef">MultiLineStrRef</h4>
@@ -1832,12 +1884,11 @@ helper
 <h4 id="MultiLineStrText">MultiLineStrText</h4>
 
 <span style="color:gray">(used by </span><span style="color:gray">, </span>[multiLineStringContent](#multiLineStringContent)<span style="color:gray">)</span>  
- **:**  **~** `'"'`  
- **|**  `'$'`**+**   
- **|**  `'$'`  
+ **:**  **~** **(**  `'"'`  **|**   `'$'` **)** **+**   
+ **|**   `'$'`   
  **;** 
 
 <h4 id="ErrorCharacter">ErrorCharacter</h4>
 
- **:**  `.`  
+ **:**   `.`   
  **;** 
