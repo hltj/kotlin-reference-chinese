@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-native-cn.git/CONCURRENCY.md#gitbook" %}
+{% include "../../kotlin-native-cn/CONCURRENCY.md" %}

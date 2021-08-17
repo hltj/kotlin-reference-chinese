@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlinx.coroutines-cn.git/docs/coroutine-context-and-dispatchers.md#gitbook" %}
+{% include "../../kotlinx.coroutines-cn/docs/coroutine-context-and-dispatchers.md" %}

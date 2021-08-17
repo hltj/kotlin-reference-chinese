@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlinx.coroutines-cn.git/docs/select-expression.md#gitbook" %}
+{% include "../../kotlinx.coroutines-cn/docs/select-expression.md" %}

@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlinx.coroutines-cn.git/docs/cancellation-and-timeouts.md#gitbook" %}
+{% include "../../kotlinx.coroutines-cn/docs/cancellation-and-timeouts.md" %}

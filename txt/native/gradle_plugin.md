@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-native-cn.git/GRADLE_PLUGIN.md#gitbook" %}
+{% include "../../kotlin-native-cn/GRADLE_PLUGIN.md" %}

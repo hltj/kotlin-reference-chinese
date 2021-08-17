@@ -1,2 +1,2 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/pages/docs/reference/idioms.md#gitbook" %}
+{% include "../kotlin-web-site-cn/pages/docs/reference/idioms.md" %}
 

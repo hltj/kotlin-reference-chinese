@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/pages/docs/reference/collection-parts.md#gitbook" %}
+{% include "../kotlin-web-site-cn/pages/docs/reference/collection-parts.md" %}

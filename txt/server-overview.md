@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-web-site-cn.git/pages/docs/reference/server-overview.md" %}
+{% include "../kotlin-web-site-cn/pages/docs/reference/server-overview.md" %}

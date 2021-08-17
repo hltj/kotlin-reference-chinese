@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlin-native-cn.git/INTEROP.md#gitbook" %}
+{% include "../../kotlin-native-cn/INTEROP.md" %}

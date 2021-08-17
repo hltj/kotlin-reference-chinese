@@ -1,1 +1,1 @@
-{% include "git+https://github.com/hltj/kotlinx.coroutines-cn.git/docs/composing-suspending-functions.md#gitbook" %}
+{% include "../../kotlinx.coroutines-cn/docs/composing-suspending-functions.md" %}
