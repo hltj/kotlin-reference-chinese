@@ -15,6 +15,7 @@
 - [异常](exceptions.md)
 - [注解](annotations.md)
 - [反射](reflection.md)
+- [序列化](serialization.md)
 - [作用域函数](scope-functions.md)
 - [类型安全的构建器](type-safe-builders.md)
-- [Opt-in Requirements](opt-in-requirements.md)
+- [选择加入要求](opt-in-requirements.md)

@@ -7,6 +7,7 @@
 - [类与继承](classes.md)
 - [属性与字段](properties.md)
 - [接口](interfaces.md)
+- [函数式（SAM）接口](fun-interfaces.md)
 - [可见性修饰符](visibility-modifiers.md)
 - [扩展](extensions.md)
 - [数据类](data-classes.md)

@@ -11,3 +11,5 @@ Kotlin 与 JavaScript 合用
 - [JavaScript 模块](js-modules.md)
 - [JavaScript 反射](js-reflection.md)
 - [JavaScript DCE](javascript-dce.md)
+- [IR 编译器](js-ir-compiler.md)
+- [用 Dukat 生成外部声明](js-external-declarations-with-dukat.md)
